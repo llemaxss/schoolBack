@@ -1,0 +1,270 @@
+databaseChangeLog:
+  # properties #
+  - property:
+      name: admin_user_id
+      value: '00000000-0000-4000-a000-000000000001'
+  - property:
+      name: system_user_id
+      value: '00000000-0000-4000-a000-000000000002'
+
+  - property:
+      name: admin_role_id
+      value: '10000000-0000-4000-a000-000000000001'
+  - property:
+      name: system_role_id
+      value: '10000000-0000-4000-a000-000000000002'
+
+  - property:
+      name: admin_user_pasw
+      value: '$2a$12$0hXn5ymOfLFPcKtQ919xGO7uq0OaYOjFBpg7XjZdczV7uU62MwlY.'
+  - property:
+      name: system_user_pasw
+      value: '$2a$12$9X3SlLVJSpOyRFOoI.R.8uj31NYsZREe0AB7hwVklC/OXGfOoBdiW'
+
+  - property:
+      name: created_by
+      value: 'system'
+
+  # changeSet #
+  - changeSet:
+      id: 260829_4_insertDefaultUserAndRoles
+      author: llemaxss
+      comment: Insert default user and roles
+
+      changes:
+        # users #
+        - insert:
+            tableName: school_user
+            columns:
+              - column:
+                  name: id
+                  value: ${admin_user_id}
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: ${created_by}
+              - column:
+                  name: username
+                  value: 'admin'
+              - column:
+                  name: password
+                  value: ${admin_user_pasw}
+        - insert:
+            tableName: school_user
+            columns:
+              - column:
+                  name: id
+                  value: ${system_user_id}
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: ${created_by}
+              - column:
+                  name: username
+                  value: 'system'
+              - column:
+                  name: password
+                  value: ${system_user_pasw}
+
+        # roles #
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  value: ${admin_role_id}
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: ${created_by}
+              - column:
+                  name: name
+                  value: 'Administrator'
+              - column:
+                  name: type_
+                  value: 'ADMIN'
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  value: ${system_role_id}
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: ${created_by}
+              - column:
+                  name: name
+                  value: 'System'
+              - column:
+                  name: type_
+                  value: 'SYSTEM'
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: 'system'
+              - column:
+                  name: name
+                  value: 'Director'
+              - column:
+                  name: type_
+                  value: 'DIRECTOR'
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: 'system'
+              - column:
+                  name: name
+                  value: 'Teacher'
+              - column:
+                  name: type_
+                  value: 'TEACHER'
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: 'system'
+              - column:
+                  name: name
+                  value: 'Student'
+              - column:
+                  name: type_
+                  value: 'STUDENT'
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: 'system'
+              - column:
+                  name: name
+                  value: 'Parent'
+              - column:
+                  name: type_
+                  value: 'PARENT'
+        - insert:
+            tableName: school_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: 'system'
+              - column:
+                  name: name
+                  value: 'User'
+              - column:
+                  name: type_
+                  value: 'USER'
+
+        # user_roles #
+        - insert:
+            tableName: school_user_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: ${created_by}
+              - column:
+                  name: user_id
+                  value: ${admin_user_id}
+              - column:
+                  name: role_id
+                  value: ${admin_role_id}
+        - insert:
+            tableName: school_user_role
+            columns:
+              - column:
+                  name: id
+                  valueComputed: 'gen_random_uuid()'
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: create_ts
+                  valueComputed: 'now()'
+              - column:
+                  name: created_by
+                  value: ${created_by}
+              - column:
+                  name: user_id
+                  value: ${system_user_id}
+              - column:
+                  name: role_id
+                  value: ${system_role_id}

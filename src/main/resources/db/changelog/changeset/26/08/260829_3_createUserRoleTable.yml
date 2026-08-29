@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: 260829_3_createUserRoleTable
+      author: llemaxss
+      comment: Create user-role table
+
+      changes:
+        - createTable:
+            tableName: school_user_role
+            columns:
+              # common fields #
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user_role
+                    nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_ts
+                  type: timestamp with time zone
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_ts
+                  type: timestamp with time zone
+              - column:
+                  name: updated_by
+                  type: varchar(255)
+              - column:
+                  name: delete_ts
+                  type: timestamp with time zone
+              - column:
+                  name: deleted_by
+                  type: varchar(255)
+
+              # other fields #
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_role_to_user
+                    references: school_user(id)
+              - column:
+                  name: role_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_role_to_role
+                    references: school_role(id)
+        # indexes #
+        - sql:
+            sql: |
+              CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_user_role_ref
+              ON school_user_role (user_id, role_id)
+              WHERE delete_ts IS NULL;
+
+      # rollback #
+      rollback:
+        - dropTable:
+            tableName: school_user_role

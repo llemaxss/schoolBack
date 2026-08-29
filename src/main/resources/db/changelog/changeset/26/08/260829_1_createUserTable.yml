@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 260829_1_createUserTable
+      author: llemaxss
+      comment: Create user table
+
+      changes:
+        - createTable:
+            tableName: school_user
+            columns:
+              # common fields #
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user
+                    nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_ts
+                  type: timestamp with time zone
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_ts
+                  type: timestamp with time zone
+              - column:
+                  name: updated_by
+                  type: varchar(255)
+              - column:
+                  name: delete_ts
+                  type: timestamp with time zone
+              - column:
+                  name: deleted_by
+                  type: varchar(255)
+
+              # other fields #
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar
+                  constraints:
+                    nullable: false
+
+        # indexes #
+        - sql:
+            sql: |
+              CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_user_username
+              ON school_user (username)
+              WHERE delete_ts IS NULL;
+
+      # rollback #
+      rollback:
+        - dropTable:
+            tableName: school_user

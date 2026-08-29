@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 260829_2_createRoleTable
+      author: llemaxss
+      comment: Create role table
+
+      changes:
+        - createTable:
+            tableName: school_role
+            columns:
+              # common fields #
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_role
+                    nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_ts
+                  type: timestamp with time zone
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_ts
+                  type: timestamp with time zone
+              - column:
+                  name: updated_by
+                  type: varchar(255)
+              - column:
+                  name: delete_ts
+                  type: timestamp with time zone
+              - column:
+                  name: deleted_by
+                  type: varchar(255)
+
+              # other fields #
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type_
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+
+        # indexes #
+        - sql:
+            sql: |
+              CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_role_name
+              ON school_role (name)
+              WHERE delete_ts IS NULL;
+
+      # rollback #
+      rollback:
+        - dropTable:
+            tableName: school_role

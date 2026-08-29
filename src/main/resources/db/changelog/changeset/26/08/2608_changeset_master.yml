@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: 260829_1_createUserTable.yml
+  - include:
+      relativeToChangelogFile: true
+      file: 260829_2_createRoleTable.yml
+  - include:
+      relativeToChangelogFile: true
+      file: 260829_3_createUserRoleTable.yml
+  - include:
+      relativeToChangelogFile: true
+      file: 260829_4_insertDefaultUserAndRoles.yml
