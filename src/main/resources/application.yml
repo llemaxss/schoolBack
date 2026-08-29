@@ -1,6 +1,6 @@
 spring:
   application:
-    name: back
+    name: schoolBack
   profiles:
     active: dev
   config:
@@ -21,7 +21,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: public
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yml
+    change-log: classpath:db/changelog/db_changelog_master.yml
 
 server:
   port: 8080
