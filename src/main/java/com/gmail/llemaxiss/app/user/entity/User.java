@@ -40,6 +40,11 @@ public class User extends AbstractEntity {
   @Column(name = "password", nullable = false)
   private String password;
 
+  @NotNull
+  @Builder.Default
+  @Column(name = "is_active", nullable = false)
+  private Boolean isActive = false;
+  
   @Builder.Default
   @ToString.Exclude
   @OneToMany(

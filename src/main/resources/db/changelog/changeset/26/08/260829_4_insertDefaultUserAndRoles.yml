@@ -54,6 +54,9 @@ databaseChangeLog:
               - column:
                   name: password
                   value: ${admin_user_pasw}
+              - column:
+                  name: is_active
+                  value: true
         - insert:
             tableName: school_user
             columns:
@@ -75,6 +78,9 @@ databaseChangeLog:
               - column:
                   name: password
                   value: ${system_user_pasw}
+              - column:
+                  name: is_active
+                  value: true
 
         # roles #
         - insert:

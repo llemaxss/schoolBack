@@ -22,7 +22,6 @@ import java.util.Map;
 
 import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_URL_PART;
 
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(API_URL_PART + "/auth")

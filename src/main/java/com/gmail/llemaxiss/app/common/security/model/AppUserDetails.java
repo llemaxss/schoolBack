@@ -21,15 +21,20 @@ public class AppUserDetails implements UserDetails {
   private final String username;
 
   private final String password;
+  
+  private final Boolean isActive;
 
   private final Collection<? extends GrantedAuthority> authorities;
 
-  public AppUserDetails(@NotNull UUID id, @NotNull String username,
-                        @NotNull String password, @NotNull Set<String> roles) {
+  public AppUserDetails(@NotNull UUID id,
+                        @NotNull String username, @NotNull String password,
+                        @NotNull Boolean isActive,
+                        @NotNull Set<String> roles) {
     this.id = id;
 
     this.username = username;
     this.password = password;
+    this.isActive = isActive;
 
     this.authorities = roles.stream()
       .map(role ->
@@ -45,7 +50,7 @@ public class AppUserDetails implements UserDetails {
 
   @Override
   public boolean isAccountNonLocked() {
-    return true;
+    return isActive;
   }
 
   @Override
@@ -55,7 +60,7 @@ public class AppUserDetails implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return true;
+    return isActive;
   }
 
   @NotNull
@@ -65,7 +70,7 @@ public class AppUserDetails implements UserDetails {
       .map(ur ->
         ur.getRole()
           .getType()
-          .name()
+          .getId()
       )
       .collect(Collectors.toSet());
 
@@ -73,6 +78,7 @@ public class AppUserDetails implements UserDetails {
       user.getId(),
       user.getUsername(),
       user.getPassword(),
+      user.getIsActive(),
       roles
     );
   }

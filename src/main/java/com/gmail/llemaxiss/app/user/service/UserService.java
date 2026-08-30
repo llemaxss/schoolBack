@@ -1,5 +1,6 @@
 package com.gmail.llemaxiss.app.user.service;
 
+import com.gmail.llemaxiss.app.common.security.model.AppUserDetails;
 import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
 import com.gmail.llemaxiss.app.user.entity.User;
 import jakarta.persistence.EntityNotFoundException;
