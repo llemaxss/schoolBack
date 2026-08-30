@@ -16,7 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: public
   liquibase:
-    change-log: classpath:db/changelog/changelog_master.yml
+    change-log: classpath:db/changelog/changelog.yml
 
 server:
   port: 8080
