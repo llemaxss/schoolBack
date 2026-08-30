@@ -75,15 +75,15 @@ public class JwtHelper {
 
       return true;
     } catch (SecurityException e) {
-      LOGGER.error("Invalid JWT signature: {}", e.getMessage());
+      LOGGER.debug("Invalid JWT signature: {}", e.getMessage());
     } catch (MalformedJwtException e) {
-      LOGGER.error("Invalid JWT token: {}", e.getMessage());
+      LOGGER.debug("Invalid JWT token: {}", e.getMessage());
     } catch (ExpiredJwtException e) {
-      LOGGER.error("JWT token is expired: {}", e.getMessage());
+      LOGGER.debug("JWT token is expired: {}", e.getMessage());
     } catch (UnsupportedJwtException e) {
-      LOGGER.error("JWT token is unsupported: {}", e.getMessage());
+      LOGGER.debug("JWT token is unsupported: {}", e.getMessage());
     } catch (IllegalArgumentException e) {
-      LOGGER.error("JWT claims string is empty: {}", e.getMessage());
+      LOGGER.debug("JWT claims string is empty: {}", e.getMessage());
     }
 
     return false;

@@ -4,6 +4,9 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * Common component of application properties
+ */
 @Getter
 @Component
 public class AppProperty {

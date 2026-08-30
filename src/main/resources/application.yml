@@ -1,20 +1,15 @@
+# Common
+
 spring:
   application:
     name: schoolBack
   profiles:
-    active: dev
-  config:
-    activate:
-      on-profile: dev
+    active: DEV
   datasource:
-    url: jdbc:postgresql://localhost:5432/school
-    username: postgres
-    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -28,10 +23,51 @@ server:
 
 logging:
   level:
-    com.school: DEBUG
-    org.springframework.security: INFO
-    liquibase: INFO
+    root: INFO
+    com.gmail.llemaxiss.app: INFO
 
 app:
   jwt-secret: YOUR_SUPER_SECRET_KEY_HERE_CHANGE_IT
   jwt-expiration-millis: 86400000 #24h
+
+# DEV profile
+---
+spring:
+  config:
+    activate:
+      on-profile: DEV
+  datasource:
+    url: jdbc:postgresql://localhost:5432/school_dev
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    com.gmail.llemaxiss.app: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+    liquibase: INFO
+
+# PROD profile
+---
+spring:
+  config:
+    activate:
+      on-profile: PROD
+  datasource:
+    url: jdbc:postgresql://localhost:5432/school_prod
+    username: postgres
+    password: postgres
+
+logging:
+  level:
+    root: WARN
+    com.gmail.llemaxiss.app: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+    liquibase: WARN

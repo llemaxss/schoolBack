@@ -16,6 +16,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Common class for all entities
+ */
 @Getter
 @Setter
 @ToString

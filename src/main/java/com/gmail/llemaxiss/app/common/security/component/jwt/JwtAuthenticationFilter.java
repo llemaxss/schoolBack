@@ -5,6 +5,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +22,9 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+  
+  private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+  
   private static final String API_AUTH_URL_PART = API_URL_PART + "/auth";
   private static final String ACTUATOR_HEALTH_URL_PART = "/actuator/health";
 
@@ -37,16 +41,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                   HttpServletResponse response,
                                   FilterChain filterChain) throws ServletException, IOException {
     String path = request.getRequestURI();
+    
+    LOGGER.debug("Processing request for path: '{}'", path);
 
     if (
       path.startsWith(API_AUTH_URL_PART)
       || path.equals(ACTUATOR_HEALTH_URL_PART)
     ) {
+      LOGGER.debug("Skipping auth for path: '{}'", path);
       filterChain.doFilter(request, response);
       return;
     }
 
     final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+    LOGGER.debug("Authorization header: '{}'", authHeader);
+    
     String username = null;
     String jwt = null;
 
@@ -56,6 +65,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) {
       jwt = authHeader.substring(BEARER_.length());
       username = jwtHelper.getUsernameFromJwtToken(jwt);
+      
+      LOGGER.debug("Extracted username from token: '{}'", username);
     }
 
     if (
@@ -63,9 +74,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       && SecurityContextHolder.getContext()
         .getAuthentication() == null
     ) {
+      LOGGER.info("Authenticating user: '{}'", username);
+      
       UserDetails userDetails = userService.loadUserByUsername(username);
 
       if (jwtHelper.validateJwtToken(jwt)) {
+        LOGGER.info("JWT token is valid for user: '{}'", username);
+        
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
           userDetails,
           null,
@@ -79,6 +94,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         SecurityContextHolder.getContext()
           .setAuthentication(authToken);
+        
+        LOGGER.info("User '{}' authenticated and set in SecurityContext", username);
+      } else {
+        LOGGER.info("JWT token is not valid for user: '{}'", username);
       }
     }
 
