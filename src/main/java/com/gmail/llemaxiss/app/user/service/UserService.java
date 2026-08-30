@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
@@ -35,16 +34,16 @@ public interface UserService extends UserDetailsService {
   User getCurrentUser() throws EntityNotFoundException;
 
   /**
-   * Get {@link UserDetails} of current logged in {@link User}
+   * Get {@link AppUserDetails} of current logged in {@link User}
    *
-   * @return {@link UserDetails} of logged in {@link User}
+   * @return {@link AppUserDetails} of logged in {@link User}
    *
    * @see #getCurrentUser()
    * @see AppUserDetails#build(User)
    * @since v1.0.0
    */
   @NotNull
-  UserDetails getCurrentUserDetails() throws EntityNotFoundException;
+  AppUserDetails getCurrentUserDetails() throws EntityNotFoundException;
 
   /**
    * Get {@link User} by his id

@@ -2,6 +2,7 @@ package com.gmail.llemaxiss.app.common.security.model;
 
 import com.gmail.llemaxiss.app.role.service.RoleService;
 import com.gmail.llemaxiss.app.user.entity.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,14 +15,31 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
+@Schema(description = "Application realisation of spring UserDetails")
 public class AppUserDetails implements UserDetails {
-
+  
+  @Schema(
+    description = "User id",
+    example = "10000000-.."
+  )
   private final UUID id;
-
+  
+  @Schema(
+    description = "User login",
+    example = "admin"
+  )
   private final String username;
-
+  
+  @Schema(
+    description = "User password",
+    example = "$2a$..."
+  )
   private final String password;
   
+  @Schema(
+    description = "User activity status",
+    example = "true"
+  )
   private final Boolean isActive;
 
   private final Collection<? extends GrantedAuthority> authorities;

@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   @NotNull
-  public UserDetails getCurrentUserDetails() throws EntityNotFoundException {
+  public AppUserDetails getCurrentUserDetails() throws EntityNotFoundException {
     User user = getCurrentUser();
 
     return AppUserDetails.build(user);
