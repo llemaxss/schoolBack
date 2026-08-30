@@ -16,10 +16,10 @@ databaseChangeLog:
 
   - property:
       name: admin_user_pasw
-      value: '$2a$12$0hXn5ymOfLFPcKtQ919xGO7uq0OaYOjFBpg7XjZdczV7uU62MwlY.'
+      value: '$2a$10$LJ0YyjO5GKkFLhfOAy7rDe5M9ofnGk4VRQ7rYrsM/z5NOZ/nlqX1G'
   - property:
       name: system_user_pasw
-      value: '$2a$12$9X3SlLVJSpOyRFOoI.R.8uj31NYsZREe0AB7hwVklC/OXGfOoBdiW'
+      value: '$2a$10$PGt4B2dTmFDlvBX9r.mmEeAQ4Sw.U3SI8kiciDm3zCR06ZK4a78j6'
 
   - property:
       name: created_by
