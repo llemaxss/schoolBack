@@ -49,7 +49,7 @@ public class UserController {
       content = @Content()
     )
   })
-  public ResponseEntity<?> getCurrentUser() {
+  public ResponseEntity<?> me() {
     try {
       AppUserDetails userDetails = userService.getCurrentUserDetails();
 
