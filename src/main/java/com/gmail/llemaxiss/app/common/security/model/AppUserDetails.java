@@ -100,4 +100,5 @@ public class AppUserDetails implements UserDetails {
       roles
     );
   }
+  
 }

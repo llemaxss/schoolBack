@@ -36,4 +36,5 @@ public class LoginResponse implements Serializable {
     example = "[\"ROLE_ADMIN\"]"
   )
   private List<String> roles;
+  
 }

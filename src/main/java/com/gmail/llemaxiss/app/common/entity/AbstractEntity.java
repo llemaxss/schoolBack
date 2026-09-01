@@ -81,4 +81,5 @@ public abstract class AbstractEntity {
       ? getClass().hashCode()
       : id.hashCode();
   }
+  
 }

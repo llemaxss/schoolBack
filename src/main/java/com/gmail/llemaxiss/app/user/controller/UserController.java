@@ -1,7 +1,6 @@
 package com.gmail.llemaxiss.app.user.controller;
 
 import com.gmail.llemaxiss.app.common.security.model.AppUserDetails;
-import com.gmail.llemaxiss.app.common.security.model.LoginResponse;
 import com.gmail.llemaxiss.app.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -62,4 +61,5 @@ public class UserController {
         .body(httpStatus.getReasonPhrase());
     }
   }
+  
 }

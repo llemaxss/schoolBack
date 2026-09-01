@@ -55,4 +55,5 @@ public final class SecurityUtil {
 
     return authentication;
   }
+  
 }

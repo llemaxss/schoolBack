@@ -25,4 +25,5 @@ public interface CommonEnum<T> extends Serializable {
       .findFirst()
       .orElse(null);
   }
+  
 }

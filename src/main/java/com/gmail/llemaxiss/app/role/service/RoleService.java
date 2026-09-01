@@ -35,4 +35,5 @@ public interface RoleService {
    */
   @NotNull
   Set<Role> getRolesByType(@NotNull RoleType roleType);
+  
 }

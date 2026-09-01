@@ -44,4 +44,5 @@ public class UserRole extends AbstractEntity {
     nullable = false
   )
   private Role role;
+  
 }

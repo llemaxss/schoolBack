@@ -19,4 +19,5 @@ public enum RoleType implements CommonStringEnum {
   USER("USER");
 
   private final String id;
+  
 }

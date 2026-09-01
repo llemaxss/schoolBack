@@ -51,4 +51,5 @@ public class Role extends AbstractEntity {
     cascade = {CascadeType.ALL}
   )
   private Set<UserRole> userRoles = new HashSet<>();
+  
 }

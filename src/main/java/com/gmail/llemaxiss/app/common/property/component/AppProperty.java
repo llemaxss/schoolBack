@@ -20,4 +20,5 @@ public class AppProperty {
 
   @Value("${app.jwt-expiration-millis:86400000}") // 24h
   private long jwtExpirationMs;
+  
 }

@@ -421,4 +421,5 @@ public interface UserRoleService {
    */
   @NotNull
   Set<User> getUsersByRole(@NotNull Role role);
+  
 }

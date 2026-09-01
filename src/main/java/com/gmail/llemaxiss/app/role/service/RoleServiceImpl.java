@@ -43,4 +43,5 @@ public class RoleServiceImpl implements RoleService {
   public Set<Role> getRolesByType(@NotNull RoleType roleType) {
     return roleRepository.findByType(roleType);
   }
+  
 }

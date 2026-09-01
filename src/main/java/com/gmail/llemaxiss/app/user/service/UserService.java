@@ -56,4 +56,5 @@ public interface UserService extends UserDetailsService {
    */
   @NotNull
   User getUserById(@NotNull UUID id);
+  
 }

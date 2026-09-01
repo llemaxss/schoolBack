@@ -27,4 +27,5 @@ public class LoginRequest implements Serializable {
     requiredMode = Schema.RequiredMode.REQUIRED
   )
   private String password;
+  
 }

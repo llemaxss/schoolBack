@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends JpaRepository<Role, UUID> {
 
   Set<Role> findByType(@NotNull RoleType roleType);
+  
 }
