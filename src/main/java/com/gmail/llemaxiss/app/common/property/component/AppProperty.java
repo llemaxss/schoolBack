@@ -18,7 +18,9 @@ public class AppProperty {
   @Value("${app.jwt-secret:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890}")
   private String jwtSecret;
 
-  @Value("${app.jwt-expiration-millis:86400000}") // 24h
+  @Value("${app.jwt-expiration-millis:0}")
   private long jwtExpirationMs;
   
+  @Value("${app.version:unknown}")
+  private String version;
 }

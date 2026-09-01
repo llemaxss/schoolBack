@@ -22,6 +22,12 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_
 @Configuration
 public class SecurityConfig {
 
+  public static final String API_AUTH_URL = API_URL_PART + "/auth";
+  public static final String API_INFO_URL = API_URL_PART + "/info";
+  public static final String ACTUATOR_HEALTH_URL = "/actuator/health";
+  
+  private static final String ANY_URL_PART = "/**";
+  
   @Autowired
   private UserService userService;
 
@@ -61,15 +67,17 @@ public class SecurityConfig {
       )
       .authorizeHttpRequests(auth ->
         auth
-          .requestMatchers(API_URL_PART + "/auth/**")
+          .requestMatchers(API_AUTH_URL + ANY_URL_PART)
             .permitAll()
-          .requestMatchers("/actuator/**")
+          .requestMatchers(API_INFO_URL + ANY_URL_PART)
             .permitAll()
-          .requestMatchers("/swagger-ui/**")
+          .requestMatchers(ACTUATOR_HEALTH_URL + ANY_URL_PART)
+            .permitAll()
+          .requestMatchers("/swagger-ui" + ANY_URL_PART)
             .permitAll()
           .requestMatchers("/swagger-ui.html")
             .permitAll()
-          .requestMatchers("/v3/api-docs/**")
+          .requestMatchers("/v3/api-docs" + ANY_URL_PART)
             .permitAll()
           .requestMatchers("/v3/api-docs.yaml")
             .permitAll()

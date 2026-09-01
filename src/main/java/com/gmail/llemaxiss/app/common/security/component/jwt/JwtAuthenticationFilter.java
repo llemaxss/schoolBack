@@ -1,5 +1,6 @@
 package com.gmail.llemaxiss.app.common.security.component.jwt;
 
+import com.gmail.llemaxiss.app.common.security.config.SecurityConfig;
 import com.gmail.llemaxiss.app.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,15 +19,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_URL_PART;
-
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-  
-  private static final String API_AUTH_URL_PART = API_URL_PART + "/auth";
-  private static final String ACTUATOR_HEALTH_URL_PART = "/actuator/health";
 
   private static final String BEARER_ = "Bearer ";
 
@@ -45,8 +41,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     LOGGER.debug("Processing request for path: '{}'", path);
 
     if (
-      path.startsWith(API_AUTH_URL_PART)
-      || path.equals(ACTUATOR_HEALTH_URL_PART)
+      path.startsWith(SecurityConfig.API_AUTH_URL)
+      || path.startsWith(SecurityConfig.API_INFO_URL)
+      || path.equals(SecurityConfig.ACTUATOR_HEALTH_URL)
     ) {
       LOGGER.debug("Skipping auth for path: '{}'", path);
       filterChain.doFilter(request, response);

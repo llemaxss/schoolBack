@@ -27,11 +27,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_URL_PART;
+import static com.gmail.llemaxiss.app.common.security.config.SecurityConfig.API_AUTH_URL;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(API_URL_PART + "/auth")
+@RequestMapping(API_AUTH_URL)
 @Tag(
   name = "Auth",
   description = "Authentication and user session management"
