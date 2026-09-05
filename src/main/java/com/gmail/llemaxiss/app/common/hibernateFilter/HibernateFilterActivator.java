@@ -27,23 +27,23 @@ public class HibernateFilterActivator extends OncePerRequestFilter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HibernateFilterActivator.class);
 
-  private final FilterManager filterManager;
+  private final HibernateFilterManager hibernateFilterManager;
 
   @SuppressWarnings("NullableProblems")
   @Override
   protected void doFilterInternal(HttpServletRequest request,
                                   HttpServletResponse response,
                                   FilterChain filterChain) throws ServletException, IOException {
-    filterManager.enableNotDeletedOnlyFilter();
-    filterManager.enableActiveUserOnlyFilter();
+    hibernateFilterManager.enableNotDeletedOnlyFilter();
+    hibernateFilterManager.enableActiveUserOnlyFilter();
 
     LOGGER.debug("Hibernate filters enabled for request: {}", request.getRequestURI());
 
     try {
       filterChain.doFilter(request, response);
     } finally {
-      filterManager.disableSoftDeleteFilter();
-      filterManager.disableActiveUserFilter();
+      hibernateFilterManager.disableSoftDeleteFilter();
+      hibernateFilterManager.disableActiveUserFilter();
 
       LOGGER.debug("Hibernate filters disabled after request: {}", request.getRequestURI());
     }

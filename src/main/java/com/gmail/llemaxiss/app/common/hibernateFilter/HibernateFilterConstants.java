@@ -7,7 +7,7 @@ package com.gmail.llemaxiss.app.common.hibernateFilter;
  * Centralizes filter names, parameter names, and conditions.
  * </p>
  */
-public interface FilterConstants {
+public interface HibernateFilterConstants {
 
   String SOFT_DELETE_FILTER_NAME = "SOFT_DELETE_FILTER_NAME";
 

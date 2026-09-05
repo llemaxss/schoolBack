@@ -16,83 +16,83 @@ import java.util.Map;
  *
  * <p>
  * Provides methods to enable or disable filters
- * using constants defined in {@link FilterConstants}.
+ * using constants defined in {@link HibernateFilterConstants}.
  * </p>
  */
 @RequiredArgsConstructor
 @Component
-public class FilterManager {
+public class HibernateFilterManager {
 
   private final EntityManager entityManager;
 
   /**
-   * Enables the {@link FilterConstants#SOFT_DELETE_FILTER_NAME} filter to show only deleted entities
+   * Enables the {@link HibernateFilterConstants#SOFT_DELETE_FILTER_NAME} filter to show only deleted entities
    *
    * <p>
-   * Sets the {@link FilterConstants#SOFT_DELETE_FILTER_PARAM_NAME} parameter to {@code true}.
+   * Sets the {@link HibernateFilterConstants#SOFT_DELETE_FILTER_PARAM_NAME} parameter to {@code true}.
    * </p>
    */
   public void enableDeletedOnlyFilter() {
     enableFilter(
-      FilterConstants.SOFT_DELETE_FILTER_NAME,
-      Map.of(FilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, true)
+      HibernateFilterConstants.SOFT_DELETE_FILTER_NAME,
+      Map.of(HibernateFilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, true)
     );
   }
 
   /**
-   * Enables the {@link FilterConstants#SOFT_DELETE_FILTER_NAME} filter to show only not deleted entities
+   * Enables the {@link HibernateFilterConstants#SOFT_DELETE_FILTER_NAME} filter to show only not deleted entities
    *
    * <p>
-   * Sets the {@link FilterConstants#SOFT_DELETE_FILTER_PARAM_NAME} parameter to {@code false}.
+   * Sets the {@link HibernateFilterConstants#SOFT_DELETE_FILTER_PARAM_NAME} parameter to {@code false}.
    * </p>
    */
   public void enableNotDeletedOnlyFilter() {
     enableFilter(
-      FilterConstants.SOFT_DELETE_FILTER_NAME,
-      Map.of(FilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, false)
+      HibernateFilterConstants.SOFT_DELETE_FILTER_NAME,
+      Map.of(HibernateFilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, false)
     );
   }
 
   /**
-   * Disables the {@link FilterConstants#SOFT_DELETE_FILTER_NAME} filter to show ALL entities (both deleted and not deleted)
+   * Disables the {@link HibernateFilterConstants#SOFT_DELETE_FILTER_NAME} filter to show ALL entities (both deleted and not deleted)
    */
   public void disableSoftDeleteFilter() {
-    disableFilter(FilterConstants.SOFT_DELETE_FILTER_NAME);
+    disableFilter(HibernateFilterConstants.SOFT_DELETE_FILTER_NAME);
   }
 
   /**
-   * Enables the {@link FilterConstants#USER_ACTIVE_FILTER_NAME} filter to show only active users
+   * Enables the {@link HibernateFilterConstants#USER_ACTIVE_FILTER_NAME} filter to show only active users
    *
    * <p>
-   * Sets the {@link FilterConstants#USER_ACTIVE_FILTER_PARAM_NAME} parameter to {@code true}.
+   * Sets the {@link HibernateFilterConstants#USER_ACTIVE_FILTER_PARAM_NAME} parameter to {@code true}.
    * </p>
    */
   public void enableActiveUserOnlyFilter() {
     enableFilter(
-      FilterConstants.USER_ACTIVE_FILTER_NAME,
-      Map.of(FilterConstants.USER_ACTIVE_FILTER_NAME, true)
+      HibernateFilterConstants.USER_ACTIVE_FILTER_NAME,
+      Map.of(HibernateFilterConstants.USER_ACTIVE_FILTER_NAME, true)
     );
   }
 
   /**
-   * Enables the {@link FilterConstants#USER_ACTIVE_FILTER_NAME} filter to show only not active users
+   * Enables the {@link HibernateFilterConstants#USER_ACTIVE_FILTER_NAME} filter to show only not active users
    *
    * <p>
-   * Sets the {@link FilterConstants#USER_ACTIVE_FILTER_PARAM_NAME} parameter to {@code false}.
+   * Sets the {@link HibernateFilterConstants#USER_ACTIVE_FILTER_PARAM_NAME} parameter to {@code false}.
    * </p>
    */
   public void enableNotActiveUserOnlyFilter() {
     enableFilter(
-      FilterConstants.USER_ACTIVE_FILTER_NAME,
-      Map.of(FilterConstants.USER_ACTIVE_FILTER_PARAM_NAME, false)
+      HibernateFilterConstants.USER_ACTIVE_FILTER_NAME,
+      Map.of(HibernateFilterConstants.USER_ACTIVE_FILTER_PARAM_NAME, false)
     );
   }
 
   /**
-   * Disables the{@link FilterConstants#USER_ACTIVE_FILTER_NAME} filter to show ALL users (both active and inactive)
+   * Disables the{@link HibernateFilterConstants#USER_ACTIVE_FILTER_NAME} filter to show ALL users (both active and inactive)
    */
   public void disableActiveUserFilter() {
-    disableFilter(FilterConstants.USER_ACTIVE_FILTER_NAME);
+    disableFilter(HibernateFilterConstants.USER_ACTIVE_FILTER_NAME);
   }
   
   public void enableFilter(@NotNull String filterName) {
