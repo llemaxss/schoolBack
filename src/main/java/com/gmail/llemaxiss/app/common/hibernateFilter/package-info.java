@@ -1,12 +1,18 @@
 @org.hibernate.annotations.FilterDefs({
   @org.hibernate.annotations.FilterDef(
     name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME,
-    parameters = @org.hibernate.annotations.ParamDef(name = "isDeleted", type = Boolean.class),
+    parameters = @org.hibernate.annotations.ParamDef(
+      name = HibernateFilterConstants.SOFT_DELETE_FILTER_PARAM_NAME,
+      type = Boolean.class
+    ),
     defaultCondition = HibernateFilterConstants.SOFT_DELETE_FILTER_CONDITION
   ),
   @org.hibernate.annotations.FilterDef(
     name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME,
-    parameters = @org.hibernate.annotations.ParamDef(name = "isActive", type = Boolean.class),
+    parameters = @org.hibernate.annotations.ParamDef(
+      name = HibernateFilterConstants.USER_ACTIVE_FILTER_PARAM_NAME,
+      type = Boolean.class
+    ),
     defaultCondition = HibernateFilterConstants.USER_ACTIVE_FILTER_CONDITION
   )
 })
