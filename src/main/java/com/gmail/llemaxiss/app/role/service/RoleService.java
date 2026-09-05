@@ -18,7 +18,6 @@ public interface RoleService {
    * @param id of {@link Role} to be found
    *
    * @return {@link Role}
-   *
    */
   @NotNull
   Role getRoleById(@NotNull UUID id) throws EntityNotFoundException;
@@ -29,7 +28,6 @@ public interface RoleService {
    * @param roleType for getting set of {@link Role}
    *
    * @return set of {@link Role}
-   *
    */
   @NotNull
   Set<Role> getRolesByType(@NotNull RoleType roleType);

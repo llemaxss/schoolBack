@@ -1,6 +1,7 @@
 package com.gmail.llemaxiss.app.user.entity;
 
 import com.gmail.llemaxiss.app.common.entity.AbstractEntity;
+import com.gmail.llemaxiss.app.common.hibernateFilter.FilterConstants;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Filter;
 
 import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABLE_PREFIX;
 
@@ -30,6 +32,8 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABL
 @Setter
 @Entity
 @Table(name = TABLE_PREFIX + "user")
+@Filter(name = FilterConstants.SOFT_DELETE_FILTER_NAME)
+@Filter(name = FilterConstants.USER_ACTIVE_FILTER_CONDITION)
 public class User extends AbstractEntity {
 
   @NotNull
@@ -52,6 +56,7 @@ public class User extends AbstractEntity {
     fetch = FetchType.LAZY,
     cascade = {CascadeType.ALL}
   )
+  @Filter(name = FilterConstants.SOFT_DELETE_FILTER_NAME)
   private Set<UserRole> userRoles = new HashSet<>();
   
 }
