@@ -2,9 +2,14 @@ package com.gmail.llemaxiss.app.common.hibernateFilter;
 
 
 import jakarta.persistence.EntityManager;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.MapUtils;
+import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * Utility for managing Hibernate filters programmatically
@@ -28,9 +33,10 @@ public class FilterManager {
    * </p>
    */
   public void enableDeletedOnlyFilter() {
-    getHibernateSession()
-      .enableFilter(FilterConstants.SOFT_DELETE_FILTER_NAME)
-      .setParameter(FilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, true);
+    enableFilter(
+      FilterConstants.SOFT_DELETE_FILTER_NAME,
+      Map.of(FilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, true)
+    );
   }
 
   /**
@@ -41,17 +47,17 @@ public class FilterManager {
    * </p>
    */
   public void enableNotDeletedOnlyFilter() {
-    getHibernateSession()
-      .enableFilter(FilterConstants.SOFT_DELETE_FILTER_NAME)
-      .setParameter(FilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, false);
+    enableFilter(
+      FilterConstants.SOFT_DELETE_FILTER_NAME,
+      Map.of(FilterConstants.SOFT_DELETE_FILTER_PARAM_NAME, false)
+    );
   }
 
   /**
    * Disables the {@link FilterConstants#SOFT_DELETE_FILTER_NAME} filter to show ALL entities (both deleted and not deleted)
    */
   public void disableSoftDeleteFilter() {
-    getHibernateSession()
-      .disableFilter(FilterConstants.SOFT_DELETE_FILTER_NAME);
+    disableFilter(FilterConstants.SOFT_DELETE_FILTER_NAME);
   }
 
   /**
@@ -62,9 +68,10 @@ public class FilterManager {
    * </p>
    */
   public void enableActiveUserOnlyFilter() {
-    getHibernateSession()
-      .enableFilter(FilterConstants.USER_ACTIVE_FILTER_NAME)
-      .setParameter(FilterConstants.USER_ACTIVE_FILTER_PARAM_NAME, true);
+    enableFilter(
+      FilterConstants.USER_ACTIVE_FILTER_NAME,
+      Map.of(FilterConstants.USER_ACTIVE_FILTER_NAME, true)
+    );
   }
 
   /**
@@ -75,17 +82,36 @@ public class FilterManager {
    * </p>
    */
   public void enableNotActiveUserOnlyFilter() {
-    getHibernateSession()
-      .enableFilter(FilterConstants.USER_ACTIVE_FILTER_NAME)
-      .setParameter(FilterConstants.USER_ACTIVE_FILTER_PARAM_NAME, false);
+    enableFilter(
+      FilterConstants.USER_ACTIVE_FILTER_NAME,
+      Map.of(FilterConstants.USER_ACTIVE_FILTER_PARAM_NAME, false)
+    );
   }
 
   /**
    * Disables the{@link FilterConstants#USER_ACTIVE_FILTER_NAME} filter to show ALL users (both active and inactive)
    */
   public void disableActiveUserFilter() {
+    disableFilter(FilterConstants.USER_ACTIVE_FILTER_NAME);
+  }
+  
+  public void enableFilter(@NotNull String filterName) {
+    enableFilter(filterName, null);
+  }
+
+  public void enableFilter(@NotNull String filterName, Map<String, Object> filterParameters) {
+    Session session = getHibernateSession();
+    
+    Filter filter = session.enableFilter(filterName);
+    
+    if (MapUtils.isNotEmpty(filterParameters)) {
+      filterParameters.forEach(filter::setParameter);
+    }
+  }
+  
+  public void disableFilter(@NotNull String filterName) {
     getHibernateSession()
-      .disableFilter(FilterConstants.USER_ACTIVE_FILTER_NAME);
+      .disableFilter(filterName);
   }
 
   /**
