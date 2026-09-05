@@ -35,7 +35,7 @@ logging:
     com.gmail.llemaxiss.app: INFO
 
 app:
-  version: 1.0.0
+  version: 1.1.0
   jwt-secret: YOUR_SUPER_SECRET_KEY_HERE_CHANGE_IT
   jwt-expiration-millis: 86400000 #24h
 

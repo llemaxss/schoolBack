@@ -57,7 +57,12 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
+    return http
+      .authenticationProvider(authenticationProvider())
+      .addFilterBefore(
+        authenticationJwtTokenFilter(),
+        UsernamePasswordAuthenticationFilter.class
+      )
       .csrf(AbstractHttpConfigurer::disable)
       .exceptionHandling(ex ->
         ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
@@ -83,16 +88,8 @@ public class SecurityConfig {
             .permitAll()
           .anyRequest()
             .authenticated()
-      );
-
-    http.authenticationProvider(authenticationProvider());
-
-    http.addFilterBefore(
-      authenticationJwtTokenFilter(),
-      UsernamePasswordAuthenticationFilter.class
-    );
-
-    return http.build();
+      )
+      .build();
   }
   
 }

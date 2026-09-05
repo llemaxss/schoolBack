@@ -17,7 +17,6 @@ public interface UserService extends UserDetailsService {
    *
    * @return {@link User}
    *
-   * @since v1.0.0
    */
   @NotNull
   User getUserByUsername(@NotNull String username) throws EntityNotFoundException;
@@ -28,7 +27,6 @@ public interface UserService extends UserDetailsService {
    * @return logged in {@link User}
    *
    * @see SecurityUtil#getCurrentUsername()
-   * @since v1.0.0
    */
   @NotNull
   User getCurrentUser() throws EntityNotFoundException;
@@ -39,8 +37,7 @@ public interface UserService extends UserDetailsService {
    * @return {@link AppUserDetails} of logged in {@link User}
    *
    * @see #getCurrentUser()
-   * @see AppUserDetails#build(User)
-   * @since v1.0.0
+   *
    */
   @NotNull
   AppUserDetails getCurrentUserDetails() throws EntityNotFoundException;
@@ -52,7 +49,6 @@ public interface UserService extends UserDetailsService {
    *
    * @return {@link User}
    *
-   * @since v1.0.0
    */
   @NotNull
   User getUserById(@NotNull UUID id);

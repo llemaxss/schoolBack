@@ -19,7 +19,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has {@link RoleType}, else return false
    *
    * @see #hasRoleType(User, RoleType)
-   * @since v1.0.0
    */
   boolean hasRoleType(@NotNull RoleType roleType);
 
@@ -32,7 +31,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has {@link RoleType}, else return false
    *
    * @see #hasRoleType(User, RoleType)
-   * @since v1.0.0
    */
   boolean hasRoleType(@NotNull UUID userId, @NotNull RoleType roleType);
 
@@ -45,7 +43,6 @@ public interface UserRoleService {
    * @return true, if {@link User} has {@link RoleType}, else return false
    *
    * @see #hasAllRoleTypes(User, Collection)
-   * @since v1.0.0
    */
   boolean hasRoleType(@NotNull User user, @NotNull RoleType roleType);
 
@@ -57,7 +54,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has any {@link RoleType}, else return false
    *
    * @see #hasAnyRoleType(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRoleType(@NotNull Collection<RoleType> roleTypes);
 
@@ -70,7 +66,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has any {@link RoleType}, else return false
    *
    * @see #hasAnyRoleType(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRoleType(@NotNull UUID userId, @NotNull Collection<RoleType> roleTypes);
 
@@ -81,8 +76,6 @@ public interface UserRoleService {
    * @param roleTypes is collection of {@link RoleType} to check
    *
    * @return true, if {@link User} has any {@link RoleType}, else return false
-   *
-   * @since v1.0.0
    */
   boolean hasAnyRoleType(@NotNull User user, @NotNull Collection<RoleType> roleTypes);
 
@@ -94,7 +87,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has all {@link RoleType}, else return false
    *
    * @see #hasAllRoleTypes(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAllRoleTypes(@NotNull Collection<RoleType> roleTypes);
 
@@ -107,7 +99,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has all {@link RoleType}, else return false
    *
    * @see #hasAllRoleTypes(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAllRoleTypes(@NotNull UUID userId, @NotNull Collection<RoleType> roleTypes);
 
@@ -118,8 +109,6 @@ public interface UserRoleService {
    * @param roleTypes is collection of {@link RoleType} to check
    *
    * @return true, if {@link User} has all {@link RoleType}, else return false
-   *
-   * @since v1.0.0
    */
   boolean hasAllRoleTypes(@NotNull User user, @NotNull Collection<RoleType> roleTypes);
 
@@ -131,7 +120,6 @@ public interface UserRoleService {
    * @return set of {@link RoleType}
    *
    * @see #getUserRoleTypes(User)
-   * @since v1.0.0
    */
   @NotNull
   Set<RoleType> getUserRoleTypes(@NotNull UUID userId);
@@ -142,8 +130,6 @@ public interface UserRoleService {
    * @param user is {@link User}
    *
    * @return set of {@link RoleType}
-   *
-   * @since v1.0.0
    */
   @NotNull
   Set<RoleType> getUserRoleTypes(@NotNull User user);
@@ -156,7 +142,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has {@link Role} by id, else return false
    *
    * @see #hasRole(User, UUID)
-   * @since v1.0.0
    */
   boolean hasRole(@NotNull UUID roleId);
 
@@ -169,7 +154,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has {@link Role} by id, else return false
    *
    * @see #hasRole(User, UUID)
-   * @since v1.0.0
    */
   boolean hasRole(@NotNull UUID userId, @NotNull UUID roleId);
 
@@ -182,7 +166,6 @@ public interface UserRoleService {
    * @return true, if {@link User} has {@link Role} by id, else return false
    *
    * @see #hasAllRoleIds(User, Collection)
-   * @since v1.0.0
    */
   boolean hasRole(@NotNull User user, @NotNull UUID roleId);
 
@@ -194,7 +177,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has {@link Role}, else return false
    *
    * @see #hasRole(User, Role)
-   * @since v1.0.0
    */
   boolean hasRole(@NotNull Role role);
 
@@ -207,7 +189,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has {@link Role}, else return false
    *
    * @see #hasRole(User, Role)
-   * @since v1.0.0
    */
   boolean hasRole(@NotNull UUID userId, @NotNull Role role);
 
@@ -220,7 +201,6 @@ public interface UserRoleService {
    * @return true, if {@link User} has {@link Role}, else return false
    *
    * @see #hasAllRoles(User, Collection)
-   * @since v1.0.0
    */
   boolean hasRole(@NotNull User user, @NotNull Role role);
 
@@ -232,7 +212,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has any {@link Role} by ids, else return false
    *
    * @see #hasAnyRoleIds(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRoleIds(@NotNull Collection<UUID> roleIds);
 
@@ -245,7 +224,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has any {@link Role} by ids, else return false
    *
    * @see #hasAnyRoleIds(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRoleIds(@NotNull UUID userId, @NotNull Collection<UUID> roleIds);
 
@@ -258,7 +236,6 @@ public interface UserRoleService {
    * @return true, if {@link User} has any {@link Role} by ids, else return false
    *
    * @see #hasAnyRoleIds(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRoleIds(@NotNull User user, @NotNull Collection<UUID> roleIds);
 
@@ -270,7 +247,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has any {@link Role}, else return false
    *
    * @see #hasAnyRole(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRole(@NotNull Collection<Role> roles);
 
@@ -283,7 +259,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has any {@link Role}, else return false
    *
    * @see #hasAnyRole(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAnyRole(@NotNull UUID userId, @NotNull Collection<Role> roles);
 
@@ -294,8 +269,6 @@ public interface UserRoleService {
    * @param roles is collection of {@link Role} to check
    *
    * @return true, if {@link User} has any {@link Role}, else return false
-   *
-   * @since v1.0.0
    */
   boolean hasAnyRole(@NotNull User user, @NotNull Collection<Role> roles);
 
@@ -307,7 +280,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has all {@link Role} by ids, else return false
    *
    * @see #hasAllRoleIds(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAllRoleIds(@NotNull Collection<UUID> roleIds);
 
@@ -320,7 +292,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has all {@link Role} by ids, else return false
    *
    * @see #hasAnyRoleIds(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAllRoleIds(@NotNull UUID userId, @NotNull Collection<UUID> roleIds);
 
@@ -331,8 +302,6 @@ public interface UserRoleService {
    * @param roleIds is collection of {@link Role} ids to check
    *
    * @return true, if {@link User} has all {@link Role} by ids, else return false
-   *
-   * @since v1.0.0
    */
   boolean hasAllRoleIds(@NotNull User user, @NotNull Collection<UUID> roleIds);
 
@@ -344,7 +313,6 @@ public interface UserRoleService {
    * @return true, if current {@link User} has all {@link Role}, else return false
    *
    * @see #hasAllRoles(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAllRoles(@NotNull Collection<Role> roles);
 
@@ -357,7 +325,6 @@ public interface UserRoleService {
    * @return true, if {@link User} by id has all {@link Role}, else return false
    *
    * @see #hasAllRoles(User, Collection)
-   * @since v1.0.0
    */
   boolean hasAllRoles(@NotNull UUID userId, @NotNull Collection<Role> roles);
 
@@ -368,8 +335,6 @@ public interface UserRoleService {
    * @param roles is collection of {@link Role} to check
    *
    * @return true, if {@link User} has all {@link Role}, else return false
-   *
-   * @since v1.0.0
    */
   boolean hasAllRoles(@NotNull User user, @NotNull Collection<Role> roles);
 
@@ -379,8 +344,6 @@ public interface UserRoleService {
    * @param userId is {@link User} id to check
    *
    * @return set of {@link Role}
-   *
-   * @since v1.0.0
    */
   @NotNull
   Set<Role> getUserRoles(@NotNull UUID userId);
@@ -391,8 +354,6 @@ public interface UserRoleService {
    * @param roleType is {@link RoleType} for getting set of {@link User}
    *
    * @return set of {@link User}
-   *
-   * @since v1.0.0
    */
   @NotNull
   Set<User> getUsersByRoleType(@NotNull RoleType roleType);
@@ -405,7 +366,6 @@ public interface UserRoleService {
    * @return set of {@link User}
    *
    * @see #getUsersByRole(Role)
-   * @since v1.0.0
    */
   @NotNull
   Set<User> getUsersByRole(@NotNull UUID roleId);
@@ -416,8 +376,6 @@ public interface UserRoleService {
    * @param role is {@link Role} for getting set of {@link User}
    *
    * @return set of {@link User}
-   *
-   * @since v1.0.0
    */
   @NotNull
   Set<User> getUsersByRole(@NotNull Role role);

@@ -19,7 +19,6 @@ public interface RoleService {
    *
    * @return {@link Role}
    *
-   * @since v1.0.0
    */
   @NotNull
   Role getRoleById(@NotNull UUID id) throws EntityNotFoundException;
@@ -31,7 +30,6 @@ public interface RoleService {
    *
    * @return set of {@link Role}
    *
-   * @since v1.0.0
    */
   @NotNull
   Set<Role> getRolesByType(@NotNull RoleType roleType);

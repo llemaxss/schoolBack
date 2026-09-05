@@ -10,9 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Schema(description = "Application realisation of spring UserDetails")
@@ -44,21 +44,14 @@ public class AppUserDetails implements UserDetails {
 
   private final Collection<? extends GrantedAuthority> authorities;
 
-  public AppUserDetails(@NotNull UUID id,
-                        @NotNull String username, @NotNull String password,
-                        @NotNull Boolean isActive,
-                        @NotNull Set<String> roles) {
-    this.id = id;
+  public AppUserDetails(@NotNull User user) {
+    this.id = user.getId();
 
-    this.username = username;
-    this.password = password;
-    this.isActive = isActive;
+    this.username = user.getUsername();
+    this.password = user.getPassword();
+    this.isActive = user.getIsActive();
 
-    this.authorities = roles.stream()
-      .map(role ->
-        new SimpleGrantedAuthority(RoleService.ROLE_PREFIX + role)
-      )
-      .collect(Collectors.toList());
+    this.authorities = extractAuthorities(user);
   }
 
   @Override
@@ -81,24 +74,26 @@ public class AppUserDetails implements UserDetails {
     return isActive;
   }
 
-  @NotNull
-  public static AppUserDetails build(@NotNull User user) {
-    Set<String> roles = user.getUserRoles()
+  private Collection<? extends GrantedAuthority> extractAuthorities(@NotNull User user) {
+    return user.getUserRoles()
       .stream()
-      .map(ur ->
-        ur.getRole()
+      .map(userRole ->
+        userRole.getRole()
           .getType()
-          .getId()
       )
-      .collect(Collectors.toSet());
+      .flatMap(role -> {
+        Stream<GrantedAuthority> roleAuth = Stream.of(
+          new SimpleGrantedAuthority(RoleService.ROLE_PREFIX + role.getId())
+        );
 
-    return new AppUserDetails(
-      user.getId(),
-      user.getUsername(),
-      user.getPassword(),
-      user.getIsActive(),
-      roles
-    );
+        Stream<GrantedAuthority> permAuth = role.getPermissions()
+          .stream()
+          .map(perm ->
+            new SimpleGrantedAuthority(perm.getId())
+          );
+
+        return Stream.concat(roleAuth, permAuth);
+      })
+      .collect(Collectors.toList());
   }
-  
 }

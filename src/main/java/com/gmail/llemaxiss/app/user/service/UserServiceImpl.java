@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     try {
       User user = getUserByUsername(username);
 
-      return AppUserDetails.build(user);
+      return new AppUserDetails(user);
     } catch (EntityNotFoundException e) {
       throw new UsernameNotFoundException(e.getMessage(), e);
     }
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
   public AppUserDetails getCurrentUserDetails() throws EntityNotFoundException {
     User user = getCurrentUser();
 
-    return AppUserDetails.build(user);
+    return new AppUserDetails(user);
   }
 
   /**
