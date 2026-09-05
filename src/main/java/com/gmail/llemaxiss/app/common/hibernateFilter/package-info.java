@@ -17,3 +17,5 @@
   )
 })
 package com.gmail.llemaxiss.app.common.hibernateFilter;
+
+import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;

@@ -1,4 +1,4 @@
 databaseChangeLog:
   - include:
       relativeToChangelogFile: true
-      file: 08/2608_changeset.yml
+      file: 08/2608_changelog.yml

@@ -1,4 +1,4 @@
-package com.gmail.llemaxiss.app.common.hibernateFilter;
+package com.gmail.llemaxiss.app.common.hibernateFilter.util;
 
 /**
  * Constants for Hibernate filters used across the application

@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.role.entity;
 
-import com.gmail.llemaxiss.app.common.entity.AbstractEntity;
-import com.gmail.llemaxiss.app.common.hibernateFilter.HibernateFilterConstants;
+import com.gmail.llemaxiss.app.common.entity.CommonEntity;
+import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
 import jakarta.persistence.CascadeType;
@@ -35,7 +35,7 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABL
 @Entity
 @Table(name = TABLE_PREFIX + "role")
 @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
-public class Role extends AbstractEntity {
+public class Role extends CommonEntity {
 
   @NotNull
   @Column(name = "name", nullable = false)

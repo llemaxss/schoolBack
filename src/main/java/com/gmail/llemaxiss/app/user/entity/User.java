@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.user.entity;
 
-import com.gmail.llemaxiss.app.common.entity.AbstractEntity;
-import com.gmail.llemaxiss.app.common.hibernateFilter.HibernateFilterConstants;
+import com.gmail.llemaxiss.app.common.entity.CommonEntity;
+import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,8 +33,8 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABL
 @Entity
 @Table(name = TABLE_PREFIX + "user")
 @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
-@Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_CONDITION)
-public class User extends AbstractEntity {
+@Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
+public class User extends CommonEntity {
 
   @NotNull
   @Column(name = "username", nullable = false)

@@ -1,4 +1,4 @@
-package com.gmail.llemaxiss.app.common.hibernateFilter;
+package com.gmail.llemaxiss.app.common.hibernateFilter.component;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

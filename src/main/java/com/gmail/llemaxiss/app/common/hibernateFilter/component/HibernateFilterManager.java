@@ -1,6 +1,7 @@
-package com.gmail.llemaxiss.app.common.hibernateFilter;
+package com.gmail.llemaxiss.app.common.hibernateFilter.component;
 
 
+import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

@@ -23,7 +23,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class CommonEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -58,7 +58,7 @@ public abstract class AbstractEntity {
   @Column(name = "deleted_by")
   private String deletedBy;
 
-  protected AbstractEntity() {
+  protected CommonEntity() {
   }
 
   @Override
@@ -67,7 +67,7 @@ public abstract class AbstractEntity {
       return true;
     }
 
-    if (!(o instanceof AbstractEntity that)) {
+    if (!(o instanceof CommonEntity that)) {
       return false;
     }
 
