@@ -1,13 +1,15 @@
 package com.gmail.llemaxiss.app.common.hibernateFilter.component;
 
-
+import com.gmail.llemaxiss.app.common.hibernateFilter.config.HibernateFilterConfig;
 import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
 import org.hibernate.Filter;
 import org.hibernate.Session;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -23,9 +25,24 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Component
 public class HibernateFilterManager {
-
-  private final EntityManager entityManager;
-
+  
+  /**
+   * ObjectProvider for lazy resolution of EntityManager
+   *
+   * <p>
+   * Using ObjectProvider instead of direct EntityManager injection
+   * breaks the circular dependency chain:
+   * {@link HibernateFilterConfig} ->
+   * {@link HibernateFilterInterceptor} ->
+   * {@link HibernateFilterManager} ->
+   * {@link EntityManager} ->
+   * {@link EntityManagerFactory} ->
+   * {@link HibernateFilterConfig} (from 1 step)
+   * </p>
+   */
+  private final ObjectProvider<EntityManager> entityManagerProvider;
+  
+  
   /**
    * Enables the {@link HibernateFilterConstants#SOFT_DELETE_FILTER_NAME} filter to show only deleted entities
    *
@@ -71,7 +88,7 @@ public class HibernateFilterManager {
   public void enableActiveUserOnlyFilter() {
     enableFilter(
       HibernateFilterConstants.USER_ACTIVE_FILTER_NAME,
-      Map.of(HibernateFilterConstants.USER_ACTIVE_FILTER_NAME, true)
+      Map.of(HibernateFilterConstants.USER_ACTIVE_FILTER_PARAM_NAME, true)
     );
   }
 
@@ -121,7 +138,9 @@ public class HibernateFilterManager {
    * @return the current Hibernate {@link Session}
    */
   private Session getHibernateSession() {
-    return entityManager.unwrap(Session.class);
+    return entityManagerProvider
+      .getObject()
+      .unwrap(Session.class);
   }
 
 }

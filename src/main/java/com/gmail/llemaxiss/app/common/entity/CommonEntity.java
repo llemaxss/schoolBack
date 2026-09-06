@@ -1,5 +1,6 @@
 package com.gmail.llemaxiss.app.common.entity;
 
+import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +12,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
@@ -23,6 +26,9 @@ import java.util.UUID;
 @Setter
 @ToString
 @MappedSuperclass
+@Filters({
+  @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+})
 public abstract class CommonEntity {
 
   @Id

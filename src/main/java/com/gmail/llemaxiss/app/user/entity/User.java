@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 
 import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABLE_PREFIX;
 
@@ -32,8 +33,9 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABL
 @Setter
 @Entity
 @Table(name = TABLE_PREFIX + "user")
-@Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
-@Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
+@Filters({
+  @Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
+})
 public class User extends CommonEntity {
 
   @NotNull
@@ -56,7 +58,9 @@ public class User extends CommonEntity {
     fetch = FetchType.LAZY,
     cascade = {CascadeType.ALL}
   )
-  @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+  @Filters({
+    @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+  })
   private Set<UserRole> userRoles = new HashSet<>();
   
 }

@@ -17,14 +17,17 @@ public interface HibernateFilterConstants {
     //language=SQL
     """
     (
-      :isDeleted = true
-      AND delete_ts IS NOT NULL
+      (
+        :isDeleted = true
+        AND delete_ts IS NOT NULL
+      )
+      OR
+      (
+        :isDeleted = false
+        AND delete_ts IS NULL
+      )
     )
-    OR
-    (
-      :isDeleted = false
-      AND delete_ts IS NULL
-    )
+    
     """;
 
   String USER_ACTIVE_FILTER_NAME = "USER_ACTIVE_FILTER_NAME";
@@ -35,13 +38,15 @@ public interface HibernateFilterConstants {
     //language=SQL
     """
     (
-      :isActive = true
-      AND is_active = true
-    )
-    OR
-    (
-      :isActive = false
-      AND is_active = false
+      (
+        :isActive = true
+        AND is_active = true
+      )
+      OR
+      (
+        :isActive = false
+        AND is_active = false
+      )
     )
     """;
 
