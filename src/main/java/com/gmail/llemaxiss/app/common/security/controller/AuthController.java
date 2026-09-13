@@ -2,9 +2,9 @@ package com.gmail.llemaxiss.app.common.security.controller;
 
 
 import com.gmail.llemaxiss.app.common.security.component.jwt.JwtHelper;
-import com.gmail.llemaxiss.app.common.security.model.AppUserDetails;
-import com.gmail.llemaxiss.app.common.security.model.LoginRequest;
-import com.gmail.llemaxiss.app.common.security.model.LoginResponse;
+import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
+import com.gmail.llemaxiss.app.common.security.model.request.LoginRequest;
+import com.gmail.llemaxiss.app.common.security.model.response.LoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

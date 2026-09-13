@@ -1,4 +1,4 @@
-package com.gmail.llemaxiss.app.common.security.model;
+package com.gmail.llemaxiss.app.common.security.model.response;
 
 import com.gmail.llemaxiss.app.common.property.component.AppProperty;
 import com.gmail.llemaxiss.app.user.entity.User;

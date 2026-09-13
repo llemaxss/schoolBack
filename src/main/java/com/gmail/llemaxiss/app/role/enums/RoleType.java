@@ -1,5 +1,6 @@
 package com.gmail.llemaxiss.app.role.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.gmail.llemaxiss.app.common.enums.CommonStringEnum;
 import com.gmail.llemaxiss.app.permission.enums.Permission;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public enum RoleType implements CommonStringEnum {
   PARENT("PARENT", SetUtils.emptySet()),
   USER("USER", SetUtils.emptySet());
 
+  @JsonValue
   private final String id;
   
   private final Set<Permission> permissions;

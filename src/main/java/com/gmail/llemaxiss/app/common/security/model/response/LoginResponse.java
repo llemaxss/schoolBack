@@ -1,17 +1,16 @@
-package com.gmail.llemaxiss.app.common.security.model;
+package com.gmail.llemaxiss.app.common.security.model.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Schema(description = "User authentication response")
-public class LoginResponse implements Serializable {
+public class LoginResponse {
   
   @Schema(
     description = "User id",

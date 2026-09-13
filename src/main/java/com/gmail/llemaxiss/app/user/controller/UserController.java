@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.user.controller;
 
-import com.gmail.llemaxiss.app.common.security.model.AppUserDetails;
+import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
