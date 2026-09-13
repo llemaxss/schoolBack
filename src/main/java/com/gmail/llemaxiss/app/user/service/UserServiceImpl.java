@@ -10,18 +10,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
   private final UserRepository userRepository;
 
@@ -29,7 +27,7 @@ public class UserServiceImpl implements UserService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional
+  @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     try {
       User user = getUserByUsername(username);
@@ -45,6 +43,7 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public User getUserByUsername(@NotNull String username) throws EntityNotFoundException {
     User user = userRepository.findByUsername(username);
 
@@ -61,13 +60,14 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public User getCurrentUser() throws EntityNotFoundException {
     try {
       String userName = SecurityUtil.getCurrentUsername();
 
       return getUserByUsername(userName);
     } catch (IllegalStateException e) {
-      LOGGER.error(e.getMessage(), e);
+      log.error(e.getMessage(), e);
       throw new EntityNotFoundException(e.getMessage(), e);
     }
   }
@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public AppUserDetails getCurrentUserDetails() throws EntityNotFoundException {
     User user = getCurrentUser();
 
@@ -88,6 +89,7 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public User getUserById(@NotNull UUID id) {
     Optional<User> userOptional = userRepository.findById(id);
 

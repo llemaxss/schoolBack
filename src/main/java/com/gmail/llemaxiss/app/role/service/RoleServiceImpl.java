@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +25,7 @@ public class RoleServiceImpl implements RoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Role getRoleById(@NotNull UUID id) throws EntityNotFoundException {
     Optional<Role> roleOptional = roleRepository.findById(id);
 
@@ -40,6 +42,7 @@ public class RoleServiceImpl implements RoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<Role> getRolesByType(@NotNull RoleType roleType) {
     return roleRepository.findByType(roleType);
   }

@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.common.security.model;
 
-import com.gmail.llemaxiss.app.role.service.RoleService;
+import com.gmail.llemaxiss.app.common.property.component.AppProperty;
 import com.gmail.llemaxiss.app.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -83,7 +83,7 @@ public class AppUserDetails implements UserDetails {
       )
       .flatMap(role -> {
         Stream<GrantedAuthority> roleAuth = Stream.of(
-          new SimpleGrantedAuthority(RoleService.ROLE_PREFIX + role.getId())
+          new SimpleGrantedAuthority(AppProperty.SPRING_ROLE_PREFIX + role.getId())
         );
 
         Stream<GrantedAuthority> permAuth = role.getPermissions()

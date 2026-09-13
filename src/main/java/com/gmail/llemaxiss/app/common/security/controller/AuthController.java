@@ -13,8 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static com.gmail.llemaxiss.app.common.security.config.SecurityConfig.API_AUTH_URL;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(API_AUTH_URL)
@@ -37,8 +37,6 @@ import static com.gmail.llemaxiss.app.common.security.config.SecurityConfig.API_
   description = "Authentication and user session management"
 )
 public class AuthController {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
   
   private final AuthenticationManager authenticationManager;
 
@@ -65,7 +63,7 @@ public class AuthController {
     )
   })
   public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-    LOGGER.info("Login attempt for user: '{}'", loginRequest.getUsername());
+    log.info("Login attempt for user: '{}'", loginRequest.getUsername());
     
     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
       loginRequest.getUsername(),
@@ -74,7 +72,7 @@ public class AuthController {
 
     Authentication authentication = authenticationManager.authenticate(token);
     
-    LOGGER.info("Authentication successful for user: '{}'", loginRequest.getUsername());
+    log.info("Authentication successful for user: '{}'", loginRequest.getUsername());
     
     SecurityContextHolder.getContext()
       .setAuthentication(authentication);
@@ -83,7 +81,7 @@ public class AuthController {
 
     String jwtToken = jwtUtils.generateJwtToken(userDetails.getUsername());
     
-    LOGGER.info("JWT token generated for user: '{}'", loginRequest.getUsername());
+    log.info("JWT token generated for user: '{}'", loginRequest.getUsername());
     
     LoginResponse loginResponse = new LoginResponse();
     

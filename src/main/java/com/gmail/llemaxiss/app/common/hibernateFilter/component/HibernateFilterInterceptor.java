@@ -1,21 +1,19 @@
 package com.gmail.llemaxiss.app.common.hibernateFilter.component;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Interceptor;
 import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
  * Hibernate interceptor that automatically enables soft-delete and active-user filters
  * at the beginning of every transaction
  */
+@Slf4j
 @AllArgsConstructor
 @Component
 public class HibernateFilterInterceptor implements Interceptor {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(HibernateFilterInterceptor.class);
   
   private final HibernateFilterManager hibernateFilterManager;
   
@@ -24,6 +22,6 @@ public class HibernateFilterInterceptor implements Interceptor {
     hibernateFilterManager.enableNotDeletedOnlyFilter();
     hibernateFilterManager.enableActiveUserOnlyFilter();
     
-    LOGGER.debug("Hibernate filters enabled for transaction");
+    log.debug("Hibernate filters enabled for transaction");
   }
 }

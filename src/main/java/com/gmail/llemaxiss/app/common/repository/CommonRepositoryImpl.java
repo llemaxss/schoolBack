@@ -5,6 +5,7 @@ import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -33,6 +34,7 @@ public class CommonRepositoryImpl<E extends CommonEntity>
    * @see #softDelete(CommonEntity)
    */
   @Override
+  @Transactional
   public void delete(E entity) {
     softDelete(entity);
   }

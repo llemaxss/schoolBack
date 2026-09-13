@@ -10,10 +10,14 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class AppProperty {
-
-  public static final String API_URL_PART = "/api/v1";
+  
+  public static final int API_VERSION = 1;
+  
+  public static final String API_URL_PART = "/api/v" + API_VERSION;
 
   public static final String TABLE_PREFIX = "school_";
+  
+  public static final String SPRING_ROLE_PREFIX = "ROLE_";
 
   @Value("${app.jwt-secret:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890}")
   private String jwtSecret;
@@ -22,5 +26,5 @@ public class AppProperty {
   private long jwtExpirationMs;
   
   @Value("${app.version:unknown}")
-  private String version;
+  private String appVersion;
 }

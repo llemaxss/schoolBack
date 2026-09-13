@@ -10,8 +10,6 @@ import java.util.UUID;
 
 public interface RoleService {
 
-  String ROLE_PREFIX = "ROLE_";
-
   /**
    * Get {@link Role} by id
    *

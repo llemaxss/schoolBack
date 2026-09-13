@@ -7,17 +7,15 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import jakarta.validation.constraints.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Component
 public class JwtHelper {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(JwtHelper.class);
 
   private final AppProperty appProperty;
 
@@ -75,15 +73,15 @@ public class JwtHelper {
 
       return true;
     } catch (SecurityException e) {
-      LOGGER.debug("Invalid JWT signature: {}", e.getMessage());
+      log.debug("Invalid JWT signature: {}", e.getMessage());
     } catch (MalformedJwtException e) {
-      LOGGER.debug("Invalid JWT token: {}", e.getMessage());
+      log.debug("Invalid JWT token: {}", e.getMessage());
     } catch (ExpiredJwtException e) {
-      LOGGER.debug("JWT token is expired: {}", e.getMessage());
+      log.debug("JWT token is expired: {}", e.getMessage());
     } catch (UnsupportedJwtException e) {
-      LOGGER.debug("JWT token is unsupported: {}", e.getMessage());
+      log.debug("JWT token is unsupported: {}", e.getMessage());
     } catch (IllegalArgumentException e) {
-      LOGGER.debug("JWT claims string is empty: {}", e.getMessage());
+      log.debug("JWT claims string is empty: {}", e.getMessage());
     }
 
     return false;

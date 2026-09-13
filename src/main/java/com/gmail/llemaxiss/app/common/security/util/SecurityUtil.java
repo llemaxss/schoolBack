@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.common.security.util;
 
-import com.gmail.llemaxiss.app.role.service.RoleService;
+import com.gmail.llemaxiss.app.common.property.component.AppProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public final class SecurityUtil {
       return false;
     }
 
-    String rolePrefix = RoleService.ROLE_PREFIX;
+    String rolePrefix = AppProperty.SPRING_ROLE_PREFIX;
 
     String targetRole = role.startsWith(rolePrefix)
       ? role

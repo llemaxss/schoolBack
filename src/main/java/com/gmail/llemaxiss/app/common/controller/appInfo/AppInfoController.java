@@ -43,7 +43,7 @@ public class AppInfoController {
     )
   })
   public ResponseEntity<String> getAppVersion() {
-    String version = appProperty.getVersion();
+    String version = appProperty.getAppVersion();
     
     return ResponseEntity.ok(version);
   }

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
@@ -31,6 +32,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRoleType(@NotNull RoleType roleType) {
     User user = userService.getCurrentUser();
 
@@ -41,6 +43,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRoleType(@NotNull UUID userId, @NotNull RoleType roleType) {
     User user = userService.getUserById(userId);
 
@@ -51,6 +54,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRoleType(@NotNull User user, @NotNull RoleType roleType) {
     return hasAllRoleTypes(user, Collections.singleton(roleType));
   }
@@ -59,6 +63,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRoleType(@NotNull Collection<RoleType> roleTypes) {
     User user = userService.getCurrentUser();
 
@@ -69,6 +74,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRoleType(@NotNull UUID userId, @NotNull Collection<RoleType> roleTypes) {
     User user = userService.getUserById(userId);
 
@@ -79,6 +85,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRoleType(@NotNull User user, @NotNull Collection<RoleType> roleTypes) {
     Set<RoleType> userRoleTypes = getUserRoleTypes(user);
 
@@ -90,6 +97,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoleTypes(@NotNull Collection<RoleType> roleTypes) {
     User user = userService.getCurrentUser();
 
@@ -100,6 +108,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoleTypes(@NotNull UUID userId, @NotNull Collection<RoleType> roleTypes) {
     User user = userService.getUserById(userId);
 
@@ -110,6 +119,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoleTypes(@NotNull User user, @NotNull Collection<RoleType> roleTypes) {
     Set<RoleType> userRoleTypes = getUserRoleTypes(user);
 
@@ -121,6 +131,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<RoleType> getUserRoleTypes(@NotNull UUID userId) {
     User user = userService.getUserById(userId);
 
@@ -132,6 +143,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<RoleType> getUserRoleTypes(@NotNull User user) {
     Set<UserRole> userRoles = user.getUserRoles();
 
@@ -149,6 +161,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRole(@NotNull UUID roleId) {
     return hasAllRoleIds(Collections.singleton(roleId));
   }
@@ -157,6 +170,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRole(@NotNull UUID userId, @NotNull UUID roleId) {
     return hasAllRoleIds(userId, Collections.singleton(roleId));
   }
@@ -165,6 +179,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRole(@NotNull User user, @NotNull UUID roleId) {
     return hasAllRoleIds(user, Collections.singleton(roleId));
   }
@@ -173,6 +188,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRole(@NotNull Role role) {
     return hasAllRoles(Collections.singleton(role));
   }
@@ -181,6 +197,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRole(@NotNull UUID userId, @NotNull Role role) {
     return hasAllRoles(userId, Collections.singleton(role));
   }
@@ -189,6 +206,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasRole(@NotNull User user, @NotNull Role role) {
     return hasAllRoles(user, Collections.singleton(role));
   }
@@ -197,6 +215,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRoleIds(@NotNull Collection<UUID> roleIds) {
     User user = userService.getCurrentUser();
 
@@ -207,6 +226,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRoleIds(@NotNull UUID userId, @NotNull Collection<UUID> roleIds) {
     User user = userService.getUserById(userId);
 
@@ -217,6 +237,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRoleIds(@NotNull User user, @NotNull Collection<UUID> roleIds) {
     if (CollectionUtils.isEmpty(user.getUserRoles())) {
       return false;
@@ -233,6 +254,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRole(@NotNull Collection<Role> roles) {
     User user = userService.getCurrentUser();
 
@@ -243,6 +265,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRole(@NotNull UUID userId, @NotNull Collection<Role> roles) {
     User user = userService.getUserById(userId);
 
@@ -253,6 +276,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAnyRole(@NotNull User user, @NotNull Collection<Role> roles) {
     if (CollectionUtils.isEmpty(user.getUserRoles())) {
       return false;
@@ -268,6 +292,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoleIds(@NotNull Collection<UUID> roleIds) {
     User user = userService.getCurrentUser();
 
@@ -278,6 +303,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoleIds(@NotNull UUID userId, @NotNull Collection<UUID> roleIds) {
     User user = userService.getUserById(userId);
 
@@ -288,6 +314,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoleIds(@NotNull User user, @NotNull Collection<UUID> roleIds) {
     if (CollectionUtils.isEmpty(user.getUserRoles())) {
       return false;
@@ -304,6 +331,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoles(@NotNull Collection<Role> roles) {
     User user = userService.getCurrentUser();
 
@@ -314,6 +342,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoles(@NotNull UUID userId, @NotNull Collection<Role> roles) {
     User user = userService.getUserById(userId);
 
@@ -324,6 +353,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional(readOnly = true)
   public boolean hasAllRoles(@NotNull User user, @NotNull Collection<Role> roles) {
     if (CollectionUtils.isEmpty(user.getUserRoles())) {
       return false;
@@ -340,6 +370,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<Role> getUserRoles(@NotNull UUID userId) {
     User user = userService.getUserById(userId);
 
@@ -354,6 +385,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<User> getUsersByRoleType(@NotNull RoleType roleType) {
     Set<User> users = new HashSet<>();
 
@@ -372,6 +404,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<User> getUsersByRole(@NotNull UUID roleId) {
     Role role = roleService.getRoleById(roleId);
 
@@ -383,6 +416,7 @@ public class UserRoleServiceImpl implements UserRoleService {
    */
   @Override
   @NotNull
+  @Transactional(readOnly = true)
   public Set<User> getUsersByRole(@NotNull Role role) {
     if (CollectionUtils.isEmpty(role.getUserRoles())) {
       return new HashSet<>();
