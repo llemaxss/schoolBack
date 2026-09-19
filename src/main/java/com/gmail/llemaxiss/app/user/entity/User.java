@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +24,6 @@ import org.hibernate.annotations.Filters;
 
 import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABLE_PREFIX;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
@@ -47,11 +45,9 @@ public class User extends CommonEntity {
   private String password;
 
   @NotNull
-  @Builder.Default
   @Column(name = "is_active", nullable = false)
   private Boolean isActive = false;
   
-  @Builder.Default
   @ToString.Exclude
   @OneToMany(
     mappedBy = "user",

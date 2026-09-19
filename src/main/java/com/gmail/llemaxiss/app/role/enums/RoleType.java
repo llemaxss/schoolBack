@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.role.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.gmail.llemaxiss.app.common.enums.CommonStringEnum;
+import com.gmail.llemaxiss.app.common.enums.common.CommonStringEnum;
 import com.gmail.llemaxiss.app.permission.enums.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

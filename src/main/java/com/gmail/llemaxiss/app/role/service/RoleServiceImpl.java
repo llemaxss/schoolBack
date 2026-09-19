@@ -1,9 +1,10 @@
 package com.gmail.llemaxiss.app.role.service;
 
+import com.gmail.llemaxiss.app.common.enums.ErrorCode;
+import com.gmail.llemaxiss.app.common.exception.model.CommonException;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.role.repository.RoleRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Optional;
@@ -26,12 +27,12 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @NotNull
   @Transactional(readOnly = true)
-  public Role getRoleById(@NotNull UUID id) throws EntityNotFoundException {
+  public Role getRoleById(@NotNull UUID id) {
     Optional<Role> roleOptional = roleRepository.findById(id);
 
     if (roleOptional.isEmpty()) {
       String message = String.format("Role by id %s not found", id);
-      throw new EntityNotFoundException(message);
+      throw new CommonException(ErrorCode.ROLE_NOT_FOUND, message);
     }
 
     return roleOptional.get();

@@ -35,34 +35,34 @@ public abstract class CommonEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   @NotNull
   @Column(name = "id", nullable = false)
-  private UUID id;
+  protected UUID id;
 
   @Version
   @NotNull
   @Column(name = "version", nullable = false)
-  private Long version;
+  protected Long version;
 
   @CreationTimestamp
   @NotNull
   @Column(name = "create_ts", nullable = false)
-  private Instant createTs;
+  protected Instant createTs;
 
   @NotNull
   @Column(name = "created_by", nullable = false)
-  private String createdBy;
+  protected String createdBy;
 
   @UpdateTimestamp
   @Column(name = "update_ts")
-  private Instant updateTs;
+  protected Instant updateTs;
 
   @Column(name = "updated_by")
-  private String updatedBy;
+  protected String updatedBy;
 
   @Column(name = "delete_ts")
-  private Instant deleteTs;
+  protected Instant deleteTs;
 
   @Column(name = "deleted_by")
-  private String deletedBy;
+  protected String deletedBy;
 
   protected CommonEntity() {
   }

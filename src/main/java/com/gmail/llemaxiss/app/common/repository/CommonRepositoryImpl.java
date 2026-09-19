@@ -3,6 +3,7 @@ package com.gmail.llemaxiss.app.common.repository;
 import com.gmail.llemaxiss.app.common.entity.CommonEntity;
 import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,7 +82,7 @@ public class CommonRepositoryImpl<E extends CommonEntity>
     throw new UnsupportedOperationException("This method is not implemented yet");
   }
   
-  private void softDelete(E entity) {
+  private void softDelete(@NotNull E entity) {
     entity.setDeleteTs(Instant.now());
     entity.setDeletedBy(SecurityUtil.getCurrentUsername());
     

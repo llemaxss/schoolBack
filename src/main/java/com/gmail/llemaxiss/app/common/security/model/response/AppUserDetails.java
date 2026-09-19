@@ -3,6 +3,7 @@ package com.gmail.llemaxiss.app.common.security.model.response;
 import com.gmail.llemaxiss.app.common.property.component.AppProperty;
 import com.gmail.llemaxiss.app.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,24 +19,28 @@ import java.util.stream.Stream;
 @Schema(description = "Application realisation of spring UserDetails")
 public class AppUserDetails implements UserDetails {
   
+  @NotNull
   @Schema(
     description = "User id",
     example = "10000000-.."
   )
   private final UUID id;
   
+  @NotEmpty
   @Schema(
     description = "User login",
     example = "admin"
   )
   private final String username;
   
+  @NotEmpty
   @Schema(
     description = "User password",
     example = "$2a$..."
   )
   private final String password;
   
+  @NotNull
   @Schema(
     description = "User activity status",
     example = "true"
@@ -74,6 +79,7 @@ public class AppUserDetails implements UserDetails {
     return isActive;
   }
 
+  @NotNull
   private Collection<? extends GrantedAuthority> extractAuthorities(@NotNull User user) {
     return user.getUserRoles()
       .stream()

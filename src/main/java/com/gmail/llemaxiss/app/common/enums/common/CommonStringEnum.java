@@ -1,4 +1,4 @@
-package com.gmail.llemaxiss.app.common.enums;
+package com.gmail.llemaxiss.app.common.enums.common;
 
 /**
  * Common interface for enums with String id

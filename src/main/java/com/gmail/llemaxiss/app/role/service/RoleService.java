@@ -2,7 +2,6 @@ package com.gmail.llemaxiss.app.role.service;
 
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
@@ -18,7 +17,7 @@ public interface RoleService {
    * @return {@link Role}
    */
   @NotNull
-  Role getRoleById(@NotNull UUID id) throws EntityNotFoundException;
+  Role getRoleById(@NotNull UUID id);
 
   /**
    * Get set of {@link Role} by {@link RoleType}

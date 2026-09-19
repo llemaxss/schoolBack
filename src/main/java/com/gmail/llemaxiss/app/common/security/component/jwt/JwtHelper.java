@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class JwtHelper {
     return Keys.hmacShaKeyFor(jwtSecretBytes);
   }
 
-  @NotNull
+  @NotEmpty
   public String generateJwtToken(@NotNull String username) {
     Key key = key();
 
@@ -50,7 +51,7 @@ public class JwtHelper {
       .compact();
   }
 
-  @NotNull
+  @NotEmpty
   public String getUsernameFromJwtToken(@NotNull String token) {
     Key key = key();
 

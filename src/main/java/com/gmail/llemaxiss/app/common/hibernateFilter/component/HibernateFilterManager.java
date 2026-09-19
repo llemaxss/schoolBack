@@ -137,6 +137,7 @@ public class HibernateFilterManager {
    *
    * @return the current Hibernate {@link Session}
    */
+  @NotNull
   private Session getHibernateSession() {
     return entityManagerProvider
       .getObject()

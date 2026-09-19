@@ -1,6 +1,9 @@
 package com.gmail.llemaxiss.app.common.security.util;
 
+import com.gmail.llemaxiss.app.common.enums.ErrorCode;
+import com.gmail.llemaxiss.app.common.exception.model.CommonException;
 import com.gmail.llemaxiss.app.common.property.component.AppProperty;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -14,7 +17,8 @@ public final class SecurityUtil {
   /**
    * Returns the username of the currently authenticated user
    */
-  public static String getCurrentUsername() throws IllegalStateException {
+  @NotEmpty
+  public static String getCurrentUsername() {
     Authentication authentication = getAuthentication();
 
     return authentication.getName();
@@ -24,12 +28,7 @@ public final class SecurityUtil {
    * Checks if the current user has the specified role
    */
   public static boolean hasRole(@NotNull String role) {
-    Authentication authentication = SecurityContextHolder.getContext()
-      .getAuthentication();
-
-    if (authentication == null || !authentication.isAuthenticated()) {
-      return false;
-    }
+    Authentication authentication = getAuthentication();
 
     String rolePrefix = AppProperty.SPRING_ROLE_PREFIX;
 
@@ -45,12 +44,16 @@ public final class SecurityUtil {
       );
   }
 
-  private static Authentication getAuthentication() throws IllegalStateException {
+  @NotNull
+  private static Authentication getAuthentication() {
     Authentication authentication = SecurityContextHolder.getContext()
       .getAuthentication();
 
     if (authentication == null || !authentication.isAuthenticated()) {
-      throw new IllegalStateException("No authenticated user found in security context");
+      throw new CommonException(
+        ErrorCode.AUTHENTICATED_USER_NOT_FOUND,
+        "No authenticated user found in security context"
+      );
     }
 
     return authentication;

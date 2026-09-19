@@ -1,4 +1,4 @@
-package com.gmail.llemaxiss.app.common.enums;
+package com.gmail.llemaxiss.app.common.enums.common;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.jackson.JsonComponent;
-import org.springframework.lang.Nullable;
 
 import java.io.IOException;
 
@@ -22,7 +21,6 @@ public class CommonEnumDeserializer extends JsonDeserializer<Enum<? extends Comm
   
   private Class<?> enumClass;
   
-  @Nullable
   @Override
   @SuppressWarnings({"unchecked", "rawtypes"})
   public Enum<? extends CommonEnum<?>> deserialize(

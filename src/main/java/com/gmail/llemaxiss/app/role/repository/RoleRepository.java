@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepository extends CommonRepository<Role> {
 
+  @NotNull
   Set<Role> findByType(@NotNull RoleType roleType);
   
 }

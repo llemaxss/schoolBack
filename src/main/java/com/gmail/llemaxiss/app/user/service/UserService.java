@@ -3,7 +3,6 @@ package com.gmail.llemaxiss.app.user.service;
 import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
 import com.gmail.llemaxiss.app.user.entity.User;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -18,7 +17,7 @@ public interface UserService extends UserDetailsService {
    * @return {@link User}
    */
   @NotNull
-  User getUserByUsername(@NotNull String username) throws EntityNotFoundException;
+  User getUserByUsername(@NotNull String username);
 
   /**
    * Get current logged in {@link User}
@@ -28,7 +27,7 @@ public interface UserService extends UserDetailsService {
    * @see SecurityUtil#getCurrentUsername()
    */
   @NotNull
-  User getCurrentUser() throws EntityNotFoundException;
+  User getCurrentUser();
 
   /**
    * Get {@link AppUserDetails} of current logged in {@link User}
@@ -38,7 +37,7 @@ public interface UserService extends UserDetailsService {
    * @see #getCurrentUser()
    */
   @NotNull
-  AppUserDetails getCurrentUserDetails() throws EntityNotFoundException;
+  AppUserDetails getCurrentUserDetails();
 
   /**
    * Get {@link User} by his id

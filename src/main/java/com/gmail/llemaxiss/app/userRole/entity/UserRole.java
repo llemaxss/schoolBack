@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import org.hibernate.annotations.Filters;
 
 import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABLE_PREFIX;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
