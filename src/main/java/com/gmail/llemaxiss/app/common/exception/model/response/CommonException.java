@@ -1,4 +1,4 @@
-package com.gmail.llemaxiss.app.common.exception.model;
+package com.gmail.llemaxiss.app.common.exception.model.response;
 
 import com.gmail.llemaxiss.app.common.enums.ErrorCode;
 import lombok.Getter;

@@ -1,8 +1,8 @@
 package com.gmail.llemaxiss.app.common.exception;
 
 import com.gmail.llemaxiss.app.common.enums.ErrorCode;
-import com.gmail.llemaxiss.app.common.exception.model.CommonException;
-import com.gmail.llemaxiss.app.common.model.response.OperationResult;
+import com.gmail.llemaxiss.app.common.exception.model.response.CommonException;
+import com.gmail.llemaxiss.app.common.model.response.ErrorResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 /**
- * Global exception handler that converts exceptions to {@link OperationResult} responses
+ * Global exception handler that converts exceptions to {@link ErrorResponse}
  *
  * <p>
  * This handler catches all exceptions thrown during request processing and converts
- * them into a standardized {@link OperationResult} response with appropriate HTTP status codes.
+ * them into a standardized {@link ErrorResponse} with appropriate HTTP status codes.
  * </p>
  *
  */
@@ -34,13 +34,13 @@ public class GlobalExceptionHandler {
    * @return response with error code and message
    */
   @ExceptionHandler(CommonException.class)
-  public ResponseEntity<OperationResult<Void>> handleCommonException(@NotNull CommonException ex) {
+  public ResponseEntity<ErrorResponse> handleCommonException(@NotNull CommonException ex) {
     log.warn("Business error: {} - {}", ex.getErrorCode(), ex.getMessage());
     
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
       .body(
-        OperationResult.failure(
+        ErrorResponse.of(
           ex.getErrorCode(),
           ex.getMessage()
         )
@@ -54,22 +54,28 @@ public class GlobalExceptionHandler {
    * @return response with validation error details
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<OperationResult<Void>> handleValidationException(@NotNull MethodArgumentNotValidException ex) {
-    List<OperationResult.ErrorDetail> errors = ex.getBindingResult()
+  public ResponseEntity<ErrorResponse> handleValidationException(@NotNull MethodArgumentNotValidException ex) {
+    List<ErrorResponse.FieldError> fieldErrors = ex.getBindingResult()
       .getFieldErrors()
       .stream()
-      .map(error -> new OperationResult.ErrorDetail(
-        ErrorCode.VALIDATION_FAILED,
-        error.getField() + ": " + error.getDefaultMessage()
-      ))
+      .map(error ->
+        new ErrorResponse.FieldError(
+          error.getField(),
+          error.getCode(),
+          error.getDefaultMessage()
+        )
+      )
       .toList();
     
-    log.warn("Validation failed: {}", errors);
+    log.warn("Validation failed: {}", fieldErrors);
     
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
       .body(
-        OperationResult.failure(errors)
+        ErrorResponse.of(
+          ErrorCode.VALIDATION_FAILED,
+          "Validation failed",
+          fieldErrors)
       );
   }
   
@@ -80,13 +86,13 @@ public class GlobalExceptionHandler {
    * @return response with internal error code
    */
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<OperationResult<Void>> handleGenericException(@NotNull Exception ex) {
+  public ResponseEntity<ErrorResponse> handleGenericException(@NotNull Exception ex) {
     log.error("Unexpected error", ex);
     
     return ResponseEntity
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
       .body(
-        OperationResult.failure(
+        ErrorResponse.of(
           ErrorCode.INTERNAL_ERROR,
           "An unexpected error occurred"
         )

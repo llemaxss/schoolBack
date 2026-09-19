@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.common.security.util;
 
 import com.gmail.llemaxiss.app.common.enums.ErrorCode;
-import com.gmail.llemaxiss.app.common.exception.model.CommonException;
+import com.gmail.llemaxiss.app.common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app.common.property.component.AppProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

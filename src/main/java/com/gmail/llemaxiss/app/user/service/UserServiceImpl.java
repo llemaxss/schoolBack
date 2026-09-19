@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.user.service;
 
 import com.gmail.llemaxiss.app.common.enums.ErrorCode;
-import com.gmail.llemaxiss.app.common.exception.model.CommonException;
+import com.gmail.llemaxiss.app.common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
 import com.gmail.llemaxiss.app.user.entity.User;
