@@ -6,6 +6,7 @@ import com.gmail.llemaxiss.app.role.enums.RoleType;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,4 +15,6 @@ public interface RoleRepository extends CommonRepository<Role> {
   @NotNull
   Set<Role> findByType(@NotNull RoleType roleType);
   
+  boolean existsByName(@NotNull String name);
+
 }

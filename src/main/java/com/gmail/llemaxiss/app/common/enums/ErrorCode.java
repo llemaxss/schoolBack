@@ -26,6 +26,7 @@ public enum ErrorCode implements CommonStringEnum {
   
   // ROLE //
   ROLE_NOT_FOUND("ROLE_NOT_FOUND"),
+  ROLE_NAME_ALREADY_EXISTS("ROLE_NAME_ALREADY_EXISTS"),
   
   // USER //
   USER_NOT_FOUND("USER_NOT_FOUND"),

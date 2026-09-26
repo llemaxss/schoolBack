@@ -1,6 +1,5 @@
 package com.gmail.llemaxiss.app.common.security.controller;
 
-
 import com.gmail.llemaxiss.app.common.security.component.jwt.JwtHelper;
 import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app.common.security.model.request.LoginRequest;

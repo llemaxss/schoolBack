@@ -406,7 +406,7 @@ public class UserRoleServiceImpl implements UserRoleService {
   @NotNull
   @Transactional(readOnly = true)
   public Set<User> getUsersByRole(@NotNull UUID roleId) {
-    Role role = roleService.getRoleById(roleId);
+    Role role = roleService.getById(roleId);
 
     return getUsersByRole(role);
   }

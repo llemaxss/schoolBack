@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       return;
     }
 
-    final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+    String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     log.debug("Authorization header: '{}'", authHeader);
     
     String username = null;
@@ -74,7 +74,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       UserDetails userDetails = userService.loadUserByUsername(username);
 
       if (jwtHelper.validateJwtToken(jwt)) {
-        log.info("JWT token is valid for user: '{}'", username);
+        log.debug("JWT token is valid for user: '{}'", username);
         
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
           userDetails,
@@ -90,9 +90,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext()
           .setAuthentication(authToken);
         
-        log.info("User '{}' authenticated and set in SecurityContext", username);
+        log.debug("User '{}' authenticated and set in SecurityContext", username);
       } else {
-        log.info("JWT token is not valid for user: '{}'", username);
+        log.debug("JWT token is not valid for user: '{}'", username);
       }
     }
 

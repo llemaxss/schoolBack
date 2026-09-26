@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.gmail.llemaxiss'
-version = '1.5.1'
+version = '1.6.0'
 description = 'schoolBack'
 
 java {
@@ -65,25 +65,11 @@ dependencies {
   compileOnly 'org.projectlombok:lombok:1.18.34'
   annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
-  // mapStruct
-  implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-  annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-
-  // lombok-mupStruct bind
-  compileOnly 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
-
   // dev tools //
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {
   useJUnitPlatform()
+  jvmArgs += "-XX:+EnableDynamicAgentLoading"
 }
-
-tasks.withType(JavaCompile)
-  .configureEach {
-    options.compilerArgs += [
-        '-Amapstruct.defaultComponentModel=spring',
-        '-Amapstruct.unmappedTargetPolicy=IGNORE'
-    ]
-  }
