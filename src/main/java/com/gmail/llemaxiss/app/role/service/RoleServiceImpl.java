@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @NotNull
   @Transactional(readOnly = true)
-  public Role getById(@NotNull UUID id) {
+  public Role getRoleById(@NotNull UUID id) {
     Optional<Role> roleOptional = roleRepository.findById(id);
 
     if (roleOptional.isEmpty()) {
@@ -58,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @NotNull
   @Transactional
-  public Role create(@NotNull RoleCreateModel model) {
+  public Role createRole(@NotNull RoleCreateModel model) {
     validateName(model.getName());
     
     Role newRole = new Role();
@@ -79,10 +79,10 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @NotNull
   @Transactional
-  public Role update(@NotNull UUID id, @NotNull RoleUpdateModel model) {
+  public Role updateRole(@NotNull UUID id, @NotNull RoleUpdateModel model) {
     log.info("Updating role with id: {}", id);
     
-    Role role = getById(id);
+    Role role = getRoleById(id);
     
     boolean isNameChanged = !role.getName().equalsIgnoreCase(model.getName());
     
@@ -105,10 +105,10 @@ public class RoleServiceImpl implements RoleService {
    */
   @Override
   @Transactional
-  public void delete(@NotNull UUID id) {
+  public void deleteRole(@NotNull UUID id) {
     log.info("Deleting role with id: {}", id);
     
-    Role role = getById(id);
+    Role role = getRoleById(id);
     
     roleRepository.delete(role);
     

@@ -67,7 +67,7 @@ public class RoleController {
     )
   })
   public ResponseEntity<RoleModel> createRole(@Valid @RequestBody RoleCreateModel model) {
-    Role newRole = roleService.create(model);
+    Role newRole = roleService.createRole(model);
     
     RoleModel roleModel = RoleMapper.toModelFromEntity(newRole);
     
@@ -78,7 +78,7 @@ public class RoleController {
   
   @GetMapping("/{id}")
   @Operation(
-    summary = "Get role by ID",
+    summary = "Get role by id",
     description = "Retrieves a specific role by its id"
   )
   @ApiResponses(value = {
@@ -100,7 +100,7 @@ public class RoleController {
     )
   })
   public ResponseEntity<RoleModel> getRoleById(@PathVariable(name = "id") @NotNull UUID id) {
-    Role role = roleService.getById(id);
+    Role role = roleService.getRoleById(id);
     
     RoleModel roleModel = RoleMapper.toModelFromEntity(role);
     
@@ -134,7 +134,7 @@ public class RoleController {
     @PathVariable(name = "id") @NotNull UUID id,
     @Valid @RequestBody RoleUpdateModel model
   ) {
-    Role role = roleService.update(id, model);
+    Role role = roleService.updateRole(id, model);
     
     RoleModel roleModel = RoleMapper.toModelFromEntity(role);
     
@@ -143,7 +143,7 @@ public class RoleController {
   
   @DeleteMapping("/{id}")
   @Operation(
-    summary = "Delete a role by ID",
+    summary = "Delete a role by id",
     description = "Permanently deletes a role from the system."
   )
   @ApiResponses(value = {
@@ -161,7 +161,7 @@ public class RoleController {
     )
   })
   public ResponseEntity<Void> deleteRole(@PathVariable(name = "id") @NotNull UUID id) {
-    roleService.delete(id);
+    roleService.deleteRole(id);
     
     return ResponseEntity.noContent().build();
   }

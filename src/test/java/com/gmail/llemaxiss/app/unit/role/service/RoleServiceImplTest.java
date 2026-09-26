@@ -66,7 +66,7 @@ public class RoleServiceImplTest {
       )
         .thenReturn(savedRole);
       
-      Role result = roleService.create(model);
+      Role result = roleService.createRole(model);
       
       assertThat(result)
         .isNotNull();
@@ -102,7 +102,7 @@ public class RoleServiceImplTest {
         .thenReturn(true);
       
       assertThatThrownBy(() -> {
-        roleService.create(model);
+        roleService.createRole(model);
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(
@@ -164,9 +164,9 @@ public class RoleServiceImplTest {
 
       doReturn(oldRole)
         .when(roleService)
-        .getById(id);
+        .getRoleById(id);
 
-      Role result = roleService.update(id, model);
+      Role result = roleService.updateRole(id, model);
       
       assertThat(result)
         .isNotNull();
@@ -221,9 +221,9 @@ public class RoleServiceImplTest {
 
       doReturn(oldRole)
         .when(roleService)
-        .getById(id);
+        .getRoleById(id);
 
-      Role result = roleService.update(id, model);
+      Role result = roleService.updateRole(id, model);
       
       assertThat(result)
         .isNotNull();
@@ -275,10 +275,10 @@ public class RoleServiceImplTest {
       
       doReturn(role)
         .when(roleService)
-        .getById(id);
+        .getRoleById(id);
       
       assertThatThrownBy(() -> {
-        roleService.update(id, model);
+        roleService.updateRole(id, model);
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(
@@ -312,14 +312,14 @@ public class RoleServiceImplTest {
       
       doReturn(role)
         .when(roleService)
-        .getById(id);
+        .getRoleById(id);
       
-      roleService.delete(id);
+      roleService.deleteRole(id);
       
       verify(
         roleService
       )
-        .getById(id);
+        .getRoleById(id);
       
       verify(
         roleRepository
@@ -349,7 +349,7 @@ public class RoleServiceImplTest {
           Optional.of(role)
         );
       
-      Role result = roleService.getById(id);
+      Role result = roleService.getRoleById(id);
       
       assertThat(result)
         .isNotNull();
@@ -368,7 +368,7 @@ public class RoleServiceImplTest {
         .thenReturn(Optional.empty());
       
       assertThatThrownBy(() -> {
-        roleService.getById(UUID.randomUUID());
+        roleService.getRoleById(UUID.randomUUID());
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(

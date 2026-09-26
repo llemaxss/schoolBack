@@ -4,7 +4,6 @@ import com.gmail.llemaxiss.app.common.entity.CommonEntity;
 import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -45,11 +44,7 @@ public class Role extends CommonEntity {
   private RoleType type;
 
   @ToString.Exclude
-  @OneToMany(
-    mappedBy = "role",
-    fetch = FetchType.LAZY,
-    cascade = {CascadeType.ALL}
-  )
+  @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
   @Filters({
     @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
   })

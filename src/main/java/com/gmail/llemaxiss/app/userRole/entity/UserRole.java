@@ -5,6 +5,7 @@ import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConsta
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.user.entity.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,7 +30,7 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABL
 public class UserRole extends CommonEntity {
 
   @NotNull
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(
     name = "user_id",
     referencedColumnName = "id",
@@ -41,7 +42,7 @@ public class UserRole extends CommonEntity {
   private User user;
 
   @NotNull
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(
     name = "role_id",
     referencedColumnName = "id",

@@ -19,7 +19,7 @@ public interface RoleService {
    * @return {@link Role}
    */
   @NotNull
-  Role getById(@NotNull UUID id);
+  Role getRoleById(@NotNull UUID id);
 
   /**
    * Get set of {@link Role} by {@link RoleType}
@@ -39,24 +39,24 @@ public interface RoleService {
    * @return the created {@link Role} entity
    */
   @NotNull
-  Role create(@NotNull RoleCreateModel model);
+  Role createRole(@NotNull RoleCreateModel model);
   
   /**
    * Updates an existing {@link Role}
    *
-   * @param id    the role ID
+   * @param id    the role id
    * @param model the update request model
    *
    * @return the updated {@link Role} entity
    */
   @NotNull
-  Role update(@NotNull UUID id, @NotNull RoleUpdateModel model);
+  Role updateRole(@NotNull UUID id, @NotNull RoleUpdateModel model);
   
   /**
-   * Deletes a role by its ID.
+   * Deletes a {@link Role} by its id.
    *
-   * @param id the role ID
+   * @param id the role id
    */
-  void delete(@NotNull UUID id);
+  void deleteRole(@NotNull UUID id);
   
 }

@@ -3,7 +3,6 @@ package com.gmail.llemaxiss.app.user.entity;
 import com.gmail.llemaxiss.app.common.entity.CommonEntity;
 import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,14 +48,9 @@ public class User extends CommonEntity {
   private Boolean isActive = false;
   
   @ToString.Exclude
-  @OneToMany(
-    mappedBy = "user",
-    fetch = FetchType.LAZY,
-    cascade = {CascadeType.ALL}
-  )
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   @Filters({
     @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
   })
   private Set<UserRole> userRoles = new HashSet<>();
-  
 }
