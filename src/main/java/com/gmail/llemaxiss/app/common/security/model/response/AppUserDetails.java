@@ -22,7 +22,7 @@ public class AppUserDetails implements UserDetails {
   @NotNull
   @Schema(
     description = "User id",
-    example = "10000000-.."
+    example = "10000000-0000-0000-0000-000000000001"
   )
   private final UUID id;
   
