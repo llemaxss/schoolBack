@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,10 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Schema(description = "Base model containing common entity fields (audit, id)")
-public abstract class CommonEntityModel {
-  
-  @Schema(description = "Entity ID", example = "10000000-0000-0000-0000-000000000001")
-  protected UUID id;
+public abstract class CommonEntityModel extends CommonRefModel {
   
   @Schema(description = "Create timestamp", example = "2026-01-01T00:00:00Z")
   protected Instant createTs;
