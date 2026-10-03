@@ -43,7 +43,7 @@ public class UserProfile extends CommonEntity {
   )
   @Filters({
     @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME),
-    @Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME),
+    @Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
   })
   private User user;
   

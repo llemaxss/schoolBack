@@ -2,6 +2,8 @@ package com.gmail.llemaxiss.app.role.mapper;
 
 import com.gmail.llemaxiss.app._common.mapper.CommonMapper;
 import com.gmail.llemaxiss.app.role.entity.Role;
+import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
+import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
 import com.gmail.llemaxiss.app.role.model.response.RoleModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -22,4 +24,13 @@ public final class RoleMapper {
     return roleModel;
   }
 
+  public static void fillEntityByRoleCreateModel(@NotNull Role role, @NotNull RoleCreateModel model) {
+    role.setName(model.getName());
+    role.setType(model.getType());
+  }
+  
+  public static void fillEntityByRoleUpdateModel(@NotNull Role role, @NotNull RoleUpdateModel model) {
+    role.setName(model.getName());
+    role.setType(model.getType());
+  }
 }

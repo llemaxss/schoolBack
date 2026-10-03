@@ -5,6 +5,7 @@ import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app._common.service.CommonService;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
+import com.gmail.llemaxiss.app.role.mapper.RoleMapper;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
 import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
 import com.gmail.llemaxiss.app.role.repository.RoleRepository;
@@ -60,12 +61,11 @@ public class RoleServiceImpl extends CommonService implements RoleService {
   @NotNull
   @Transactional
   public Role createRole(@NotNull RoleCreateModel model) {
-    validateName(model.getName());
+    validateExistsByName(model.getName());
     
     Role newRole = new Role();
     
-    newRole.setName(model.getName());
-    newRole.setType(model.getType());
+    RoleMapper.fillEntityByRoleCreateModel(newRole, model);
     
     newRole = roleRepository.save(newRole);
     
@@ -81,18 +81,17 @@ public class RoleServiceImpl extends CommonService implements RoleService {
   @NotNull
   @Transactional
   public Role updateRole(@NotNull UUID id, @NotNull RoleUpdateModel model) {
-    log.info("Updating role with id: {}", id);
+    log.info("Updating Role with id: {}", id);
     
     Role role = getRoleById(id);
     
     boolean isNameChanged = !role.getName().equalsIgnoreCase(model.getName());
     
     if (isNameChanged) {
-      validateName(model.getName());
+      validateExistsByName(model.getName());
     }
     
-    role.setName(model.getName());
-    role.setType(model.getType());
+    RoleMapper.fillEntityByRoleUpdateModel(role, model);
     
     Role updatedRole = roleRepository.save(role);
     
@@ -107,7 +106,7 @@ public class RoleServiceImpl extends CommonService implements RoleService {
   @Override
   @Transactional
   public void deleteRole(@NotNull UUID id) {
-    log.info("Deleting role with id: {}", id);
+    log.info("Deleting Role with id: {}", id);
     
     Role role = getRoleById(id);
     
@@ -116,7 +115,7 @@ public class RoleServiceImpl extends CommonService implements RoleService {
     log.info("Role deleted successfully with id: {}", id);
   }
   
-  private void validateName(@NotNull String name) {
+  private void validateExistsByName(@NotNull String name) {
     boolean isExistsByName = roleRepository.existsByName(name);
     
     if (isExistsByName) {
@@ -124,4 +123,5 @@ public class RoleServiceImpl extends CommonService implements RoleService {
       throw new CommonException(ErrorCode.ROLE_NAME_ALREADY_EXISTS, message);
     }
   }
+  
 }

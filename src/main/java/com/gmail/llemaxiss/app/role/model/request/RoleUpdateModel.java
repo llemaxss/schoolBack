@@ -21,7 +21,7 @@ import java.util.UUID;
 public class RoleUpdateModel {
   
   @Schema(
-    description = "ID of the role to update (usually passed in URL path)",
+    description = "Id of the role to update (usually passed in URL path)",
     example = "10000000-0000-0000-0000-000000000001",
     requiredMode = Schema.RequiredMode.NOT_REQUIRED
   )

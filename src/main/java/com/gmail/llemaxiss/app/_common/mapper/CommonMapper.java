@@ -2,7 +2,7 @@ package com.gmail.llemaxiss.app._common.mapper;
 
 import com.gmail.llemaxiss.app._common.entity.CommonEntity;
 import com.gmail.llemaxiss.app._common.model.response.CommonEntityModel;
-import com.gmail.llemaxiss.app._common.model.response.CommonRefModel;
+import com.gmail.llemaxiss.app._common.model.response.CommonEntityIdModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CommonMapper {
 
-  public static void mapEntityId(@NotNull CommonRefModel model, @NotNull CommonEntity entity) {
+  public static void mapEntityId(@NotNull CommonEntityIdModel model, @NotNull CommonEntity entity) {
     model.setId(entity.getId());
   }
   

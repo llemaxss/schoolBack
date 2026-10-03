@@ -2,9 +2,6 @@ package com.gmail.llemaxiss.app._common.entity;
 
 import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +14,6 @@ import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.UUID;
 
 /**
  * Common class for all entities
@@ -29,13 +25,7 @@ import java.util.UUID;
 @Filters({
   @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
 })
-public abstract class CommonEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  @NotNull
-  @Column(name = "id", nullable = false)
-  protected UUID id;
+public abstract class CommonEntity extends CommonEntityId {
 
   @Version
   @NotNull
@@ -63,29 +53,5 @@ public abstract class CommonEntity {
 
   @Column(name = "deleted_by")
   protected String deletedBy;
-
-  protected CommonEntity() {
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (!(o instanceof CommonEntity that)) {
-      return false;
-    }
-
-    return id != null
-      && id.equals(that.getId());
-  }
-
-  @Override
-  public int hashCode() {
-    return id == null
-      ? getClass().hashCode()
-      : id.hashCode();
-  }
   
 }

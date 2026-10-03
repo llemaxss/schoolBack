@@ -15,7 +15,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Schema(description = "Base model containing common entity fields (audit, id)")
-public abstract class CommonEntityModel extends CommonRefModel {
+public abstract class CommonEntityModel extends CommonEntityIdModel {
   
   @Schema(description = "Create timestamp", example = "2026-01-01T00:00:00Z")
   protected Instant createTs;

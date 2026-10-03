@@ -20,8 +20,8 @@ import lombok.ToString;
 public enum ErrorCode implements CommonStringEnum {
   
   // COMMON //
-  VALIDATION_FAILED("VALIDATION_FAILED"),
   INTERNAL_ERROR("INTERNAL_ERROR"),
+  VALIDATION_FAILED("VALIDATION_FAILED"),
   AUTHENTICATED_USER_NOT_FOUND("AUTHENTICATED_USER_NOT_FOUND"),
   
   // ROLE //
@@ -30,6 +30,10 @@ public enum ErrorCode implements CommonStringEnum {
   
   // USER //
   USER_NOT_FOUND("USER_NOT_FOUND"),
+  
+  // USER_PROFILE //
+  USER_PROFILE_NOT_FOUND("USER_PROFILE_NOT_FOUND"),
+  USER_PROFILE_ALREADY_EXISTS("USER_PROFILE_ALREADY_EXISTS"),
   ;
   
   @JsonValue

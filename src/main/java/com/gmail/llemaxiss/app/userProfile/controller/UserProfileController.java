@@ -1,14 +1,14 @@
-package com.gmail.llemaxiss.app.role.controller;
+package com.gmail.llemaxiss.app.userProfile.controller;
 
 import com.gmail.llemaxiss.app._common.config.OpenApiConfig;
 import com.gmail.llemaxiss.app._common.controller.CommonController;
 import com.gmail.llemaxiss.app._common.model.response.ErrorResponse;
-import com.gmail.llemaxiss.app.role.entity.Role;
-import com.gmail.llemaxiss.app.role.mapper.RoleMapper;
-import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
-import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
-import com.gmail.llemaxiss.app.role.model.response.RoleModel;
-import com.gmail.llemaxiss.app.role.service.RoleService;
+import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
+import com.gmail.llemaxiss.app.userProfile.mapper.UserProfileMapper;
+import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;
+import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileUpdateModel;
+import com.gmail.llemaxiss.app.userProfile.model.response.UserProfileModel;
+import com.gmail.llemaxiss.app.userProfile.service.UserProfileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,53 +38,53 @@ import static com.gmail.llemaxiss.app._common.component.AppProperty.API_URL_PART
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(API_URL_PART + "/roles")
+@RequestMapping(API_URL_PART + "/user-profiles")
 @Tag(
-  name = "Role",
-  description = "Role management"
+  name = "User profile",
+  description = "User profile management"
 )
 @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
-public class RoleController extends CommonController {
+public class UserProfileController extends CommonController {
   
-  private final RoleService roleService;
+  private final UserProfileService userProfileService;
   
   @PostMapping
   @Operation(
-    summary = "Create a new role",
-    description = "Creates a new role with the specified name and type"
+    summary = "Create a new user profile",
+    description = "Creates a new user profile"
   )
   @ApiResponses(value = {
     @ApiResponse(
       responseCode = "201",
-      description = "Role created successfully",
+      description = "User profile created successfully",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
-        schema = @Schema(implementation = RoleModel.class)
+        schema = @Schema(implementation = UserProfileModel.class)
       )
     ),
     @ApiResponse(
       responseCode = "400",
-      description = "Validation failed or role name already exists",
+      description = "Validation failed or profile already exists",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
         schema = @Schema(implementation = ErrorResponse.class)
       )
     )
   })
-  public ResponseEntity<RoleModel> createRole(@Valid @RequestBody RoleCreateModel model) {
-    Role newRole = roleService.createRole(model);
+  public ResponseEntity<UserProfileModel> createUserProfile(@Valid @RequestBody UserProfileCreateModel model) {
+    UserProfile userProfile = userProfileService.createUserProfile(model);
     
-    RoleModel roleModel = RoleMapper.toModelFromEntity(newRole);
+    UserProfileModel userProfileModel = UserProfileMapper.toModelFromEntity(userProfile);
     
     return ResponseEntity
       .status(HttpStatus.CREATED)
-      .body(roleModel);
+      .body(userProfileModel);
   }
   
   @GetMapping("/{id}")
   @Operation(
-    summary = "Get role by id",
-    description = "Retrieves a specific role by its id"
+    summary = "Get user profile by id",
+    description = "Retrieves a specific profile by its id"
   )
   @ApiResponses(value = {
     @ApiResponse(
@@ -92,38 +92,38 @@ public class RoleController extends CommonController {
       description = "Successful operation",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
-        schema = @Schema(implementation = RoleModel.class)
+        schema = @Schema(implementation = UserProfileModel.class)
       )
     ),
     @ApiResponse(
       responseCode = "400",
-      description = "Role not found",
+      description = "User profile not found",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
         schema = @Schema(implementation = ErrorResponse.class)
       )
     )
   })
-  public ResponseEntity<RoleModel> getRoleById(
+  public ResponseEntity<UserProfileModel> getUserProfileById(
     @Parameter(
       name = "id",
-      description = "Role id",
+      description = "User profile id",
       required = true,
       example = "10000000-0000-0000-0000-000000000001"
     )
     @PathVariable(name = "id") @NotNull UUID id
   ) {
-    Role role = roleService.getRoleById(id);
+    UserProfile userProfile = userProfileService.getUserProfileById(id);
     
-    RoleModel roleModel = RoleMapper.toModelFromEntity(role);
+    UserProfileModel userProfileModel = UserProfileMapper.toModelFromEntity(userProfile);
     
-    return ResponseEntity.ok(roleModel);
+    return ResponseEntity.ok(userProfileModel);
   }
   
   @PutMapping("/{id}")
   @Operation(
-    summary = "Update an existing role",
-    description = "Updates an existing role"
+    summary = "Update an existing user profile",
+    description = "Updates an existing user profile"
   )
   @ApiResponses(value = {
     @ApiResponse(
@@ -131,48 +131,48 @@ public class RoleController extends CommonController {
       description = "Successful operation",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
-        schema = @Schema(implementation = RoleModel.class)
+        schema = @Schema(implementation = UserProfileModel.class)
       )
     ),
     @ApiResponse(
       responseCode = "400",
-      description = "Validation failed, role not found, or name already exists",
+      description = "Validation failed or profile already exists",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
         schema = @Schema(implementation = ErrorResponse.class)
       )
     )
   })
-  public ResponseEntity<RoleModel> updateRole(
+  public ResponseEntity<UserProfileModel> updateUserProfile(
     @Parameter(
       name = "id",
-      description = "Role id",
+      description = "User profile id",
       required = true,
       example = "10000000-0000-0000-0000-000000000001"
     )
     @PathVariable(name = "id") @NotNull UUID id,
-    @Valid @RequestBody RoleUpdateModel model
+    @Valid @RequestBody UserProfileUpdateModel model
   ) {
-    Role role = roleService.updateRole(id, model);
+    UserProfile userProfile = userProfileService.updateUserProfile(id, model);
     
-    RoleModel roleModel = RoleMapper.toModelFromEntity(role);
+    UserProfileModel userProfileModel = UserProfileMapper.toModelFromEntity(userProfile);
     
-    return ResponseEntity.ok(roleModel);
+    return ResponseEntity.ok(userProfileModel);
   }
   
   @DeleteMapping("/{id}")
   @Operation(
-    summary = "Delete a role by id",
+    summary = "Delete a user profile by id",
     description = "Soft deletes a role from the system"
   )
   @ApiResponses(value = {
     @ApiResponse(
       responseCode = "204",
-      description = "Role deleted successfully"
+      description = "User profile deleted successfully"
     ),
     @ApiResponse(
       responseCode = "400",
-      description = "Role not found",
+      description = "User profile not found",
       content = @Content(
         mediaType = MediaType.APPLICATION_JSON_VALUE,
         schema = @Schema(implementation = ErrorResponse.class)
@@ -182,13 +182,13 @@ public class RoleController extends CommonController {
   public ResponseEntity<Void> deleteRole(
     @Parameter(
       name = "id",
-      description = "Role id",
+      description = "User profile id",
       required = true,
       example = "10000000-0000-0000-0000-000000000001"
     )
     @PathVariable(name = "id") @NotNull UUID id
   ) {
-    roleService.deleteRole(id);
+    userProfileService.deleteUserProfile(id);
     
     return ResponseEntity.noContent()
       .build();
