@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.userRole.entity;
 
-import com.gmail.llemaxiss.app.common.entity.CommonEntity;
-import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.entity.CommonEntity;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.user.entity.User;
 import jakarta.persistence.Entity;
@@ -18,7 +18,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
 
-import static com.gmail.llemaxiss.app.common.property.component.AppProperty.TABLE_PREFIX;
+import static com.gmail.llemaxiss.app._common.component.AppProperty.TABLE_PREFIX;
 
 @NoArgsConstructor
 @AllArgsConstructor

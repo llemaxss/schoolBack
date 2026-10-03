@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.role.model.response;
 
-import com.gmail.llemaxiss.app.common.model.response.CommonEntityModel;
+import com.gmail.llemaxiss.app._common.model.response.CommonEntityModel;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

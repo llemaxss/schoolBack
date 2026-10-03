@@ -1,6 +1,8 @@
 package com.gmail.llemaxiss.app.role.controller;
 
-import com.gmail.llemaxiss.app.common.model.response.ErrorResponse;
+import com.gmail.llemaxiss.app._common.config.OpenApiConfig;
+import com.gmail.llemaxiss.app._common.controller.CommonController;
+import com.gmail.llemaxiss.app._common.model.response.ErrorResponse;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.mapper.RoleMapper;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
@@ -8,10 +10,12 @@ import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
 import com.gmail.llemaxiss.app.role.model.response.RoleModel;
 import com.gmail.llemaxiss.app.role.service.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_URL_PART;
+import static com.gmail.llemaxiss.app._common.component.AppProperty.API_URL_PART;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,7 +43,8 @@ import static com.gmail.llemaxiss.app.common.property.component.AppProperty.API_
   name = "Role",
   description = "Role management"
 )
-public class RoleController {
+@SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
+public class RoleController extends CommonController {
   
   private final RoleService roleService;
   
@@ -99,7 +104,15 @@ public class RoleController {
       )
     )
   })
-  public ResponseEntity<RoleModel> getRoleById(@PathVariable(name = "id") @NotNull UUID id) {
+  public ResponseEntity<RoleModel> getRoleById(
+    @Parameter(
+      name = "id",
+      description = "Role id",
+      required = true,
+      example = "10000000-0000-0000-0000-000000000001"
+    )
+    @PathVariable(name = "id") @NotNull UUID id
+  ) {
     Role role = roleService.getRoleById(id);
     
     RoleModel roleModel = RoleMapper.toModelFromEntity(role);
@@ -131,6 +144,12 @@ public class RoleController {
     )
   })
   public ResponseEntity<RoleModel> updateRole(
+    @Parameter(
+      name = "id",
+      description = "Role id",
+      required = true,
+      example = "10000000-0000-0000-0000-000000000001"
+    )
     @PathVariable(name = "id") @NotNull UUID id,
     @Valid @RequestBody RoleUpdateModel model
   ) {
@@ -160,7 +179,15 @@ public class RoleController {
       )
     )
   })
-  public ResponseEntity<Void> deleteRole(@PathVariable(name = "id") @NotNull UUID id) {
+  public ResponseEntity<Void> deleteRole(
+    @Parameter(
+      name = "id",
+      description = "Role id",
+      required = true,
+      example = "10000000-0000-0000-0000-000000000001"
+    )
+    @PathVariable(name = "id") @NotNull UUID id
+  ) {
     roleService.deleteRole(id);
     
     return ResponseEntity.noContent().build();

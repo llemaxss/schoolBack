@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.role.mapper;
 
-import com.gmail.llemaxiss.app.common.mapper.CommonMapper;
+import com.gmail.llemaxiss.app._common.mapper.CommonMapper;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.model.response.RoleModel;
 import jakarta.validation.constraints.NotNull;

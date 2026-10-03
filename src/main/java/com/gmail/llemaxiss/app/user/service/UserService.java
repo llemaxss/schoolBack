@@ -1,7 +1,5 @@
 package com.gmail.llemaxiss.app.user.service;
 
-import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
-import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
 import com.gmail.llemaxiss.app.user.entity.User;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,20 +22,10 @@ public interface UserService extends UserDetailsService {
    *
    * @return logged in {@link User}
    *
-   * @see SecurityUtil#getCurrentUsername()
+   * @see CommonUtil#getCurrentUsername()
    */
   @NotNull
   User getCurrentUser();
-
-  /**
-   * Get {@link AppUserDetails} of current logged in {@link User}
-   *
-   * @return {@link AppUserDetails} of logged in {@link User}
-   *
-   * @see #getCurrentUser()
-   */
-  @NotNull
-  AppUserDetails getCurrentUserDetails();
 
   /**
    * Get {@link User} by his id

@@ -1,7 +1,8 @@
 package com.gmail.llemaxiss.app.role.service;
 
-import com.gmail.llemaxiss.app.common.enums.ErrorCode;
-import com.gmail.llemaxiss.app.common.exception.model.response.CommonException;
+import com.gmail.llemaxiss.app._common.enums.ErrorCode;
+import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
+import com.gmail.llemaxiss.app._common.service.CommonService;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
@@ -21,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends CommonService implements RoleService {
 
   private final RoleRepository roleRepository;
 

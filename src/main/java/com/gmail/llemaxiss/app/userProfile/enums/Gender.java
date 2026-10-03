@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.userProfile.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.gmail.llemaxiss.app.common.enums.common.CommonStringEnum;
+import com.gmail.llemaxiss.app._common.enums.common.CommonStringEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public enum Gender implements CommonStringEnum {
+  
   MALE("MALE"),
   FEMALE("FEMALE");
   

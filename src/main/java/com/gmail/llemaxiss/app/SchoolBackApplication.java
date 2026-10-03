@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app;
 
-import com.gmail.llemaxiss.app.common.repository.CommonRepositoryImpl;
+import com.gmail.llemaxiss.app._common.repository.CommonRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

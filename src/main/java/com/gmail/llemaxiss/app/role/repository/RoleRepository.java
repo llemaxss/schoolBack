@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.role.repository;
 
-import com.gmail.llemaxiss.app.common.repository.CommonRepository;
+import com.gmail.llemaxiss.app._common.repository.CommonRepository;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import jakarta.validation.constraints.NotNull;

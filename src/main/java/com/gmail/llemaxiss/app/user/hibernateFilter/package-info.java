@@ -10,7 +10,7 @@
 })
 package com.gmail.llemaxiss.app.user.hibernateFilter;
 
-import com.gmail.llemaxiss.app.common.hibernateFilter.util.HibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
 import org.hibernate.annotations.ParamDef;

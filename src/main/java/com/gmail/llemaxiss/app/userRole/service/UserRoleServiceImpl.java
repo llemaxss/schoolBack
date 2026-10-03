@@ -1,5 +1,6 @@
 package com.gmail.llemaxiss.app.userRole.service;
 
+import com.gmail.llemaxiss.app._common.service.CommonService;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.role.service.RoleService;
@@ -22,7 +23,7 @@ import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 @Service
-public class UserRoleServiceImpl implements UserRoleService {
+public class UserRoleServiceImpl extends CommonService implements UserRoleService {
 
   private final UserService userService;
 

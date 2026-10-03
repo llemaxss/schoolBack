@@ -1,11 +1,12 @@
 package com.gmail.llemaxiss.app.user.service;
 
-import com.gmail.llemaxiss.app.common.enums.ErrorCode;
-import com.gmail.llemaxiss.app.common.exception.model.response.CommonException;
-import com.gmail.llemaxiss.app.common.security.model.response.AppUserDetails;
-import com.gmail.llemaxiss.app.common.security.util.SecurityUtil;
+import com.gmail.llemaxiss.app._common.enums.ErrorCode;
+import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
+import com.gmail.llemaxiss.app._common.security.model.response.AppUserDetails;
+import com.gmail.llemaxiss.app._common.service.CommonService;
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.repository.UserRepository;
+import com.gmail.llemaxiss.app.user.util.UserUtil;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Optional;
@@ -21,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends CommonService implements UserService {
 
   private final UserRepository userRepository;
 
@@ -64,21 +65,9 @@ public class UserServiceImpl implements UserService {
   @NotNull
   @Transactional(readOnly = true)
   public User getCurrentUser() {
-    String userName = SecurityUtil.getCurrentUsername();
+    AppUserDetails appUserDetails = UserUtil.getAppUserDetails();
     
-    return getUserByUsername(userName);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  @NotNull
-  @Transactional(readOnly = true)
-  public AppUserDetails getCurrentUserDetails() {
-    User user = getCurrentUser();
-
-    return new AppUserDetails(user);
+    return getUserById(appUserDetails.getId());
   }
 
   /**

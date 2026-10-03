@@ -1,0 +1,91 @@
+package com.gmail.llemaxiss.app._common.repository;
+
+import com.gmail.llemaxiss.app._common.entity.CommonEntity;
+import com.gmail.llemaxiss.app.user.util.UserUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
+import java.util.UUID;
+
+/**
+ * Base repository interface implementation for all entities extending {@link CommonEntity}
+ *
+ * <p>
+ * This implementation overrides standard delete methods to prevent accidental hard deletion.
+ * Instead, it provides explicit {@code softDelete} methods to mark entities as deleted
+ * by updating {@code deleteTs} and {@code deletedBy} fields.
+ * </p>
+ */
+public class CommonRepositoryImpl<E extends CommonEntity>
+  extends SimpleJpaRepository<E, UUID>
+  implements CommonRepository<E> {
+  
+  public CommonRepositoryImpl(JpaEntityInformation<E, ?> entityInformation,
+                              EntityManager entityManager) {
+    super(entityInformation, entityManager);
+  }
+  
+  /**
+   * Replace standard hard-deletion to soft-deletion
+   *
+   * @see #softDelete(CommonEntity)
+   */
+  @Override
+  @Transactional
+  public void delete(E entity) {
+    softDelete(entity);
+  }
+  
+  /**
+   * @deprecated
+   *
+   * <p>
+   * User {@link #delete(CommonEntity)} instead of,
+   * or remake this method for working with soft-deleted conception
+   * </p>
+   */
+  @Deprecated
+  @Override
+  public void deleteAllByIdInBatch(Iterable<UUID> uuids) {
+    throw new UnsupportedOperationException("This method is not implemented yet");
+  }
+  
+  /**
+   * @deprecated
+   *
+   * <p>
+   * User {@link #delete(CommonEntity)} instead of,
+   * or remake this method for working with soft-deleted conception
+   * </p>
+   */
+  @Deprecated
+  @Override
+  public void deleteAllInBatch(Iterable<E> entities) {
+    throw new UnsupportedOperationException("This method is not implemented yet");
+  }
+  
+  /**
+   * @deprecated
+   *
+   * <p>
+   * User {@link #delete(CommonEntity)} instead of,
+   * or remake this method for working with soft-deleted conception
+   * </p>
+   */
+  @Deprecated
+  @Override
+  public void deleteAllInBatch() {
+    throw new UnsupportedOperationException("This method is not implemented yet");
+  }
+  
+  private void softDelete(@NotNull E entity) {
+    entity.setDeleteTs(Instant.now());
+    entity.setDeletedBy(UserUtil.getUsername());
+    
+    super.save(entity);
+  }
+}

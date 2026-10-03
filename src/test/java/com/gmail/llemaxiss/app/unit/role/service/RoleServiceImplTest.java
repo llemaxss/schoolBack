@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.unit.role.service;
 
-import com.gmail.llemaxiss.app.common.enums.ErrorCode;
-import com.gmail.llemaxiss.app.common.exception.model.response.CommonException;
+import com.gmail.llemaxiss.app._common.enums.ErrorCode;
+import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
