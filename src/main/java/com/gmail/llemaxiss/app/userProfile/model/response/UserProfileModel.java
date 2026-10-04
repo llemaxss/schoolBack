@@ -5,7 +5,6 @@ import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
 import com.gmail.llemaxiss.app.userProfile.enums.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @Getter
 @Setter

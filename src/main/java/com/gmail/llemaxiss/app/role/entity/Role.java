@@ -12,7 +12,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +25,6 @@ import java.util.Set;
 import static com.gmail.llemaxiss.app._common.component.AppProperty.TABLE_PREFIX;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @Getter
 @Setter

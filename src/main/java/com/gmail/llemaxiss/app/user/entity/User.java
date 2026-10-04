@@ -13,7 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +23,6 @@ import org.hibernate.annotations.Filters;
 import static com.gmail.llemaxiss.app._common.component.AppProperty.TABLE_PREFIX;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @Getter
 @Setter

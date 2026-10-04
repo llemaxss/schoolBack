@@ -35,11 +35,7 @@ public final class UserProfileMapper {
   }
   
   public static void fillEntityByUserProfileCreateModel(@NotNull UserProfile userProfile,
-                                                        @NotNull UserProfileCreateModel model,
-                                                        @NotNull EntityManager em) {
-    User user = em.getReference(User.class, model.getUser().getId());
-    userProfile.setUser(user);
-    
+                                                        @NotNull UserProfileCreateModel model) {
     userProfile.setFirstName(model.getFirstName());
     userProfile.setLastName(model.getLastName());
     userProfile.setMiddleName(model.getMiddleName());
@@ -50,11 +46,7 @@ public final class UserProfileMapper {
   }
   
   public static void fillEntityByUserProfileUpdateModel(@NotNull UserProfile userProfile,
-                                                        @NotNull UserProfileUpdateModel model,
-                                                        @NotNull EntityManager em) {
-    User user = em.getReference(User.class, model.getUser().getId());
-    userProfile.setUser(user);
-    
+                                                        @NotNull UserProfileUpdateModel model) {
     userProfile.setFirstName(model.getFirstName());
     userProfile.setLastName(model.getLastName());
     userProfile.setMiddleName(model.getMiddleName());

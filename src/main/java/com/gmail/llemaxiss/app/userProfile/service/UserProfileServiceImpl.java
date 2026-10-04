@@ -3,6 +3,7 @@ package com.gmail.llemaxiss.app.userProfile.service;
 import com.gmail.llemaxiss.app._common.enums.ErrorCode;
 import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app._common.service.CommonService;
+import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.mapper.UserProfileMapper;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;
@@ -52,7 +53,10 @@ public class UserProfileServiceImpl extends CommonService implements UserProfile
     
     UserProfile newUserProfile = new UserProfile();
     
-    UserProfileMapper.fillEntityByUserProfileCreateModel(newUserProfile, model, em);
+    User user = em.getReference(User.class, model.getUser().getId());
+    newUserProfile.setUser(user);
+    
+    UserProfileMapper.fillEntityByUserProfileCreateModel(newUserProfile, model);
     
     newUserProfile = userProfileRepository.save(newUserProfile);
     
@@ -81,7 +85,10 @@ public class UserProfileServiceImpl extends CommonService implements UserProfile
       validateExistsByUser(newUserId);
     }
     
-    UserProfileMapper.fillEntityByUserProfileUpdateModel(userProfile, model, em);
+    User user = em.getReference(User.class, model.getUser().getId());
+    userProfile.setUser(user);
+    
+    UserProfileMapper.fillEntityByUserProfileUpdateModel(userProfile, model);
     
     UserProfile updatedUserProfile = userProfileRepository.save(userProfile);
     

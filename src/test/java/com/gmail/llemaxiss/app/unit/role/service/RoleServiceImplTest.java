@@ -3,11 +3,13 @@ package com.gmail.llemaxiss.app.unit.role.service;
 import com.gmail.llemaxiss.app._common.enums.ErrorCode;
 import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app.role.entity.Role;
-import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
 import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
 import com.gmail.llemaxiss.app.role.repository.RoleRepository;
 import com.gmail.llemaxiss.app.role.service.RoleServiceImpl;
+import com.gmail.llemaxiss.app.unit._common.CommonServiceImplTest;
+import com.gmail.llemaxiss.app.unit.role.modelFactory.RoleModelFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +30,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class RoleServiceImplTest {
+public class RoleServiceImplTest extends CommonServiceImplTest {
   
   @Mock
   private RoleRepository roleRepository;
@@ -37,25 +39,24 @@ public class RoleServiceImplTest {
   @InjectMocks
   private RoleServiceImpl roleService;
   
+  @BeforeEach
+  public void setUp() throws Exception {
+    setUpEntityManager(roleService);
+  }
+  
   //region Create
   @Nested
   class Create {
     
     @Test
     public void createSuccessfully() {
-      String name = "ADMIN";
-      RoleType type = RoleType.ADMIN;
-      
-      RoleCreateModel model = new RoleCreateModel(name, type);
-      
-      Role savedRole = new Role();
-      
-      savedRole.setId(UUID.randomUUID());
-      savedRole.setName(name);
-      savedRole.setType(type);
+      Role savedRole = RoleModelFactory.adminEntity();
+      RoleCreateModel model = RoleModelFactory.adminCreateModel();
       
       when(
-        roleRepository.existsByName(name)
+        roleRepository.existsByName(
+          model.getName()
+        )
       )
         .thenReturn(false);
       
@@ -71,17 +72,31 @@ public class RoleServiceImplTest {
       assertThat(result)
         .isNotNull();
       
-      assertThat(result.getId())
-        .isEqualTo(savedRole.getId());
+      assertThat(
+        result.getId()
+      )
+        .isEqualTo(
+          savedRole.getId()
+        );
       
-      assertThat(result.getName())
-        .isEqualTo(name);
+      assertThat(
+        result.getName()
+      )
+        .isEqualTo(
+          model.getName()
+        );
       
-      assertThat(result.getType())
-        .isEqualTo(type);
+      assertThat(
+        result.getType()
+      )
+        .isEqualTo(
+          model.getType()
+        );
       
       verify(roleRepository)
-        .existsByName(name);
+        .existsByName(
+          model.getName()
+        );
       
       verify(roleRepository)
         .save(
@@ -91,13 +106,12 @@ public class RoleServiceImplTest {
     
     @Test
     void nameAlreadyExistsCommonException() {
-      String name = "ADMIN";
-      RoleType type = RoleType.ADMIN;
-      
-      RoleCreateModel model = new RoleCreateModel(name, type);
+      RoleCreateModel model = RoleModelFactory.adminCreateModel();
       
       when(
-        roleRepository.existsByName(name)
+        roleRepository.existsByName(
+          model.getName()
+        )
       )
         .thenReturn(true);
       
@@ -106,7 +120,7 @@ public class RoleServiceImplTest {
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(
-          "errorCode",
+          ERROR_CODE_FIELD,
           ErrorCode.ROLE_NAME_ALREADY_EXISTS
         );
       
@@ -130,28 +144,19 @@ public class RoleServiceImplTest {
     public void updateAllDataSuccessfully() {
       UUID id = UUID.randomUUID();
       
-      String oldName = "ADMIN";
-      RoleType oldType = RoleType.ADMIN;
-      
-      String newName = "TEACHER";
-      RoleType newType = RoleType.TEACHER;
-      
-      RoleUpdateModel model = new RoleUpdateModel(id, newName, newType);
-      
-      Role oldRole = new Role();
-      
+      Role oldRole = RoleModelFactory.adminEntity();
       oldRole.setId(id);
-      oldRole.setName(oldName);
-      oldRole.setType(oldType);
       
-      Role newRole = new Role();
-      
+      Role newRole = RoleModelFactory.teacherEntity();
       newRole.setId(id);
-      newRole.setName(newName);
-      newRole.setType(newType);
+      
+      RoleUpdateModel model = RoleModelFactory.teacherUpdateModel();
+      model.setId(id);
 
       when(
-        roleRepository.existsByName(newName)
+        roleRepository.existsByName(
+          model.getName()
+        )
       )
         .thenReturn(false);
       
@@ -171,17 +176,31 @@ public class RoleServiceImplTest {
       assertThat(result)
         .isNotNull();
       
-      assertThat(result.getId())
-        .isEqualTo(newRole.getId());
+      assertThat(
+        result.getId()
+      )
+        .isEqualTo(
+          newRole.getId()
+        );
       
-      assertThat(result.getName())
-        .isEqualTo(newName);
+      assertThat(
+        result.getName()
+      )
+        .isEqualTo(
+          model.getName()
+        );
       
-      assertThat(result.getType())
-        .isEqualTo(newType);
+      assertThat(
+        result.getType()
+      )
+        .isEqualTo(
+          model.getType()
+        );
       
       verify(roleRepository)
-        .existsByName(newName);
+        .existsByName(
+          model.getName()
+        );
       
       verify(roleRepository)
         .save(
@@ -193,24 +212,16 @@ public class RoleServiceImplTest {
     public void updateExcludeNameSuccessfully() {
       UUID id = UUID.randomUUID();
       
-      String oldName = "ADMIN";
-      RoleType oldType = RoleType.ADMIN;
-      
-      RoleType newType = RoleType.TEACHER;
-      
-      RoleUpdateModel model = new RoleUpdateModel(id, oldName, newType);
-      
-      Role oldRole = new Role();
-      
+      Role oldRole = RoleModelFactory.adminEntity();
       oldRole.setId(id);
-      oldRole.setName(oldName);
-      oldRole.setType(oldType);
       
-      Role newRole = new Role();
-      
+      Role newRole = RoleModelFactory.teacherEntity();
       newRole.setId(id);
-      newRole.setName(oldName);
-      newRole.setType(newType);
+      newRole.setName(oldRole.getName());
+      
+      RoleUpdateModel model = RoleModelFactory.teacherUpdateModel();
+      model.setId(id);
+      model.setName(oldRole.getName());
       
       when(
         roleRepository.save(
@@ -228,14 +239,24 @@ public class RoleServiceImplTest {
       assertThat(result)
         .isNotNull();
       
-      assertThat(result.getId())
-        .isEqualTo(newRole.getId());
+      assertThat(
+        result.getId()
+      )
+        .isEqualTo(id);
       
-      assertThat(result.getName())
-        .isEqualTo(oldName);
+      assertThat(
+        result.getName()
+      )
+        .isEqualTo(
+          oldRole.getName()
+        );
       
-      assertThat(result.getType())
-        .isEqualTo(newType);
+      assertThat(
+        result.getType()
+      )
+        .isEqualTo(
+          model.getType()
+        );
       
       verify(
         roleRepository,
@@ -255,21 +276,17 @@ public class RoleServiceImplTest {
     void nameAlreadyExistsCommonException() {
       UUID id = UUID.randomUUID();
       
-      String newName = "ADMIN";
-      RoleType type = RoleType.ADMIN;
-      
-      String oldName = "TEACHER";
-      
-      RoleUpdateModel model = new RoleUpdateModel(id, newName, type);
-      
-      Role role = new Role();
-      
+      Role role = RoleModelFactory.adminEntity();
       role.setId(id);
-      role.setName(oldName);
-      role.setType(type);
+      role.setName(RoleModelFactory.TEACHER_NAME);
+      
+      RoleUpdateModel model = RoleModelFactory.adminUpdateModel();
+      model.setId(id);
       
       when(
-        roleRepository.existsByName(newName)
+        roleRepository.existsByName(
+          model.getName()
+        )
       )
         .thenReturn(true);
       
@@ -282,7 +299,7 @@ public class RoleServiceImplTest {
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(
-          "errorCode",
+          ERROR_CODE_FIELD,
           ErrorCode.ROLE_NAME_ALREADY_EXISTS
         );
       
@@ -306,8 +323,7 @@ public class RoleServiceImplTest {
     public void deleteSuccessfully() {
       UUID id = UUID.randomUUID();
       
-      Role role = new Role();
-      
+      Role role = RoleModelFactory.adminEntity();
       role.setId(id);
       
       doReturn(role)
@@ -338,8 +354,7 @@ public class RoleServiceImplTest {
     public void getByIdSuccessfully() {
       UUID id = UUID.randomUUID();
       
-      Role role = new Role();
-      
+      Role role = RoleModelFactory.adminEntity();
       role.setId(id);
       
       when(
@@ -354,7 +369,9 @@ public class RoleServiceImplTest {
       assertThat(result)
         .isNotNull();
       
-      assertThat(result.getId())
+      assertThat(
+        result.getId()
+      )
         .isEqualTo(id);
     }
     
@@ -368,11 +385,13 @@ public class RoleServiceImplTest {
         .thenReturn(Optional.empty());
       
       assertThatThrownBy(() -> {
-        roleService.getRoleById(UUID.randomUUID());
+        roleService.getRoleById(
+          UUID.randomUUID()
+        );
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(
-          "errorCode",
+          ERROR_CODE_FIELD,
           ErrorCode.ROLE_NOT_FOUND
         );
     }
