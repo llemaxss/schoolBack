@@ -109,28 +109,29 @@ Business errors — `CommonException` → HTTP 400.
 
 ## Environment variables
 
-| Variable                           | YAML key                     | Default value | Description    |
-|------------------------------------|------------------------------|---------------|----------------|
-| COMMON                             |                              |               |                |
-| `SPRING_PROFILES_ACTIVE`           | `spring.profiles.active`     | `DEV`         | Active profile |
-| DEV PROFILE                        |                              |               |                |
-| `DEV__SPRING_DATASOURCE_HOST`      | `spring.datasource.url`      |               | DB host        |
-| `DEV__SPRING_DATASOURCE_PORT`      | `spring.datasource.url`      |               | DB port        |
-| `DEV__SPRING_DATASOURCE_NAME`      | `spring.datasource.url`      |               | DB name        |
-| `DEV__SPRING_DATASOURCE_USERNAME`  | `spring.datasource.username` |               | DB username    |
-| `DEV__SPRING_DATASOURCE_PASSWORD`  | `spring.datasource.password` |               | DB password    |
-| `DEV__SERVER_PORT`                 | `server.port`                |               | Server port    |
-| `DEV__APP_JWT_SECRET`              | `app.jwt-secret`             |               | JWT secret key |
-| `DEV__APP_JWT_EXPIRATION_MILLIS`   | `app.jwt-expiration-millis`  |               | JWT TTL, ms    |
-| PROD PROFILE                       |                              |               |                |
-| `PROD__SPRING_DATASOURCE_HOST`     | `spring.datasource.url`      |               | DB host        |
-| `PROD__SPRING_DATASOURCE_PORT`     | `spring.datasource.url`      |               | DB port        |
-| `PROD__SPRING_DATASOURCE_NAME`     | `spring.datasource.url`      |               | DB name        |
-| `PROD__SPRING_DATASOURCE_USERNAME` | `spring.datasource.username` |               | DB username    |
-| `PROD__SPRING_DATASOURCE_PASSWORD` | `spring.datasource.password` |               | DB password    |
-| `PROD__SERVER_PORT`                | `server.port`                |               | Server port    |
-| `PROD__APP_JWT_SECRET`             | `app.jwt-secret`             |               | JWT secret key |
-| `PROD__APP_JWT_EXPIRATION_MILLIS`  | `app.jwt-expiration-millis`  |               | JWT TTL, ms    |
+| Variable                                                     | YAML key                                         | Default value | Description    |
+|--------------------------------------------------------------|--------------------------------------------------|---------------|----------------|
+| COMMON                                                       |                                                  |               |                |
+| `SPRING_PROFILES_ACTIVE`                                     | `spring.profiles.active`                         | `DEV`         | Active profile |
+| `SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA`             | `spring.jpa.properties.hibernate.default_schema` | `public`      | DB schema      |
+| DEV PROFILE                                                  |                                                  |               |                |
+| `DEV__SPRING_DATASOURCE_HOST`                                | `spring.datasource.url`                          |               | DB host        |
+| `DEV__SPRING_DATASOURCE_PORT`                                | `spring.datasource.url`                          |               | DB port        |
+| `DEV__SPRING_DATASOURCE_NAME`                                | `spring.datasource.url`                          |               | DB name        |
+| `DEV__SPRING_DATASOURCE_USERNAME`                            | `spring.datasource.username`                     |               | DB username    |
+| `DEV__SPRING_DATASOURCE_PASSWORD`                            | `spring.datasource.password`                     |               | DB password    |
+| `DEV__SERVER_PORT`                                           | `server.port`                                    |               | Server port    |
+| `DEV__APP_JWT_SECRET`                                        | `app.jwt-secret`                                 |               | JWT secret key |
+| `DEV__APP_JWT_EXPIRATION_MILLIS`                             | `app.jwt-expiration-millis`                      |               | JWT TTL, ms    |
+| PROD PROFILE                                                 |                                                  |               |                |
+| `PROD__SPRING_DATASOURCE_HOST`                               | `spring.datasource.url`                          |               | DB host        |
+| `PROD__SPRING_DATASOURCE_PORT`                               | `spring.datasource.url`                          |               | DB port        |
+| `PROD__SPRING_DATASOURCE_NAME`                               | `spring.datasource.url`                          |               | DB name        |
+| `PROD__SPRING_DATASOURCE_USERNAME`                           | `spring.datasource.username`                     |               | DB username    |
+| `PROD__SPRING_DATASOURCE_PASSWORD`                           | `spring.datasource.password`                     |               | DB password    |
+| `PROD__SERVER_PORT`                                          | `server.port`                                    |               | Server port    |
+| `PROD__APP_JWT_SECRET`                                       | `app.jwt-secret`                                 |               | JWT secret key |
+| `PROD__APP_JWT_EXPIRATION_MILLIS`                            | `app.jwt-expiration-millis`                      |               | JWT TTL, ms    |
 
 ## Build & run
 

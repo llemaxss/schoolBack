@@ -110,28 +110,29 @@ Spring Boot REST API для системы управления школой: п
 
 ## Переменные окружения
 
-| Переменные                         | YAML ключи                   | Значение по умолчанию | Описание            |
-|------------------------------------|------------------------------|-----------------------|---------------------|
-| Общие                              |                              |                       |                     |
-| `SPRING_PROFILES_ACTIVE`           | `spring.profiles.active`     | `DEV`                 | Активный профиль    |
-| DEV профиль                        |                              |                       |                     |
-| `DEV__SPRING_DATASOURCE_HOST`      | `spring.datasource.url`      |                       | Хост БД             |
-| `DEV__SPRING_DATASOURCE_PORT`      | `spring.datasource.url`      |                       | Порт БД             |
-| `DEV__SPRING_DATASOURCE_NAME`      | `spring.datasource.url`      |                       | Название БД         |
-| `DEV__SPRING_DATASOURCE_USERNAME`  | `spring.datasource.username` |                       | Пользватель БД      |
-| `DEV__SPRING_DATASOURCE_PASSWORD`  | `spring.datasource.password` |                       | Пароль БД           |
-| `DEV__SERVER_PORT`                 | `server.port`                |                       | Порт серверя        |
-| `DEV__APP_JWT_SECRET`              | `app.jwt-secret`             |                       | Секертный ключ JWT  |
-| `DEV__APP_JWT_EXPIRATION_MILLIS`   | `app.jwt-expiration-millis`  |                       | Время истечения JWT |
-| PROD профиль                       |                              |                       |                     |
-| `PROD__SPRING_DATASOURCE_HOST`     | `spring.datasource.url`      |                       | Хост БД             |
-| `PROD__SPRING_DATASOURCE_PORT`     | `spring.datasource.url`      |                       | Порт БД             |
-| `PROD__SPRING_DATASOURCE_NAME`     | `spring.datasource.url`      |                       | Название БД         |
-| `PROD__SPRING_DATASOURCE_USERNAME` | `spring.datasource.username` |                       | Пользватель БД      |
-| `PROD__SPRING_DATASOURCE_PASSWORD` | `spring.datasource.password` |                       | Пароль БД           |
-| `PROD__SERVER_PORT`                | `server.port`                |                       | Порт сервера        |
-| `PROD__APP_JWT_SECRET`             | `app.jwt-secret`             |                       | Секертный ключи JWT |
-| `PROD__APP_JWT_EXPIRATION_MILLIS`  | `app.jwt-expiration-millis`  |                       | Время истечения JWT |
+| Переменные                                       | YAML ключи                                       | Значение по умолчанию | Описание            |
+|--------------------------------------------------|--------------------------------------------------|-----------------------|---------------------|
+| Общие                                            |                                                  |                       |                     |
+| `SPRING_PROFILES_ACTIVE`                         | `spring.profiles.active`                         | `DEV`                 | Активный профиль    |
+| `SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA` | `spring.jpa.properties.hibernate.default_schema` | `public`              | Схема БД            |
+| DEV профиль                                      |                                                  |                       |                     |
+| `DEV__SPRING_DATASOURCE_HOST`                    | `spring.datasource.url`                          |                       | Хост БД             |
+| `DEV__SPRING_DATASOURCE_PORT`                    | `spring.datasource.url`                          |                       | Порт БД             |
+| `DEV__SPRING_DATASOURCE_NAME`                    | `spring.datasource.url`                          |                       | Название БД         |
+| `DEV__SPRING_DATASOURCE_USERNAME`                | `spring.datasource.username`                     |                       | Пользватель БД      |
+| `DEV__SPRING_DATASOURCE_PASSWORD`                | `spring.datasource.password`                     |                       | Пароль БД           |
+| `DEV__SERVER_PORT`                               | `server.port`                                    |                       | Порт серверя        |
+| `DEV__APP_JWT_SECRET`                            | `app.jwt-secret`                                 |                       | Секертный ключ JWT  |
+| `DEV__APP_JWT_EXPIRATION_MILLIS`                 | `app.jwt-expiration-millis`                      |                       | Время истечения JWT |
+| PROD профиль                                     |                                                  |                       |                     |
+| `PROD__SPRING_DATASOURCE_HOST`                   | `spring.datasource.url`                          |                       | Хост БД             |
+| `PROD__SPRING_DATASOURCE_PORT`                   | `spring.datasource.url`                          |                       | Порт БД             |
+| `PROD__SPRING_DATASOURCE_NAME`                   | `spring.datasource.url`                          |                       | Название БД         |
+| `PROD__SPRING_DATASOURCE_USERNAME`               | `spring.datasource.username`                     |                       | Пользватель БД      |
+| `PROD__SPRING_DATASOURCE_PASSWORD`               | `spring.datasource.password`                     |                       | Пароль БД           |
+| `PROD__SERVER_PORT`                              | `server.port`                                    |                       | Порт сервера        |
+| `PROD__APP_JWT_SECRET`                           | `app.jwt-secret`                                 |                       | Секертный ключи JWT |
+| `PROD__APP_JWT_EXPIRATION_MILLIS`                | `app.jwt-expiration-millis`                      |                       | Время истечения JWT |
 
 ## Сборка и запуск
 
