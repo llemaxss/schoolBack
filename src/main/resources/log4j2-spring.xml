@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+  <Properties>
+    <Property name="LOG_DIR">
+      ${sys:LOG_PATH:-logs}
+    </Property>
+    <Property name="APP_NAME">
+      school-management
+    </Property>
+    <Property name="FILE_PATTERN">
+      [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] [%-5level] %logger{36} - %msg%n
+    </Property>
+    <Property name="CONSOLE_PATTERN">
+      [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%highlight{%-5level}{FATAL=red blink, ERROR=red, WARN=yellow, INFO=cyan, DEBUG=magenta, TRACE=white}] [%t] %style{%logger{36}}{cyan} - %msg%n
+    </Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${CONSOLE_PATTERN}" disableAnsi="false" noConsoleNoAnsi="false"/>
+    </Console>
+
+    <RollingFile
+      name="File"
+      fileName="${LOG_DIR}/${APP_NAME}.log"
+      filePattern="${LOG_DIR}/${APP_NAME}-%d{yyyy-MM-dd}.%i.log.gz"
+      append="true"
+      immediateFlush="true"
+    >
+      <PatternLayout pattern="${FILE_PATTERN}"/>
+
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        <SizeBasedTriggeringPolicy size="50 MB"/>
+      </Policies>
+
+      <DefaultRolloverStrategy max="10">
+        <Delete basePath="${LOG_DIR}" maxDepth="1">
+          <IfFileName glob="${APP_NAME}-*.log.gz"/>
+          <IfLastModified age="30D"/>
+        </Delete>
+      </DefaultRolloverStrategy>
+
+    </RollingFile>
+
+    <RollingFile
+      name="ErrorFile"
+      fileName="${LOG_DIR}/${APP_NAME}-error.log"
+      filePattern="${LOG_DIR}/${APP_NAME}-error-%d{yyyy-MM}.%i.log.gz"
+      append="true"
+    >
+      <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+
+      <PatternLayout pattern="${FILE_PATTERN}"/>
+
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        <SizeBasedTriggeringPolicy size="20 MB"/>
+      </Policies>
+
+      <DefaultRolloverStrategy max="5"/>
+
+    </RollingFile>
+  </Appenders>
+
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+      <AppenderRef ref="ErrorFile"/>
+    </Root>
+
+    <Logger name="com.gmail.llemaxiss.app" additivity="false">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+      <AppenderRef ref="ErrorFile"/>
+    </Logger>
+  </Loggers>
+
+</Configuration>
