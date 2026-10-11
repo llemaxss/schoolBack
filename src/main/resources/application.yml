@@ -4,7 +4,7 @@ spring:
   application:
     name: schoolBack
   profiles:
-    active: DEV
+    active: ${SPRING_PROFILES_ACTIVE:DEV}
   datasource:
     driver-class-name: org.postgresql.Driver
   jpa:
@@ -17,9 +17,6 @@ spring:
         default_schema: public
   liquibase:
     change-log: classpath:db/changelog/changelog.yml
-
-server:
-  port: 8080
 
 springdoc:
   api-docs:
@@ -36,8 +33,6 @@ logging:
 
 app:
   version: 1.6.1
-  jwt-secret: YOUR_SUPER_SECRET_KEY_HERE_CHANGE_IT
-  jwt-expiration-millis: 86400000 #24h
 
 # DEV profile
 ---
@@ -46,12 +41,14 @@ spring:
     activate:
       on-profile: DEV
   datasource:
-    url: jdbc:postgresql://localhost:5432/school_dev
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DEV__SPRING_DATASOURCE_HOST}:${DEV__SPRING_DATASOURCE_PORT}/${DEV__SPRING_DATASOURCE_NAME}
+    username: ${DEV__SPRING_DATASOURCE_USERNAME}
+    password: ${DEV__SPRING_DATASOURCE_PASSWORD}
   jpa:
     show-sql: true
+
+server:
+  port: ${DEV__SERVER_PORT}
 
 logging:
   level:
@@ -62,6 +59,11 @@ logging:
     org.hibernate.type.descriptor.sql: TRACE
     liquibase: INFO
 
+#
+app:
+  jwt-secret: ${DEV__APP_JWT_SECRET}
+  jwt-expiration-millis: ${DEV__APP_JWT_EXPIRATION_MILLIS}
+
 # PROD profile
 ---
 spring:
@@ -69,9 +71,12 @@ spring:
     activate:
       on-profile: PROD
   datasource:
-    url: jdbc:postgresql://localhost:5432/school_prod
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${PROD__SPRING_DATASOURCE_HOST}:${PROD__SPRING_DATASOURCE_PORT}/${PROD__SPRING_DATASOURCE_NAME}
+    username: ${PROD__SPRING_DATASOURCE_USERNAME}
+    password: ${PROD__SPRING_DATASOURCE_PASSWORD}
+
+server:
+  port: ${PROD__SERVER_PORT}
 
 logging:
   level:
@@ -80,3 +85,8 @@ logging:
     org.springframework.security: WARN
     org.hibernate.SQL: WARN
     liquibase: WARN
+
+#
+app:
+  jwt-secret: ${PROD__APP_JWT_SECRET}
+  jwt-expiration-millis: ${PROD__APP_JWT_EXPIRATION_MILLIS}

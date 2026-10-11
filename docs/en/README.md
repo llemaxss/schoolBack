@@ -58,7 +58,7 @@ Standard domain layout:
 4. **Models**: request/response under `model/`, response model extends `CommonEntityModel`.
 5. **Mapper**: static class, map common fields via `CommonMapper.mapEntityFields(...)`.
 6. **Service**: interface + impl `extends CommonService`, `@Transactional` on methods, errors via `throw new CommonException(ErrorCode.X, "...")`.
-7. **Controller**: extends `CommonController`, `@RequestMapping(API_URL_PART + "/xs")` (no hardcoded paths), Swagger annotations (`@Tag`, `@Operation`, `@SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)`).
+7. **Controller**: extends `CommonController`, `@RequestMapping(API_URL_PART + "/xs")`, Swagger annotations (`@Tag`, `@Operation`, `@SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)`).
 8. **ErrorCode**: add your codes to the enum (frontend localizes by string id).
 9. **Tests**: service unit tests under `src/test/.../unit/<domain>/service`.
 
@@ -106,6 +106,31 @@ Business errors — `CommonException` → HTTP 400.
 - Base class: `unit/_common/CommonServiceImplTest` — wires a mock `EntityManager` for services extending `CommonService(setUpEntityManager(roleService))`; service tests extend it.
 - Mock model factories: `<domain>/modelFactory/XModelFactory` (example: `RoleModelFactory`).
 - Test structure pattern: @Nested classes per operation (`Create/Update/...`).
+
+## Environment variables
+
+| Variable                           | YAML key                     | Default value | Description    |
+|------------------------------------|------------------------------|---------------|----------------|
+| COMMON                             |                              |               |                |
+| `SPRING_PROFILES_ACTIVE`           | `spring.profiles.active`     | `DEV`         | Active profile |
+| DEV PROFILE                        |                              |               |                |
+| `DEV__SPRING_DATASOURCE_HOST`      | `spring.datasource.url`      |               | DB host        |
+| `DEV__SPRING_DATASOURCE_PORT`      | `spring.datasource.url`      |               | DB port        |
+| `DEV__SPRING_DATASOURCE_NAME`      | `spring.datasource.url`      |               | DB name        |
+| `DEV__SPRING_DATASOURCE_USERNAME`  | `spring.datasource.username` |               | DB username    |
+| `DEV__SPRING_DATASOURCE_PASSWORD`  | `spring.datasource.password` |               | DB password    |
+| `DEV__SERVER_PORT`                 | `server.port`                |               | Server port    |
+| `DEV__APP_JWT_SECRET`              | `app.jwt-secret`             |               | JWT secret key |
+| `DEV__APP_JWT_EXPIRATION_MILLIS`   | `app.jwt-expiration-millis`  |               | JWT TTL, ms    |
+| PROD PROFILE                       |                              |               |                |
+| `PROD__SPRING_DATASOURCE_HOST`     | `spring.datasource.url`      |               | DB host        |
+| `PROD__SPRING_DATASOURCE_PORT`     | `spring.datasource.url`      |               | DB port        |
+| `PROD__SPRING_DATASOURCE_NAME`     | `spring.datasource.url`      |               | DB name        |
+| `PROD__SPRING_DATASOURCE_USERNAME` | `spring.datasource.username` |               | DB username    |
+| `PROD__SPRING_DATASOURCE_PASSWORD` | `spring.datasource.password` |               | DB password    |
+| `PROD__SERVER_PORT`                | `server.port`                |               | Server port    |
+| `PROD__APP_JWT_SECRET`             | `app.jwt-secret`             |               | JWT secret key |
+| `PROD__APP_JWT_EXPIRATION_MILLIS`  | `app.jwt-expiration-millis`  |               | JWT TTL, ms    |
 
 ## Build & run
 

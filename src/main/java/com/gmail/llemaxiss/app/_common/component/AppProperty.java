@@ -19,12 +19,12 @@ public class AppProperty {
   
   public static final String SPRING_ROLE_PREFIX = "ROLE_";
 
-  @Value("${app.jwt-secret:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890}")
+  @Value("${app.jwt-secret}")
   private String jwtSecret;
 
-  @Value("${app.jwt-expiration-millis:0}")
+  @Value("${app.jwt-expiration-millis}")
   private long jwtExpirationMs;
   
-  @Value("${app.version:unknown}")
+  @Value("${app.version}")
   private String appVersion;
 }
