@@ -8,3 +8,6 @@ bin/
 logs/
 *.md
 docs/
+.env
+.env.*
+*.env
