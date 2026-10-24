@@ -51,7 +51,7 @@ public class CommonRepositoryImpl<E extends CommonEntity>
   @Deprecated
   @Override
   public void deleteAllByIdInBatch(Iterable<UUID> uuids) {
-    throw new UnsupportedOperationException("This method is not implemented yet");
+    throw new UnsupportedOperationException("This method is not implemented yet. Use delete() instead of");
   }
   
   /**
@@ -65,7 +65,7 @@ public class CommonRepositoryImpl<E extends CommonEntity>
   @Deprecated
   @Override
   public void deleteAllInBatch(Iterable<E> entities) {
-    throw new UnsupportedOperationException("This method is not implemented yet");
+    throw new UnsupportedOperationException("This method is not implemented yet.  Use delete() instead of");
   }
   
   /**
@@ -79,7 +79,7 @@ public class CommonRepositoryImpl<E extends CommonEntity>
   @Deprecated
   @Override
   public void deleteAllInBatch() {
-    throw new UnsupportedOperationException("This method is not implemented yet");
+    throw new UnsupportedOperationException("This method is not implemented yet. Use delete() instead of");
   }
   
   private void softDelete(@NotNull E entity) {
