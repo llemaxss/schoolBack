@@ -32,6 +32,10 @@ services:
     container_name: school_app
     restart: unless-stopped
 
+    depends_on:
+      db:
+        condition: service_healthy
+
     ports:
       - "${SERVER_PORT}:${_DOCKER_CONTAINER_INTERNAL_APP_PORT}"
 
@@ -46,9 +50,11 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION_MILLIS: ${JWT_EXPIRATION_MILLIS}
 
-    depends_on:
-      db:
-        condition: service_healthy
+    volumes:
+      - school_app_logs:/app/logs
+      - school_app_data:/app/data
 
 volumes:
   school_db_data:
+  school_app_logs:
+  school_app_data:
