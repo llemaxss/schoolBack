@@ -10,12 +10,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
@@ -37,8 +37,8 @@ public abstract class CommonEntity extends CommonEntityId {
   @NotNull
   @Column(name = "version", nullable = false)
   protected Long version;
-
-  @CreationTimestamp
+  
+  @CreatedDate
   @NotNull
   @Column(name = "create_ts", nullable = false)
   protected Instant createTs;
@@ -47,8 +47,8 @@ public abstract class CommonEntity extends CommonEntityId {
   @NotNull
   @Column(name = "created_by", nullable = false)
   protected String createdBy;
-
-  @UpdateTimestamp
+  
+  @LastModifiedDate
   @Column(name = "update_ts")
   protected Instant updateTs;
   
