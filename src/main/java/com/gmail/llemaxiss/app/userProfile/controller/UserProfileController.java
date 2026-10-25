@@ -3,6 +3,8 @@ package com.gmail.llemaxiss.app.userProfile.controller;
 import com.gmail.llemaxiss.app._common.config.OpenApiConfig;
 import com.gmail.llemaxiss.app._common.controller.CommonController;
 import com.gmail.llemaxiss.app._common.model.response.ErrorResponse;
+import com.gmail.llemaxiss.app._common.security.annotation.RequirePermission;
+import com.gmail.llemaxiss.app.permission.enums.Permission;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.mapper.UserProfileMapper;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;
@@ -49,6 +51,7 @@ public class UserProfileController extends CommonController {
   private final UserProfileService userProfileService;
   
   @PostMapping
+  @RequirePermission(Permission.CREATE_USER_PROFILE)
   @Operation(
     summary = "Create a new user profile",
     description = "Creates a new user profile"
@@ -82,6 +85,7 @@ public class UserProfileController extends CommonController {
   }
   
   @GetMapping("/{id}")
+  @RequirePermission(Permission.READ_USER_PROFILE)
   @Operation(
     summary = "Get user profile by id",
     description = "Retrieves a specific profile by its id"
@@ -121,6 +125,7 @@ public class UserProfileController extends CommonController {
   }
   
   @PutMapping("/{id}")
+  @RequirePermission(Permission.UPDATE_USER_PROFILE)
   @Operation(
     summary = "Update an existing user profile",
     description = "Updates an existing user profile"
@@ -161,6 +166,7 @@ public class UserProfileController extends CommonController {
   }
   
   @DeleteMapping("/{id}")
+  @RequirePermission(Permission.DELETE_USER_PROFILE)
   @Operation(
     summary = "Delete a user profile by id",
     description = "Soft deletes a role from the system"
@@ -179,7 +185,7 @@ public class UserProfileController extends CommonController {
       )
     )
   })
-  public ResponseEntity<Void> deleteRole(
+  public ResponseEntity<Void> deleteUserProfile(
     @Parameter(
       name = "id",
       description = "User profile id",

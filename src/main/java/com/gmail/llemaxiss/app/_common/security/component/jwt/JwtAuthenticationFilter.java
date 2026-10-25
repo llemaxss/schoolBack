@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -37,68 +38,70 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     String path = request.getRequestURI();
     
     log.debug("Processing request for path: '{}'", path);
-
+    
     if (
       path.startsWith(SecurityConfig.API_AUTH_URL)
-      || path.startsWith(SecurityConfig.API_INFO_URL)
-      || path.startsWith(SecurityConfig.SWAGGER_UI)
-      || path.startsWith(SecurityConfig.SWAGGER_V3_API_DOCS)
-      || path.equals(SecurityConfig.ACTUATOR_HEALTH_URL)
+        || path.startsWith(SecurityConfig.API_INFO_URL)
+        || path.startsWith(SecurityConfig.SWAGGER_UI)
+        || path.startsWith(SecurityConfig.SWAGGER_V3_API_DOCS)
+        || path.equals(SecurityConfig.ACTUATOR_HEALTH_URL)
     ) {
       log.debug("Skipping auth for path: '{}'", path);
       filterChain.doFilter(request, response);
       return;
     }
-
+    
     String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     log.debug("Authorization header: '{}'", authHeader);
     
     String username = null;
     String jwt = null;
-
+    
     if (
       authHeader != null
-      && authHeader.startsWith(BEARER_)
+        && authHeader.startsWith(BEARER_)
     ) {
       jwt = authHeader.substring(BEARER_.length());
-      username = jwtHelper.getUsernameFromJwtToken(jwt);
       
-      log.debug("Extracted username from token: '{}'", username);
+      if (jwtHelper.validateJwtToken(jwt)) {
+        username = jwtHelper.getUsernameFromJwtToken(jwt);
+        
+        log.debug("Extracted username from token: '{}'", username);
+      } else {
+        log.debug("JWT token is not valid");
+      }
     }
-
+    
     if (
       username != null
-      && SecurityContextHolder.getContext()
+        && SecurityContextHolder.getContext()
         .getAuthentication() == null
     ) {
       log.info("Authenticating user: '{}'", username);
       
-      UserDetails userDetails = userService.loadUserByUsername(username);
-
-      if (jwtHelper.validateJwtToken(jwt)) {
-        log.debug("JWT token is valid for user: '{}'", username);
+      try {
+        UserDetails userDetails = userService.loadUserByUsername(username);
         
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
           userDetails,
           null,
           userDetails.getAuthorities()
         );
-
+        
         authToken.setDetails(
           new WebAuthenticationDetailsSource()
             .buildDetails(request)
         );
-
+        
         SecurityContextHolder.getContext()
           .setAuthentication(authToken);
         
         log.debug("User '{}' authenticated and set in SecurityContext", username);
-      } else {
-        log.debug("JWT token is not valid for user: '{}'", username);
+      } catch (UsernameNotFoundException e) {
+        log.debug("User '{}' from JWT token not found or inactive", username);
       }
     }
-
+    
     filterChain.doFilter(request, response);
   }
-  
 }

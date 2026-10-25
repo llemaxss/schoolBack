@@ -2,6 +2,7 @@ package com.gmail.llemaxiss.app._common.security.component.jwt;
 
 import com.gmail.llemaxiss.app._common.component.AppProperty;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -81,6 +82,8 @@ public class JwtHelper {
       log.debug("JWT token is expired: {}", e.getMessage());
     } catch (UnsupportedJwtException e) {
       log.debug("JWT token is unsupported: {}", e.getMessage());
+    } catch (JwtException e) {
+      log.debug("JWT token is invalid: {}", e.getMessage());
     } catch (IllegalArgumentException e) {
       log.debug("JWT claims string is empty: {}", e.getMessage());
     }

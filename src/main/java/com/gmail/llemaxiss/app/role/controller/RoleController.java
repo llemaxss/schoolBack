@@ -3,6 +3,8 @@ package com.gmail.llemaxiss.app.role.controller;
 import com.gmail.llemaxiss.app._common.config.OpenApiConfig;
 import com.gmail.llemaxiss.app._common.controller.CommonController;
 import com.gmail.llemaxiss.app._common.model.response.ErrorResponse;
+import com.gmail.llemaxiss.app._common.security.annotation.RequirePermission;
+import com.gmail.llemaxiss.app.permission.enums.Permission;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.mapper.RoleMapper;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
@@ -49,6 +51,7 @@ public class RoleController extends CommonController {
   private final RoleService roleService;
   
   @PostMapping
+  @RequirePermission(Permission.CREATE_ROLE)
   @Operation(
     summary = "Create a new role",
     description = "Creates a new role with the specified name and type"
@@ -82,6 +85,7 @@ public class RoleController extends CommonController {
   }
   
   @GetMapping("/{id}")
+  @RequirePermission(Permission.READ_ROLE)
   @Operation(
     summary = "Get role by id",
     description = "Retrieves a specific role by its id"
@@ -121,6 +125,7 @@ public class RoleController extends CommonController {
   }
   
   @PutMapping("/{id}")
+  @RequirePermission(Permission.UPDATE_ROLE)
   @Operation(
     summary = "Update an existing role",
     description = "Updates an existing role"
@@ -161,6 +166,7 @@ public class RoleController extends CommonController {
   }
   
   @DeleteMapping("/{id}")
+  @RequirePermission(Permission.DELETE_ROLE)
   @Operation(
     summary = "Delete a role by id",
     description = "Soft deletes a role from the system"

@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,11 +29,11 @@ import java.util.List;
 public class GlobalExceptionHandler {
   
   /**
-   * Handles {@link CommonException} thrown by service methods.
+   * Handles {@link CommonException} thrown by service methods
    *
    * @param ex the application exception
    *
-   * @return response with error code and message
+   * @return response with concrete {@link ErrorCode}
    */
   @ExceptionHandler(CommonException.class)
   public ResponseEntity<ErrorResponse> handleCommonException(@NotNull CommonException ex) {
@@ -48,10 +50,10 @@ public class GlobalExceptionHandler {
   }
   
   /**
-   * Handles validation errors from {@code @Valid} annotations on DTO models.
+   * Handles validation errors from {@code @Valid} annotations on DTO models
    *
    * @param ex the validation exception
-   * @return response with validation error details
+   * @return response with {@link ErrorCode#VALIDATION_FAILED}
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorResponse> handleValidationException(@NotNull MethodArgumentNotValidException ex) {
@@ -80,10 +82,54 @@ public class GlobalExceptionHandler {
   }
   
   /**
-   * Handles all other unexpected exceptions.
+   * Handles authentication errors (bad credentials, disabled or locked account)
+   *
+   * <p>
+   * The message is intentionally generic to not reveal the reason (does the user exist, is it active, etc.).
+   * </p>
+   *
+   * @param ex the authentication exception
+   * @return response with {@link ErrorCode#AUTHENTICATION_FAILED}
+   */
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<ErrorResponse> handleAuthenticationException(@NotNull AuthenticationException ex) {
+    log.warn("Authentication failed: {}", ex.getMessage());
+    
+    return ResponseEntity
+      .status(HttpStatus.UNAUTHORIZED)
+      .body(
+        ErrorResponse.of(
+          ErrorCode.AUTHENTICATION_FAILED,
+          "Authentication failed"
+        )
+      );
+  }
+  
+  /**
+   * Handles access denied errors thrown by method security ({@code @PreAuthorize})
+   *
+   * @param ex the access denied exception
+   * @return response with {@link ErrorCode#ACCESS_DENIED}
+   */
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ErrorResponse> handleAccessDeniedException(@NotNull AccessDeniedException ex) {
+    log.warn("Access denied: {}", ex.getMessage());
+    
+    return ResponseEntity
+      .status(HttpStatus.FORBIDDEN)
+      .body(
+        ErrorResponse.of(
+          ErrorCode.ACCESS_DENIED,
+          "Access denied"
+        )
+      );
+  }
+  
+  /**
+   * Handles all other unexpected exceptions
    *
    * @param ex the unexpected exception
-   * @return response with internal error code
+   * @return response with {@link ErrorCode#INTERNAL_ERROR}
    */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleGenericException(@NotNull Exception ex) {
