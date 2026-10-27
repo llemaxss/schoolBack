@@ -1,13 +1,11 @@
 package com.gmail.llemaxiss.app.userProfile.mapper;
 
 import com.gmail.llemaxiss.app._common.mapper.CommonMapper;
-import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileUpdateModel;
 import com.gmail.llemaxiss.app.userProfile.model.response.UserProfileModel;
-import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -21,9 +19,9 @@ public final class UserProfileMapper {
     
     CommonMapper.mapEntityFields(model, userProfile);
     
-    UserIdModel userModel = new UserIdModel();
-    CommonMapper.mapEntityId(userModel, userProfile.getUser());
-    model.setUser(userModel);
+    UserIdModel userIdModel = new UserIdModel();
+    CommonMapper.mapEntityId(userIdModel, userProfile.getUser());
+    model.setUser(userIdModel);
     
     model.setFirstName(userProfile.getFirstName());
     model.setLastName(userProfile.getLastName());

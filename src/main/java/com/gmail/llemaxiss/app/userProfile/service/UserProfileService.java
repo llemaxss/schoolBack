@@ -32,7 +32,7 @@ public interface UserProfileService {
   /**
    * Updates an existing {@link UserProfile}
    *
-   * @param id    the role id
+   * @param id    the user profile id
    * @param model the update request model
    *
    * @return the updated {@link UserProfile} entity
@@ -43,7 +43,7 @@ public interface UserProfileService {
   /**
    * Deletes a {@link UserProfile} by its id.
    *
-   * @param id the role id
+   * @param id the user profile id
    */
   void deleteUserProfile(@NotNull UUID id);
   

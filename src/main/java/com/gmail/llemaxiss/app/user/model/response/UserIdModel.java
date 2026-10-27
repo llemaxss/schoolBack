@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Getter
 @Setter
-@Schema(description = "Response model containing only user profile id")
+@Schema(description = "Response model containing only user id")
 public class UserIdModel extends CommonEntityIdModel {
 }

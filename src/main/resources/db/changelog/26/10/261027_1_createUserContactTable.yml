@@ -1,0 +1,92 @@
+databaseChangeLog:
+  - changeSet:
+      id: 261027_1_createUserContactTable
+      author: llemaxss
+      comment: Create user contact table
+
+      changes:
+        - createTable:
+            tableName: school_user_contact
+            columns:
+              # common fields #
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user_contact
+                    nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_ts
+                  type: timestamp with time zone
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_ts
+                  type: timestamp with time zone
+              - column:
+                  name: updated_by
+                  type: varchar(255)
+              - column:
+                  name: delete_ts
+                  type: timestamp with time zone
+              - column:
+                  name: deleted_by
+                  type: varchar(255)
+
+              # other fields #
+              - column:
+                  name: user_profile_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_contact_to_user_profile
+                    references: school_user_profile(id)
+              - column:
+                  name: type_
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value_
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_primary
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comment
+                  type: varchar(500)
+
+        # indexes #
+        - sql:
+            sql: |
+              CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_user_contact_profile_type_value
+              ON school_user_contact (user_profile_id, type_, value_)
+              WHERE delete_ts IS NULL;
+        - sql:
+            sql: |
+              CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_user_contact_primary
+              ON school_user_contact (user_profile_id, type_)
+              WHERE is_primary = true AND delete_ts IS NULL;
+
+      # rollback #
+      rollback:
+        - dropTable:
+            tableName: school_user_contact

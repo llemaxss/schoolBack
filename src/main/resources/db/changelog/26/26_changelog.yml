@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: 09/2609_changelog.yml
+  - include:
+      relativeToChangelogFile: true
+      file: 10/2610_changelog.yml
