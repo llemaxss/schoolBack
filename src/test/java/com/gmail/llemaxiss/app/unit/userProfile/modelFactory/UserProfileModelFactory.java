@@ -7,6 +7,7 @@ import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.enums.Gender;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileUpdateModel;
+import com.gmail.llemaxiss.app.userProfile.model.response.UserProfileIdModel;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -34,7 +35,7 @@ public final class UserProfileModelFactory {
   public static UserProfile ivanEntity() {
     return entity(
       UUID.randomUUID(),
-      UserModelFactory.entity(),
+      UserModelFactory.ivanEntity(),
       IVAN_FIRST_NAME, IVANOV_LAST_NAME, IVANOVICH_MIDDLE_NAME,
       DATE_OF_BIRTH_2026_01_01,
       GENDER_MALE
@@ -44,10 +45,16 @@ public final class UserProfileModelFactory {
   public static UserProfile alexandraEntity() {
     return entity(
       UUID.randomUUID(),
-      UserModelFactory.entity(),
+      UserModelFactory.alexandraEntity(),
       ALEXANDRA_FIRST_NAME, ALEXANDROVA_LAST_NAME, ALEXANDROVNA_MIDDLE_NAME,
       DATE_OF_BIRTH_2026_12_31,
       GENDER_FEMALE
+    );
+  }
+  
+  public static UserProfileIdModel userProfileIdModel() {
+    return userProfileIdModel(
+      UUID.randomUUID()
     );
   }
   
@@ -99,6 +106,14 @@ public final class UserProfileModelFactory {
     userProfile.setGender(gender);
     
     return userProfile;
+  }
+  
+  public static UserProfileIdModel userProfileIdModel(@NotNull UUID id) {
+    UserProfileIdModel model = new UserProfileIdModel();
+    
+    model.setId(id);
+    
+    return model;
   }
   
   public static UserProfileCreateModel createModel(@NotNull UserIdModel userModel,
