@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app._common.security.model.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,14 +21,14 @@ public class LoginResponse {
   )
   private UUID id;
   
-  @NotEmpty
+  @NotBlank
   @Schema(
     description = "User login",
     example = "admin"
   )
   private String username;
   
-  @NotEmpty
+  @NotBlank
   @Schema(
     description = "JWT-token",
     example = "eyJhbGciOiJIUzUxMi.."

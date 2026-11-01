@@ -3,7 +3,7 @@ package com.gmail.llemaxiss.app.userContact.model.request;
 import com.gmail.llemaxiss.app.userContact.enums.ContactType;
 import com.gmail.llemaxiss.app.userProfile.model.response.UserProfileIdModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class UserContactCreateModel {
   )
   private ContactType type;
   
-  @NotEmpty
+  @NotBlank
   @Size(max = 255)
   @Schema(
     description = "Contact value: phone number or e-mail address",

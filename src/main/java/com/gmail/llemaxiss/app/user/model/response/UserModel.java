@@ -2,7 +2,7 @@ package com.gmail.llemaxiss.app.user.model.response;
 
 import com.gmail.llemaxiss.app._common.model.response.CommonEntityModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.util.Collection;
 @Schema(description = "Response model containing user information")
 public class UserModel extends CommonEntityModel {
   
-  @NotEmpty
+  @NotBlank
   @Schema(
     description = "User login",
     example = "admin"

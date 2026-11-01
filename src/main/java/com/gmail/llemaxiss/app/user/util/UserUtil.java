@@ -4,7 +4,7 @@ import com.gmail.llemaxiss.app._common.component.AppProperty;
 import com.gmail.llemaxiss.app._common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app._common.security.util.SecurityUtil;
 import com.gmail.llemaxiss.app.user.entity.User;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public final class UserUtil {
   /**
    * Returns the username of the currently authenticated user
    */
-  @NotEmpty
+  @NotBlank
   public static String getUsername() {
     Authentication authentication = SecurityUtil.getAuthentication();
     

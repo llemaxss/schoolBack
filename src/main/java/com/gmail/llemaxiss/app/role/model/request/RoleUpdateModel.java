@@ -2,7 +2,7 @@ package com.gmail.llemaxiss.app.role.model.request;
 
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class RoleUpdateModel {
   )
   private UUID id;
   
-  @NotEmpty
+  @NotBlank
   @Schema(
     description = "New name of the role",
     example = "Super Administrator",

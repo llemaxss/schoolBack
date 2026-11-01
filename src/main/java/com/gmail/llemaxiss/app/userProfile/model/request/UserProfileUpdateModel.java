@@ -3,7 +3,7 @@ package com.gmail.llemaxiss.app.userProfile.model.request;
 import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
 import com.gmail.llemaxiss.app.userProfile.enums.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +34,7 @@ public class UserProfileUpdateModel {
   )
   private UUID id;
   
-  @NotEmpty
+  @NotBlank
   @Schema(
     description = "User's first name",
     example = "Ivan",
@@ -42,7 +42,7 @@ public class UserProfileUpdateModel {
   )
   private String firstName;
   
-  @NotEmpty
+  @NotBlank
   @Schema(
     description = "User's last name",
     example = "Ivanov",
