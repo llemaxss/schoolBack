@@ -169,7 +169,7 @@ public class RoleController extends CommonController {
   @RequirePermission(Permission.DELETE_ROLE)
   @Operation(
     summary = "Delete a role by id",
-    description = "Soft deletes a role from the system"
+    description = "Soft deletes a role"
   )
   @ApiResponses(value = {
     @ApiResponse(

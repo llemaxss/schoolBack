@@ -4,7 +4,6 @@ import com.gmail.llemaxiss.app.userContact.enums.ContactType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,7 +34,6 @@ public class UserContactUpdateModel {
   private ContactType type;
   
   @NotBlank
-  @Size(max = 255)
   @Schema(
     description = "Contact value: phone number or e-mail address",
     example = "+79001234567",
@@ -51,7 +49,6 @@ public class UserContactUpdateModel {
   )
   private Boolean isPrimary;
   
-  @Size(max = 500)
   @Schema(description = "Comment to the contact", example = "Work phone")
   private String comment;
   

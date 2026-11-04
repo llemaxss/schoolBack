@@ -36,7 +36,8 @@ public class User extends CommonEntity {
   @NotNull
   @Column(name = "username", nullable = false)
   private String username;
-
+  
+  @ToString.Exclude
   @NotNull
   @Column(name = "password", nullable = false)
   private String password;

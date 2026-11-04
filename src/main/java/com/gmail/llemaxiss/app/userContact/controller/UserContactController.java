@@ -216,7 +216,7 @@ public class UserContactController extends CommonController {
   @RequirePermission(Permission.UPDATE_USER_PROFILE)
   @Operation(
     summary = "Delete a user contact by id",
-    description = "Soft deletes a user contact from the system"
+    description = "Soft deletes a user contact"
   )
   @ApiResponses(value = {
     @ApiResponse(

@@ -2,10 +2,15 @@ package com.gmail.llemaxiss.app.user.service;
 
 import com.gmail.llemaxiss.app._common.enums.ErrorCode;
 import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
+import com.gmail.llemaxiss.app._common.hibernateFilter.component.HibernateFilterManager;
 import com.gmail.llemaxiss.app._common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app._common.service.CommonService;
 import com.gmail.llemaxiss.app.user.entity.User;
+import com.gmail.llemaxiss.app.user.mapper.UserMapper;
+import com.gmail.llemaxiss.app.user.model.request.UserCreateModel;
+import com.gmail.llemaxiss.app.user.model.request.UserUpdateModel;
 import com.gmail.llemaxiss.app.user.repository.UserRepository;
+import com.gmail.llemaxiss.app.user.util.UserConstants;
 import com.gmail.llemaxiss.app.user.util.UserUtil;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,8 +19,10 @@ import java.util.UUID;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl extends CommonService implements UserService {
 
   private final UserRepository userRepository;
+  
+  private final PasswordEncoder passwordEncoder;
+  
+  private final HibernateFilterManager hibernateFilterManager;
 
   /**
    * {@inheritDoc}
@@ -85,6 +96,183 @@ public class UserServiceImpl extends CommonService implements UserService {
     }
 
     return userOptional.get();
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @NotNull
+  @Transactional(readOnly = true)
+  public User getUserByIdIncludingInactive(@NotNull UUID id) {
+    hibernateFilterManager.disableActiveUserFilter();
+    
+    return getUserById(id);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @NotNull
+  @Transactional
+  public User createUser(@NotNull UserCreateModel model) {
+    hibernateFilterManager.disableActiveUserFilter();
+    
+    model.setUsername(
+      StringUtils.trim(model.getUsername())
+    );
+    
+    validateNotExistsByUsername(model.getUsername());
+    
+    User newUser = new User();
+    
+    UserMapper.fillEntityByUserCreateModel(newUser, model);
+    
+    newUser.setPassword(
+      passwordEncoder.encode(model.getPassword())
+    );
+    newUser.setIsActive(true);
+    
+    newUser = userRepository.save(newUser);
+    
+    log.info("User created successfully with id: {}", newUser.getId());
+    
+    return newUser;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @NotNull
+  @Transactional
+  public User updateUser(@NotNull UUID id, @NotNull UserUpdateModel model) {
+    hibernateFilterManager.disableActiveUserFilter();
+    
+    log.info("Updating User with id: {}", id);
+    
+    User user = getUserById(id);
+    
+    validateIsNotProtected(user);
+    
+    model.setUsername(
+      StringUtils.trim(model.getUsername())
+    );
+    
+    if (!user.getUsername().equals(model.getUsername())) {
+      validateNotExistsByUsername(model.getUsername());
+    }
+    
+    UserMapper.fillEntityByUserUpdateModel(user, model);
+    
+    User updatedUser = userRepository.save(user);
+    
+    log.info("User updated successfully with id: {}", updatedUser.getId());
+    
+    return updatedUser;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional
+  public void deleteUser(@NotNull UUID id) {
+    hibernateFilterManager.disableActiveUserFilter();
+    
+    log.info("Deleting User with id: {}", id);
+    
+    User user = getUserById(id);
+    
+    validateIsNotProtected(user);
+    validateIsNotCurrentUser(user);
+    
+    userRepository.delete(user);
+    
+    log.info("User deleted successfully with id: {}", id);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @NotNull
+  @Transactional
+  public User activateUser(@NotNull UUID id) {
+    return changeUserActivity(id, true);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @NotNull
+  @Transactional
+  public User deactivateUser(@NotNull UUID id) {
+    return changeUserActivity(id, false);
+  }
+  
+  /**
+   * Changes the activity of the {@link User}
+   *
+   * <p>
+   * Nothing is written if the user already has the requested state.
+   * </p>
+   */
+  @NotNull
+  private User changeUserActivity(@NotNull UUID id, boolean isActive) {
+    hibernateFilterManager.disableActiveUserFilter();
+    
+    User user = getUserById(id);
+    
+    if (!isActive) {
+      validateIsNotProtected(user);
+      validateIsNotCurrentUser(user);
+    }
+    
+    if (user.getIsActive().equals(isActive)) {
+      log.info("User with id {} already has activity: {}", id, isActive);
+      
+      return user;
+    }
+    
+    user.setIsActive(isActive);
+    
+    User savedUser = userRepository.save(user);
+    
+    log.info("User activity changed successfully, id: {}, isActive: {}", id, isActive);
+    
+    return savedUser;
+  }
+  
+  private void validateNotExistsByUsername(@NotNull String username) {
+    boolean isExists = userRepository.existsByUsername(username);
+    
+    if (isExists) {
+      String message = String.format("User with username %s already exists", username);
+      throw new CommonException(ErrorCode.USER_USERNAME_ALREADY_EXISTS, message);
+    }
+  }
+  
+  private void validateIsNotProtected(@NotNull User user) {
+    if (UserConstants.PROTECTED_USER_IDS.contains(user.getId())) {
+      String message = String.format(
+        "User %s is a default user and cannot be changed, deleted or deactivated",
+        user.getId()
+      );
+      throw new CommonException(ErrorCode.USER_PROTECTED, message);
+    }
+  }
+  
+  private void validateIsNotCurrentUser(@NotNull User user) {
+    UUID currentUserId = UserUtil.getAppUserDetails()
+      .getId();
+    
+    if (user.getId().equals(currentUserId)) {
+      String message = "User cannot delete or deactivate himself";
+      throw new CommonException(ErrorCode.USER_SELF_ACTION_FORBIDDEN, message);
+    }
   }
   
 }

@@ -169,7 +169,7 @@ public class UserProfileController extends CommonController {
   @RequirePermission(Permission.DELETE_USER_PROFILE)
   @Operation(
     summary = "Delete a user profile by id",
-    description = "Soft deletes a role from the system"
+    description = "Soft deletes a role"
   )
   @ApiResponses(value = {
     @ApiResponse(

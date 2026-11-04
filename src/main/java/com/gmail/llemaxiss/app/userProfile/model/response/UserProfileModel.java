@@ -4,7 +4,6 @@ import com.gmail.llemaxiss.app._common.model.response.CommonEntityModel;
 import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
 import com.gmail.llemaxiss.app.userProfile.enums.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,6 @@ import java.time.LocalDate;
 @Schema(description = "Response model containing user profile information")
 public class UserProfileModel extends CommonEntityModel {
   
-  @NotNull
   @Schema(description = "User associated with this profile")
   private UserIdModel user;
   

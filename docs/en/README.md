@@ -2,7 +2,7 @@
 
 # _School management system (Backend)_
 
-Spring Boot REST API for a school management system: users, roles, permissions, profiles.
+Spring Boot REST API for a school management system.
 
 - [Tech stack](parts/stack.md)
 - [Project structure](parts/projectStructure.md)
