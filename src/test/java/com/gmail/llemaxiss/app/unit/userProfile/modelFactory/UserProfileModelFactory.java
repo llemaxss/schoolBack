@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app.unit.userProfile.modelFactory;
 
-import com.gmail.llemaxiss.app.unit.user.UserModelFactory;
+import com.gmail.llemaxiss.app.unit.user.modelFactory.UserModelFactory;
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;

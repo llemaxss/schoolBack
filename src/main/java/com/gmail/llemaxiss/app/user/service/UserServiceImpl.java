@@ -14,6 +14,7 @@ import com.gmail.llemaxiss.app.user.util.UserConstants;
 import com.gmail.llemaxiss.app.user.util.UserUtil;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -59,10 +60,12 @@ public class UserServiceImpl extends CommonService implements UserService {
   @NotNull
   @Transactional(readOnly = true)
   public User getUserByUsername(@NotNull String username) {
-    User user = userRepository.findByUsername(username);
+    String normalizedUsername = normalizeUsername(username);
+    
+    User user = userRepository.findByUsername(normalizedUsername);
 
     if (user == null) {
-      String message = String.format("User by username %s not found", username);
+      String message = String.format("User by username %s not found", normalizedUsername);
       throw new CommonException(ErrorCode.USER_NOT_FOUND, message);
     }
 
@@ -120,7 +123,7 @@ public class UserServiceImpl extends CommonService implements UserService {
     hibernateFilterManager.disableActiveUserFilter();
     
     model.setUsername(
-      StringUtils.trim(model.getUsername())
+      normalizeUsername(model.getUsername())
     );
     
     validateNotExistsByUsername(model.getUsername());
@@ -157,7 +160,7 @@ public class UserServiceImpl extends CommonService implements UserService {
     validateIsNotProtected(user);
     
     model.setUsername(
-      StringUtils.trim(model.getUsername())
+      normalizeUsername(model.getUsername())
     );
     
     if (!user.getUsername().equals(model.getUsername())) {
@@ -273,6 +276,13 @@ public class UserServiceImpl extends CommonService implements UserService {
       String message = "User cannot delete or deactivate himself";
       throw new CommonException(ErrorCode.USER_SELF_ACTION_FORBIDDEN, message);
     }
+  }
+  
+  @NotNull
+  private String normalizeUsername(@NotNull String username) {
+    String trimmedUsername = StringUtils.trim(username);
+    
+    return StringUtils.lowerCase(trimmedUsername, Locale.ROOT);
   }
   
 }

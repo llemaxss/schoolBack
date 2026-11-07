@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Optional;
 @Component
 public class AppAuditorAware implements AuditorAware<String> {
   
-  public static final String DEFAULT_AUDITOR = RoleType.SYSTEM.getId().toLowerCase();
+  public static final String DEFAULT_AUDITOR = RoleType.SYSTEM.getId().toLowerCase(Locale.ROOT);
   
   @Override
   @NonNull
