@@ -8,7 +8,7 @@ import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
 import com.gmail.llemaxiss.app.role.repository.RoleRepository;
 import com.gmail.llemaxiss.app.role.service.RoleServiceImpl;
 import com.gmail.llemaxiss.app.unit._common.CommonServiceImplTest;
-import com.gmail.llemaxiss.app.unit.role.modelFactory.RoleModelFactory;
+import com.gmail.llemaxiss.app._common.role.modelFactory.RoleModelFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -1,11 +1,13 @@
-package com.gmail.llemaxiss.app.unit.user.modelFactory;
+package com.gmail.llemaxiss.app._common.user.modelFactory;
 
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.request.UserCreateModel;
 import com.gmail.llemaxiss.app.user.model.request.UserUpdateModel;
 import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public final class UserModelFactory {
@@ -60,7 +62,7 @@ public final class UserModelFactory {
     );
   }
   
-  public static User entity(@NotNull UUID id, @NotNull String username) {
+  public static User entity(@NotNull UUID id, @NotBlank String username) {
     User user = new User();
     
     user.setId(id);
@@ -84,7 +86,7 @@ public final class UserModelFactory {
     return model;
   }
   
-  public static UserCreateModel createModel(@NotNull String username, @NotNull String password) {
+  public static UserCreateModel createModel(@NotBlank String username, @NotBlank String password) {
     UserCreateModel model = new UserCreateModel();
     
     model.setUsername(username);
@@ -93,7 +95,7 @@ public final class UserModelFactory {
     return model;
   }
   
-  public static UserUpdateModel updateModel(@NotNull UUID id, @NotNull String username) {
+  public static UserUpdateModel updateModel(@NotNull UUID id, @NotBlank String username) {
     UserUpdateModel model = new UserUpdateModel();
     
     model.setId(id);
@@ -101,6 +103,10 @@ public final class UserModelFactory {
     model.setUsername(username);
     
     return model;
+  }
+  
+  public static String denormalizeUsername(@NotBlank String username) {
+    return " " + username.toUpperCase(Locale.ROOT) + "  ";
   }
   
 }

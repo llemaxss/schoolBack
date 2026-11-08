@@ -1,12 +1,13 @@
-package com.gmail.llemaxiss.app.unit.userContact.modelFactory;
+package com.gmail.llemaxiss.app._common.userContact.modelFactory;
 
-import com.gmail.llemaxiss.app.unit.userProfile.modelFactory.UserProfileModelFactory;
+import com.gmail.llemaxiss.app._common.userPorfile.modelFactory.UserProfileModelFactory;
 import com.gmail.llemaxiss.app.userContact.entity.UserContact;
 import com.gmail.llemaxiss.app.userContact.enums.ContactType;
 import com.gmail.llemaxiss.app.userContact.model.request.UserContactCreateModel;
 import com.gmail.llemaxiss.app.userContact.model.request.UserContactUpdateModel;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.model.response.UserProfileIdModel;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -126,7 +127,7 @@ public final class UserContactModelFactory {
   }
   
   public static UserContact entity(@NotNull UUID id, @NotNull UserProfile userProfile,
-                                   @NotNull ContactType type, @NotNull String value,
+                                   @NotNull ContactType type, @NotBlank String value,
                                    @NotNull Boolean isPrimary,
                                    String comment) {
     UserContact userContact = new UserContact();
@@ -144,7 +145,7 @@ public final class UserContactModelFactory {
   }
   
   public static UserContactCreateModel createModel(@NotNull UserProfileIdModel userProfile,
-                                                   @NotNull ContactType type, @NotNull String value,
+                                                   @NotNull ContactType type, @NotBlank String value,
                                                    @NotNull Boolean isPrimary,
                                                    String comment) {
     UserContactCreateModel model = new UserContactCreateModel();
@@ -160,7 +161,7 @@ public final class UserContactModelFactory {
   }
   
   public static UserContactUpdateModel updateModel(@NotNull UUID id,
-                                                   @NotNull ContactType type, @NotNull String value,
+                                                   @NotNull ContactType type, @NotBlank String value,
                                                    @NotNull Boolean isPrimary,
                                                    String comment) {
     UserContactUpdateModel model = new UserContactUpdateModel();

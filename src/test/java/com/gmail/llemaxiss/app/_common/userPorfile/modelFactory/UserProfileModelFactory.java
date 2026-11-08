@@ -1,6 +1,6 @@
-package com.gmail.llemaxiss.app.unit.userProfile.modelFactory;
+package com.gmail.llemaxiss.app._common.userPorfile.modelFactory;
 
-import com.gmail.llemaxiss.app.unit.user.modelFactory.UserModelFactory;
+import com.gmail.llemaxiss.app._common.user.modelFactory.UserModelFactory;
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.response.UserIdModel;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
@@ -8,6 +8,7 @@ import com.gmail.llemaxiss.app.userProfile.enums.Gender;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileUpdateModel;
 import com.gmail.llemaxiss.app.userProfile.model.response.UserProfileIdModel;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -88,7 +89,7 @@ public final class UserProfileModelFactory {
   }
   
   public static UserProfile entity(@NotNull UUID id, @NotNull User user,
-                                   @NotNull String firstName, @NotNull String lastName, String middleName,
+                                   @NotBlank String firstName, @NotBlank String lastName, String middleName,
                                    @NotNull LocalDate dateOfBirth,
                                    @NotNull Gender gender) {
     UserProfile userProfile = new UserProfile();
@@ -117,7 +118,7 @@ public final class UserProfileModelFactory {
   }
   
   public static UserProfileCreateModel createModel(@NotNull UserIdModel userModel,
-                                                   @NotNull String firstName, @NotNull String lastName, String middleName,
+                                                   @NotBlank String firstName, @NotBlank String lastName, String middleName,
                                                    @NotNull LocalDate dateOfBirth,
                                                    @NotNull Gender gender) {
     UserProfileCreateModel model = new UserProfileCreateModel();
@@ -136,7 +137,7 @@ public final class UserProfileModelFactory {
   }
   
   public static UserProfileUpdateModel updateModel(@NotNull UUID id, @NotNull UserIdModel userModel,
-                                                   @NotNull String firstName, @NotNull String lastName, String middleName,
+                                                   @NotBlank String firstName, @NotBlank String lastName, String middleName,
                                                    @NotNull LocalDate dateOfBirth,
                                                    @NotNull Gender gender) {
     UserProfileUpdateModel model = new UserProfileUpdateModel();

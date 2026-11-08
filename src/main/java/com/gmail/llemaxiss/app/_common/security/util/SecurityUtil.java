@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SecurityUtil {
   
+  public static final String BEARER_PREFIX = "Bearer ";
+  
   @NotNull
   public static Authentication getAuthentication() {
     Authentication authentication = SecurityContextHolder.getContext()

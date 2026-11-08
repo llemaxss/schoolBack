@@ -4,7 +4,7 @@ import com.gmail.llemaxiss.app._common.enums.ErrorCode;
 import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
 
 import com.gmail.llemaxiss.app.unit._common.CommonServiceImplTest;
-import com.gmail.llemaxiss.app.unit.userProfile.modelFactory.UserProfileModelFactory;
+import com.gmail.llemaxiss.app._common.userPorfile.modelFactory.UserProfileModelFactory;
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.model.request.UserProfileCreateModel;

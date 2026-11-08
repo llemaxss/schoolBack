@@ -1,6 +1,7 @@
 package com.gmail.llemaxiss.app._common.security.component.jwt;
 
 import com.gmail.llemaxiss.app._common.security.config.SecurityConfig;
+import com.gmail.llemaxiss.app._common.security.util.SecurityUtil;
 import com.gmail.llemaxiss.app.appInfo.controller.AppInfoController;
 import com.gmail.llemaxiss.app.auth.controller.AuthController;
 import com.gmail.llemaxiss.app.user.service.UserService;
@@ -24,8 +25,6 @@ import java.io.IOException;
 @Slf4j
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-  private static final String BEARER_ = "Bearer ";
 
   @Autowired
   private JwtHelper jwtHelper;
@@ -59,11 +58,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     String username = null;
     String jwt = null;
     
+    String bearerPrefix = SecurityUtil.BEARER_PREFIX;
+    
     if (
       authHeader != null
-        && authHeader.startsWith(BEARER_)
+        && authHeader.startsWith(bearerPrefix)
     ) {
-      jwt = authHeader.substring(BEARER_.length());
+      jwt = authHeader.substring(bearerPrefix.length());
       
       if (jwtHelper.validateJwtToken(jwt)) {
         username = jwtHelper.getUsernameFromJwtToken(jwt);

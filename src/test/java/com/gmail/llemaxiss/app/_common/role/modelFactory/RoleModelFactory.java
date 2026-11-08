@@ -1,9 +1,10 @@
-package com.gmail.llemaxiss.app.unit.role.modelFactory;
+package com.gmail.llemaxiss.app._common.role.modelFactory;
 
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
 import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -53,7 +54,7 @@ public final class RoleModelFactory {
     );
   }
   
-  public static Role entity(@NotNull UUID id, @NotNull String name, @NotNull RoleType type) {
+  public static Role entity(@NotNull UUID id, @NotBlank String name, @NotNull RoleType type) {
     Role role = new Role();
     
     role.setId(id);
@@ -63,7 +64,7 @@ public final class RoleModelFactory {
     return role;
   }
   
-  public static RoleCreateModel createModel(@NotNull String name, @NotNull RoleType type) {
+  public static RoleCreateModel createModel(@NotBlank String name, @NotNull RoleType type) {
     RoleCreateModel model = new RoleCreateModel();
     
     model.setName(name);
@@ -72,7 +73,7 @@ public final class RoleModelFactory {
     return model;
   }
   
-  public static RoleUpdateModel updateModel(@NotNull UUID id, @NotNull String name, @NotNull RoleType type) {
+  public static RoleUpdateModel updateModel(@NotNull UUID id, @NotBlank String name, @NotNull RoleType type) {
     RoleUpdateModel model = new RoleUpdateModel();
     
     model.setId(id);

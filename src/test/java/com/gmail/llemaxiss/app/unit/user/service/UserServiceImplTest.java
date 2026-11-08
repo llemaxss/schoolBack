@@ -5,7 +5,7 @@ import com.gmail.llemaxiss.app._common.exception.model.response.CommonException;
 import com.gmail.llemaxiss.app._common.hibernateFilter.component.HibernateFilterManager;
 import com.gmail.llemaxiss.app._common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app.unit._common.CommonServiceImplTest;
-import com.gmail.llemaxiss.app.unit.user.modelFactory.UserModelFactory;
+import com.gmail.llemaxiss.app._common.user.modelFactory.UserModelFactory;
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.request.UserCreateModel;
 import com.gmail.llemaxiss.app.user.model.request.UserUpdateModel;
@@ -144,7 +144,7 @@ public class UserServiceImplTest extends CommonServiceImplTest {
     public void createNormalizesUsername() {
       UserCreateModel model = UserModelFactory.ivanCreateModel();
       model.setUsername(
-        denormalizeUsername(
+        UserModelFactory.denormalizeUsername(
           UserModelFactory.IVAN_USERNAME
         )
       );
@@ -226,10 +226,14 @@ public class UserServiceImplTest extends CommonServiceImplTest {
     @Test
     void usernameAlreadyExistsIgnoringCaseCommonException() {
       UserCreateModel model = UserModelFactory.ivanCreateModel();
-      model.setUsername(UserModelFactory.IVAN_USERNAME.toUpperCase(Locale.ROOT));
+      model.setUsername(
+        UserModelFactory.IVAN_USERNAME.toUpperCase(Locale.ROOT)
+      );
       
       when(
-        userRepository.existsByUsername(UserModelFactory.IVAN_USERNAME)
+        userRepository.existsByUsername(
+          UserModelFactory.IVAN_USERNAME
+        )
       )
         .thenReturn(true);
       
@@ -333,13 +337,15 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       UserUpdateModel model = UserModelFactory.alexandraUpdateModel();
       model.setId(id);
       model.setUsername(
-        denormalizeUsername(
+        UserModelFactory.denormalizeUsername(
           UserModelFactory.ALEXANDRA_USERNAME
         )
       );
       
       when(
-        userRepository.existsByUsername(UserModelFactory.ALEXANDRA_USERNAME)
+        userRepository.existsByUsername(
+          UserModelFactory.ALEXANDRA_USERNAME
+        )
       )
         .thenReturn(false);
       
@@ -359,10 +365,14 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       assertThat(
         oldUser.getUsername()
       )
-        .isEqualTo(UserModelFactory.ALEXANDRA_USERNAME);
+        .isEqualTo(
+          UserModelFactory.ALEXANDRA_USERNAME
+        );
       
       verify(userRepository)
-        .existsByUsername(UserModelFactory.ALEXANDRA_USERNAME);
+        .existsByUsername(
+          UserModelFactory.ALEXANDRA_USERNAME
+        );
     }
     
     @Test
@@ -391,7 +401,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       assertThat(
         result.getUsername()
       )
-        .isEqualTo(UserModelFactory.IVAN_USERNAME);
+        .isEqualTo(
+          UserModelFactory.IVAN_USERNAME
+        );
       
       verify(
         userRepository,
@@ -416,7 +428,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       
       UserUpdateModel model = UserModelFactory.ivanUpdateModel();
       model.setId(id);
-      model.setUsername(UserModelFactory.IVAN_USERNAME.toUpperCase(Locale.ROOT));
+      model.setUsername(
+        UserModelFactory.IVAN_USERNAME.toUpperCase(Locale.ROOT)
+      );
       
       when(
         userRepository.save(
@@ -434,7 +448,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       assertThat(
         oldUser.getUsername()
       )
-        .isEqualTo(UserModelFactory.IVAN_USERNAME);
+        .isEqualTo(
+          UserModelFactory.IVAN_USERNAME
+        );
       
       verify(
         userRepository,
@@ -900,11 +916,15 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       User user = UserModelFactory.ivanEntity();
       
       when(
-        userRepository.findByUsername(UserModelFactory.IVAN_USERNAME)
+        userRepository.findByUsername(
+          UserModelFactory.IVAN_USERNAME
+        )
       )
         .thenReturn(user);
       
-      User result = userService.getUserByUsername(UserModelFactory.IVAN_USERNAME);
+      User result = userService.getUserByUsername(
+        UserModelFactory.IVAN_USERNAME
+      );
       
       assertThat(result)
         .isEqualTo(user);
@@ -915,12 +935,14 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       User user = UserModelFactory.ivanEntity();
       
       when(
-        userRepository.findByUsername(UserModelFactory.IVAN_USERNAME)
+        userRepository.findByUsername(
+          UserModelFactory.IVAN_USERNAME
+        )
       )
         .thenReturn(user);
       
       User result = userService.getUserByUsername(
-        denormalizeUsername(
+        UserModelFactory.denormalizeUsername(
           UserModelFactory.IVAN_USERNAME
         )
       );
@@ -929,7 +951,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         .isEqualTo(user);
       
       verify(userRepository)
-        .findByUsername(UserModelFactory.IVAN_USERNAME);
+        .findByUsername(
+          UserModelFactory.IVAN_USERNAME
+        );
     }
     
     @Test
@@ -942,7 +966,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         .thenReturn(null);
       
       assertThatThrownBy(() -> {
-        userService.getUserByUsername(UserModelFactory.IVAN_USERNAME);
+        userService.getUserByUsername(
+          UserModelFactory.IVAN_USERNAME
+        );
       })
         .isInstanceOf(CommonException.class)
         .hasFieldOrPropertyWithValue(
@@ -974,12 +1000,14 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       User user = UserModelFactory.ivanEntity();
       
       when(
-        userRepository.findByUsername(UserModelFactory.IVAN_USERNAME)
+        userRepository.findByUsername(
+          UserModelFactory.IVAN_USERNAME
+        )
       )
         .thenReturn(user);
       
       UserDetails result = userService.loadUserByUsername(
-        denormalizeUsername(
+        UserModelFactory.denormalizeUsername(
           UserModelFactory.IVAN_USERNAME
         )
       );
@@ -987,10 +1015,14 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       assertThat(
         result.getUsername()
       )
-        .isEqualTo(UserModelFactory.IVAN_USERNAME);
+        .isEqualTo(
+          UserModelFactory.IVAN_USERNAME
+        );
       
       verify(userRepository)
-        .findByUsername(UserModelFactory.IVAN_USERNAME);
+        .findByUsername(
+          UserModelFactory.IVAN_USERNAME
+        );
     }
     
     @Test
@@ -1003,7 +1035,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         .thenReturn(null);
       
       assertThatThrownBy(() -> {
-        userService.loadUserByUsername(UserModelFactory.IVAN_USERNAME);
+        userService.loadUserByUsername(
+          UserModelFactory.IVAN_USERNAME
+        );
       })
         .isInstanceOf(UsernameNotFoundException.class);
     }
@@ -1022,9 +1056,5 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           List.of()
         )
       );
-  }
-  
-  private String denormalizeUsername(@NotNull String username) {
-    return " " + username.toUpperCase(Locale.ROOT) + "  ";
   }
 }
