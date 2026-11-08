@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
@@ -32,13 +33,13 @@ import static com.gmail.llemaxiss.app._common.component.AppProperty.TABLE_PREFIX
   @Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
 })
 public class User extends CommonEntity {
-
-  @NotNull
+  
+  @NotBlank
   @Column(name = "username", nullable = false)
   private String username;
   
   @ToString.Exclude
-  @NotNull
+  @NotBlank
   @Column(name = "password", nullable = false)
   private String password;
 

@@ -12,6 +12,7 @@ import com.gmail.llemaxiss.app.user.model.request.UserUpdateModel;
 import com.gmail.llemaxiss.app.user.repository.UserRepository;
 import com.gmail.llemaxiss.app.user.util.UserConstants;
 import com.gmail.llemaxiss.app.user.util.UserUtil;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Locale;
@@ -57,9 +58,9 @@ public class UserServiceImpl extends CommonService implements UserService {
    * {@inheritDoc}
    */
   @Override
-  @NotNull
+  @NotBlank
   @Transactional(readOnly = true)
-  public User getUserByUsername(@NotNull String username) {
+  public User getUserByUsername(@NotBlank String username) {
     String normalizedUsername = normalizeUsername(username);
     
     User user = userRepository.findByUsername(normalizedUsername);
@@ -249,7 +250,7 @@ public class UserServiceImpl extends CommonService implements UserService {
     return savedUser;
   }
   
-  private void validateNotExistsByUsername(@NotNull String username) {
+  private void validateNotExistsByUsername(@NotBlank String username) {
     boolean isExists = userRepository.existsByUsername(username);
     
     if (isExists) {
@@ -278,8 +279,8 @@ public class UserServiceImpl extends CommonService implements UserService {
     }
   }
   
-  @NotNull
-  private String normalizeUsername(@NotNull String username) {
+  @NotBlank
+  private String normalizeUsername(@NotBlank String username) {
     String trimmedUsername = StringUtils.trim(username);
     
     return StringUtils.lowerCase(trimmedUsername, Locale.ROOT);

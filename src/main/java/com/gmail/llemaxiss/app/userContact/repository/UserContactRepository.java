@@ -3,6 +3,7 @@ package com.gmail.llemaxiss.app.userContact.repository;
 import com.gmail.llemaxiss.app._common.repository.CommonRepository;
 import com.gmail.llemaxiss.app.userContact.entity.UserContact;
 import com.gmail.llemaxiss.app.userContact.enums.ContactType;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public interface UserContactRepository extends CommonRepository<UserContact> {
   
   boolean existsByUserProfileIdAndTypeAndValue(@NotNull UUID userProfileId,
                                                @NotNull ContactType type,
-                                               @NotNull String value);
+                                               @NotBlank String value);
   
   @NotNull
   Optional<UserContact> findByUserProfileIdAndTypeAndIsPrimaryTrue(@NotNull UUID userProfileId,

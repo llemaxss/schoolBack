@@ -4,6 +4,7 @@ import com.gmail.llemaxiss.app._common.hibernateFilter.config.HibernateFilterCon
 import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
@@ -113,11 +114,11 @@ public class HibernateFilterManager {
     disableFilter(HibernateFilterConstants.USER_ACTIVE_FILTER_NAME);
   }
   
-  public void enableFilter(@NotNull String filterName) {
+  public void enableFilter(@NotBlank String filterName) {
     enableFilter(filterName, null);
   }
 
-  public void enableFilter(@NotNull String filterName, Map<String, Object> filterParameters) {
+  public void enableFilter(@NotBlank String filterName, Map<String, Object> filterParameters) {
     Session session = getHibernateSession();
     
     Filter filter = session.enableFilter(filterName);
@@ -127,7 +128,7 @@ public class HibernateFilterManager {
     }
   }
   
-  public void disableFilter(@NotNull String filterName) {
+  public void disableFilter(@NotBlank String filterName) {
     getHibernateSession()
       .disableFilter(filterName);
   }

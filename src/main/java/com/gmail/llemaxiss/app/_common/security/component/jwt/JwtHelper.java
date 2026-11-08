@@ -35,7 +35,7 @@ public class JwtHelper {
   }
 
   @NotBlank
-  public String generateJwtToken(@NotNull String username) {
+  public String generateJwtToken(@NotBlank String username) {
     Key key = key();
 
     Date issuedAt = new Date();
@@ -53,7 +53,7 @@ public class JwtHelper {
   }
 
   @NotBlank
-  public String getUsernameFromJwtToken(@NotNull String token) {
+  public String getUsernameFromJwtToken(@NotBlank String token) {
     Key key = key();
 
     return Jwts.parserBuilder()
@@ -64,7 +64,7 @@ public class JwtHelper {
       .getSubject();
   }
 
-  public boolean validateJwtToken(@NotNull String authToken) {
+  public boolean validateJwtToken(@NotBlank String authToken) {
     try {
       Key key = key();
 

@@ -4,6 +4,7 @@ import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.request.UserCreateModel;
 import com.gmail.llemaxiss.app.user.model.request.UserUpdateModel;
 import com.gmail.llemaxiss.app.user.util.UserUtil;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -18,7 +19,7 @@ public interface UserService extends UserDetailsService {
    * @return {@link User}
    */
   @NotNull
-  User getUserByUsername(@NotNull String username);
+  User getUserByUsername(@NotBlank String username);
 
   /**
    * Get current logged in {@link User}

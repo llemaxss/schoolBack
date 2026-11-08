@@ -3,6 +3,7 @@ package com.gmail.llemaxiss.app.role.repository;
 import com.gmail.llemaxiss.app._common.repository.CommonRepository;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
@@ -15,6 +16,6 @@ public interface RoleRepository extends CommonRepository<Role> {
   @NotNull
   Set<Role> findByType(@NotNull RoleType roleType);
   
-  boolean existsByName(@NotNull String name);
+  boolean existsByName(@NotBlank String name);
 
 }

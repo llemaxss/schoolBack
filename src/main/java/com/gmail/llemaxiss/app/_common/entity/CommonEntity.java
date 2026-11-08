@@ -6,6 +6,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,7 +45,7 @@ public abstract class CommonEntity extends CommonEntityId {
   protected Instant createTs;
   
   @CreatedBy
-  @NotNull
+  @NotBlank
   @Column(name = "created_by", nullable = false)
   protected String createdBy;
   

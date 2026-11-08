@@ -43,13 +43,15 @@ import static com.gmail.llemaxiss.app._common.component.AppProperty.API_URL_PART
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(API_URL_PART + "/user-contacts")
+@RequestMapping(UserContactController.URL)
 @Tag(
   name = "User contact",
   description = "User contact (phones, e-mails) management"
 )
 @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
 public class UserContactController extends CommonController {
+  
+  public static final String URL = API_URL_PART + "/user-contacts";
   
   private final UserContactService userContactService;
   

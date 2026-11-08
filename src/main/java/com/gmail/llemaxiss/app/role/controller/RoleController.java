@@ -40,13 +40,15 @@ import static com.gmail.llemaxiss.app._common.component.AppProperty.API_URL_PART
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(API_URL_PART + "/roles")
+@RequestMapping(RoleController.URL)
 @Tag(
   name = "Role",
   description = "Role management"
 )
 @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
 public class RoleController extends CommonController {
+  
+  public static final String URL = API_URL_PART + "/roles";
   
   private final RoleService roleService;
   

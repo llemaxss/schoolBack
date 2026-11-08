@@ -11,6 +11,7 @@ import com.gmail.llemaxiss.app.userContact.model.request.UserContactUpdateModel;
 import com.gmail.llemaxiss.app.userContact.repository.UserContactRepository;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import com.gmail.llemaxiss.app.userProfile.service.UserProfileService;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -181,8 +182,8 @@ public class UserContactServiceImpl extends CommonService implements UserContact
    * Phone: removes spaces, dashes and brackets. E-mail: lower case.
    * </p>
    */
-  @NotNull
-  private String normalizeValue(@NotNull ContactType type, @NotNull String value) {
+  @NotBlank
+  private String normalizeValue(@NotNull ContactType type, @NotBlank String value) {
     String trimmedValue = value.trim();
     
     return switch (type) {
@@ -194,7 +195,7 @@ public class UserContactServiceImpl extends CommonService implements UserContact
     };
   }
   
-  private void validateValue(@NotNull ContactType type, @NotNull String value) {
+  private void validateValue(@NotNull ContactType type, @NotBlank String value) {
     Pattern pattern = switch (type) {
       case PHONE -> PHONE_PATTERN;
       case EMAIL -> EMAIL_PATTERN;
@@ -211,7 +212,7 @@ public class UserContactServiceImpl extends CommonService implements UserContact
   
   private void validateExistsByUserProfileAndTypeAndValue(@NotNull UUID userProfileId,
                                                           @NotNull ContactType type,
-                                                          @NotNull String value) {
+                                                          @NotBlank String value) {
     boolean isExists = userContactRepository.existsByUserProfileIdAndTypeAndValue(userProfileId, type, value);
     
     if (isExists) {

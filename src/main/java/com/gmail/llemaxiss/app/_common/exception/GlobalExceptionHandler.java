@@ -10,6 +10,7 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -347,6 +348,7 @@ public class GlobalExceptionHandler {
    * The codes go from the most specific to the most general, so the last one is the constraint name.
    * </p>
    */
+  @Nullable
   private String getConstraintCode(@NotNull MessageSourceResolvable error) {
     String[] codes = error.getCodes();
     

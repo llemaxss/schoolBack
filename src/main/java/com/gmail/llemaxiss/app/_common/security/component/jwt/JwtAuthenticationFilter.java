@@ -1,6 +1,8 @@
 package com.gmail.llemaxiss.app._common.security.component.jwt;
 
 import com.gmail.llemaxiss.app._common.security.config.SecurityConfig;
+import com.gmail.llemaxiss.app.appInfo.controller.AppInfoController;
+import com.gmail.llemaxiss.app.auth.controller.AuthController;
 import com.gmail.llemaxiss.app.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -40,8 +42,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     log.debug("Processing request for path: '{}'", path);
     
     if (
-      path.startsWith(SecurityConfig.API_AUTH_URL)
-        || path.startsWith(SecurityConfig.API_INFO_URL)
+      path.startsWith(AuthController.URL)
+        || path.startsWith(AppInfoController.URL)
         || path.startsWith(SecurityConfig.SWAGGER_UI)
         || path.startsWith(SecurityConfig.SWAGGER_V3_API_DOCS)
         || path.equals(SecurityConfig.ACTUATOR_HEALTH_URL)

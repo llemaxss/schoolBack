@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.gmail.llemaxiss.app._common.security.config.SecurityConfig.API_INFO_URL;
+import static com.gmail.llemaxiss.app._common.component.AppProperty.API_URL_PART;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(API_INFO_URL)
+@RequestMapping(AppInfoController.URL)
 @Tag(
   name = "App info",
   description = "Application information"
 )
 @SecurityRequirement(name = OpenApiConfig.NO_AUTH)
 public class AppInfoController extends CommonController {
+  
+  public static final String URL = API_URL_PART + "/info";
   
   private final AppProperty appProperty;
 

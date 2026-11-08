@@ -2,6 +2,8 @@ package com.gmail.llemaxiss.app._common.security.config;
 
 import com.gmail.llemaxiss.app._common.security.component.jwt.JwtAuthenticationEntryPoint;
 import com.gmail.llemaxiss.app._common.security.component.jwt.JwtAuthenticationFilter;
+import com.gmail.llemaxiss.app.appInfo.controller.AppInfoController;
+import com.gmail.llemaxiss.app.auth.controller.AuthController;
 import com.gmail.llemaxiss.app.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,13 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.gmail.llemaxiss.app._common.component.AppProperty.API_URL_PART;
-
 @Configuration
 public class SecurityConfig {
-
-  public static final String API_AUTH_URL = API_URL_PART + "/auth";
-  public static final String API_INFO_URL = API_URL_PART + "/info";
+  
   public static final String ACTUATOR_HEALTH_URL = "/actuator/health";
   
   public static final String SWAGGER_UI = "/swagger-ui";
@@ -75,9 +73,9 @@ public class SecurityConfig {
       )
       .authorizeHttpRequests(auth ->
         auth
-          .requestMatchers(API_AUTH_URL + ANY_URL_PART)
+          .requestMatchers(AuthController.URL + ANY_URL_PART)
             .permitAll()
-          .requestMatchers(API_INFO_URL + ANY_URL_PART)
+          .requestMatchers(AppInfoController.URL + ANY_URL_PART)
             .permitAll()
           .requestMatchers(ACTUATOR_HEALTH_URL + ANY_URL_PART)
             .permitAll()

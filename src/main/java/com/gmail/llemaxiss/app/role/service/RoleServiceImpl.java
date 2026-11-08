@@ -9,6 +9,7 @@ import com.gmail.llemaxiss.app.role.mapper.RoleMapper;
 import com.gmail.llemaxiss.app.role.model.request.RoleCreateModel;
 import com.gmail.llemaxiss.app.role.model.request.RoleUpdateModel;
 import com.gmail.llemaxiss.app.role.repository.RoleRepository;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Optional;
@@ -115,7 +116,7 @@ public class RoleServiceImpl extends CommonService implements RoleService {
     log.info("Role deleted successfully with id: {}", id);
   }
   
-  private void validateExistsByName(@NotNull String name) {
+  private void validateExistsByName(@NotBlank String name) {
     boolean isExistsByName = roleRepository.existsByName(name);
     
     if (isExistsByName) {

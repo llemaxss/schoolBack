@@ -43,7 +43,7 @@ public final class UserUtil {
   /**
    * Checks if the current user has the specified role
    */
-  public static boolean hasRole(@NotNull String role) {
+  public static boolean hasRole(@NotBlank String role) {
     String rolePrefix = AppProperty.SPRING_ROLE_PREFIX;
     
     String targetRole = role.startsWith(rolePrefix)
@@ -56,7 +56,7 @@ public final class UserUtil {
   /**
    * Checks if the current user has the specified authority
    */
-  public static boolean hasAuthority(@NotNull String authority) {
+  public static boolean hasAuthority(@NotBlank String authority) {
     Authentication authentication = SecurityUtil.getAuthentication();
     
     return authentication.getAuthorities()

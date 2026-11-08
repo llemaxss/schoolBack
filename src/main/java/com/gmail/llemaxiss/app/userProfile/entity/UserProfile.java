@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,11 +46,11 @@ public class UserProfile extends CommonEntity {
   })
   private User user;
   
-  @NotNull
+  @NotBlank
   @Column(name = "first_name", nullable = false)
   private String firstName;
   
-  @NotNull
+  @NotBlank
   @Column(name = "last_name", nullable = false)
   private String lastName;
   

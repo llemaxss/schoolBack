@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,8 +32,8 @@ import static com.gmail.llemaxiss.app._common.component.AppProperty.TABLE_PREFIX
 @Entity
 @Table(name = TABLE_PREFIX + "role")
 public class Role extends CommonEntity {
-
-  @NotNull
+  
+  @NotBlank
   @Column(name = "name", nullable = false)
   private String name;
 

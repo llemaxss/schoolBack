@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,7 +49,7 @@ public class UserContact extends CommonEntity {
   @Enumerated(EnumType.STRING)
   private ContactType type;
   
-  @NotNull
+  @NotBlank
   @Column(name = "value_", nullable = false)
   private String value;
   
