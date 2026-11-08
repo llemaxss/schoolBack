@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -28,6 +29,25 @@ public class CommonRepositoryImpl<E extends CommonEntity>
                               EntityManager entityManager) {
     super(entityInformation, entityManager);
   }
+  
+  /**
+   * Replace standard find by id to the query
+   *
+   * <p>
+   * Hibernate filters (soft-delete, active user) are not applied to the direct fetching by id,
+   * but they are applied to the queries.
+   * </p>
+   */
+  @Override
+  @Transactional(readOnly = true)
+  public Optional<E> findById(UUID id) {
+    return findOne(
+      (root, query, criteriaBuilder) ->
+        criteriaBuilder.equal(root.get("id"), id)
+    );
+  }
+  
+  
   
   /**
    * Replace standard hard-deletion to soft-deletion

@@ -961,7 +961,7 @@ public class UserControllerTest extends AbstractIntegrationTest {
     request.setPassword(password);
     
     return mockMvc.perform(
-      post(AuthController.URL)
+      post(AuthController.URL + "/login")
         .contentType(MediaType.APPLICATION_JSON)
         .content(
           objectMapper.writeValueAsString(request)

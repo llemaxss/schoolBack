@@ -43,6 +43,7 @@ public class UserServiceImpl extends CommonService implements UserService {
    * {@inheritDoc}
    */
   @Override
+  @NotNull
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     try {
@@ -58,7 +59,7 @@ public class UserServiceImpl extends CommonService implements UserService {
    * {@inheritDoc}
    */
   @Override
-  @NotBlank
+  @NotNull
   @Transactional(readOnly = true)
   public User getUserByUsername(@NotBlank String username) {
     String normalizedUsername = normalizeUsername(username);
