@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.userRole.entity;
 
 import com.gmail.llemaxiss.app._common.entity.CommonEntity;
-import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.CommonHibernateFilterConstants;
 import com.gmail.llemaxiss.app.role.entity.Role;
 import com.gmail.llemaxiss.app.user.entity.User;
 import jakarta.persistence.Entity;
@@ -35,7 +35,7 @@ public class UserRole extends CommonEntity {
     nullable = false
   )
   @Filters({
-    @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+    @Filter(name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
   })
   private User user;
 
@@ -47,7 +47,7 @@ public class UserRole extends CommonEntity {
     nullable = false
   )
   @Filters({
-    @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+    @Filter(name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
   })
   private Role role;
   

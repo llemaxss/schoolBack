@@ -7,7 +7,7 @@ package com.gmail.llemaxiss.app._common.hibernateFilter.util;
  * Centralizes filter names, parameter names, and conditions.
  * </p>
  */
-public interface HibernateFilterConstants {
+public interface CommonHibernateFilterConstants {
 
   String SOFT_DELETE_FILTER_NAME = "SOFT_DELETE_FILTER_NAME";
 
@@ -28,26 +28,6 @@ public interface HibernateFilterConstants {
       )
     )
     
-    """;
-
-  String USER_ACTIVE_FILTER_NAME = "USER_ACTIVE_FILTER_NAME";
-
-  String USER_ACTIVE_FILTER_PARAM_NAME = "isActive";
-
-  String USER_ACTIVE_FILTER_CONDITION =
-    //language=SQL
-    """
-    (
-      (
-        :isActive = true
-        AND is_active = true
-      )
-      OR
-      (
-        :isActive = false
-        AND is_active = false
-      )
-    )
     """;
 
 }

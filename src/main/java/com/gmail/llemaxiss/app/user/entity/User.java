@@ -1,7 +1,8 @@
 package com.gmail.llemaxiss.app.user.entity;
 
 import com.gmail.llemaxiss.app._common.entity.CommonEntity;
-import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.CommonHibernateFilterConstants;
+import com.gmail.llemaxiss.app.user.hibernateFilter.util.UserHibernateFilterConstants;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ import static com.gmail.llemaxiss.app._common.component.AppProperty.TABLE_PREFIX
 @Entity
 @Table(name = TABLE_PREFIX + "user")
 @Filters({
-  @Filter(name = HibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
+  @Filter(name = UserHibernateFilterConstants.USER_ACTIVE_FILTER_NAME)
 })
 public class User extends CommonEntity {
   
@@ -50,7 +51,7 @@ public class User extends CommonEntity {
   @ToString.Exclude
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   @Filters({
-    @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+    @Filter(name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
   })
   private Set<UserRole> userRoles = new HashSet<>();
 }

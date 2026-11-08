@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.userContact.entity;
 
 import com.gmail.llemaxiss.app._common.entity.CommonEntity;
-import com.gmail.llemaxiss.app._common.hibernateFilter.util.HibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.CommonHibernateFilterConstants;
 import com.gmail.llemaxiss.app.userContact.enums.ContactType;
 import com.gmail.llemaxiss.app.userProfile.entity.UserProfile;
 import jakarta.persistence.Column;
@@ -40,7 +40,7 @@ public class UserContact extends CommonEntity {
     nullable = false
   )
   @Filters({
-    @Filter(name = HibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+    @Filter(name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
   })
   private UserProfile userProfile;
   
