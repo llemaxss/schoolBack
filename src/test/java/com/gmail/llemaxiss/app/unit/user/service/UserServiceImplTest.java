@@ -920,7 +920,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           UserModelFactory.IVAN_USERNAME
         )
       )
-        .thenReturn(user);
+        .thenReturn(
+          Optional.of(user)
+        );
       
       User result = userService.getUserByUsername(
         UserModelFactory.IVAN_USERNAME
@@ -939,7 +941,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           UserModelFactory.IVAN_USERNAME
         )
       )
-        .thenReturn(user);
+        .thenReturn(
+          Optional.of(user)
+        );
       
       User result = userService.getUserByUsername(
         UserModelFactory.denormalizeUsername(
@@ -963,7 +967,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           anyString()
         )
       )
-        .thenReturn(null);
+        .thenReturn(
+          Optional.empty()
+        );
       
       assertThatThrownBy(() -> {
         userService.getUserByUsername(
@@ -1004,7 +1010,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           UserModelFactory.IVAN_USERNAME
         )
       )
-        .thenReturn(user);
+        .thenReturn(
+          Optional.of(user)
+        );
       
       UserDetails result = userService.loadUserByUsername(
         UserModelFactory.denormalizeUsername(
@@ -1032,7 +1040,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           anyString()
         )
       )
-        .thenReturn(null);
+        .thenReturn(
+          Optional.empty()
+        );
       
       assertThatThrownBy(() -> {
         userService.loadUserByUsername(

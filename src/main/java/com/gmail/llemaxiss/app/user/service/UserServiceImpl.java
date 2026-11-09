@@ -64,14 +64,14 @@ public class UserServiceImpl extends CommonService implements UserService {
   public User getUserByUsername(@NotBlank String username) {
     String normalizedUsername = normalizeUsername(username);
     
-    User user = userRepository.findByUsername(normalizedUsername);
+    Optional<User> userOptional = userRepository.findByUsername(normalizedUsername);
 
-    if (user == null) {
+    if (userOptional.isEmpty()) {
       String message = String.format("User by username %s not found", normalizedUsername);
       throw new CommonException(ErrorCode.USER_NOT_FOUND, message);
     }
 
-    return user;
+    return userOptional.get();
   }
 
   /**

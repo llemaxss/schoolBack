@@ -10,9 +10,9 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.method.ParameterValidationResult;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +24,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Global exception handler that converts exceptions to {@link ErrorResponse}
@@ -167,16 +168,8 @@ public class GlobalExceptionHandler {
     List<ErrorResponse.FieldError> fieldErrors = ex.getParameterValidationResults()
       .stream()
       .flatMap(result ->
-        result.getResolvableErrors()
+        toFieldErrors(result)
           .stream()
-          .map(error ->
-            new ErrorResponse.FieldError(
-              result.getMethodParameter()
-                .getParameterName(),
-              getConstraintCode(error),
-              error.getDefaultMessage()
-            )
-          )
       )
       .toList();
     
@@ -341,6 +334,30 @@ public class GlobalExceptionHandler {
       );
   }
   
+  @NotNull
+  private List<ErrorResponse.FieldError> toFieldErrors(@NotNull ParameterValidationResult result) {
+    String fieldName = result.getMethodParameter()
+      .getParameterName();
+    
+    return result.getResolvableErrors()
+      .stream()
+      .map(error ->
+        toFieldError(fieldName, error)
+      )
+      .toList();
+  }
+  
+  @NotNull
+  private ErrorResponse.FieldError toFieldError(String fieldName, @NotNull MessageSourceResolvable error) {
+    Optional<String> codeOptional = findConstraintCode(error);
+    
+    return new ErrorResponse.FieldError(
+      fieldName,
+      codeOptional.orElse(null),
+      error.getDefaultMessage()
+    );
+  }
+  
   /**
    * Takes the constraint name (for example, "NotNull") from the validation error codes
    *
@@ -348,15 +365,17 @@ public class GlobalExceptionHandler {
    * The codes go from the most specific to the most general, so the last one is the constraint name.
    * </p>
    */
-  @Nullable
-  private String getConstraintCode(@NotNull MessageSourceResolvable error) {
+  @NotNull
+  private Optional<String> findConstraintCode(@NotNull MessageSourceResolvable error) {
     String[] codes = error.getCodes();
     
     if (codes == null || ArrayUtils.isEmpty(codes)) {
-      return null;
+      return Optional.empty();
     }
     
-    return codes[codes.length - 1];
+    return Optional.of(
+      codes[codes.length - 1]
+    );
   }
   
 }
