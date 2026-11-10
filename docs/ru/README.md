@@ -6,6 +6,7 @@ Spring Boot REST API для системы управления школой.
 
 - [Стек](parts/stack.md)
 - [Структура проекта](parts/projectStructure.md)
+- [Стиль кода](parts/codeStyle.md)
 - [Создание нового CRUD-домена](parts/newCrud.md)
 - [Hibernate filters](parts/hiberanteFilters.md)
 - [Безопасность](parts/security.md)
