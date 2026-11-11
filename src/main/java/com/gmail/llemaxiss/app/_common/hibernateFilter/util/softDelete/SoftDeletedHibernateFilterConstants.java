@@ -1,4 +1,5 @@
-package com.gmail.llemaxiss.app._common.hibernateFilter.util;
+package com.gmail.llemaxiss.app._common.hibernateFilter.util.softDelete;
+
 
 /**
  * Constants for Hibernate filters used across the application
@@ -7,13 +8,13 @@ package com.gmail.llemaxiss.app._common.hibernateFilter.util;
  * Centralizes filter names, parameter names, and conditions.
  * </p>
  */
-public interface CommonHibernateFilterConstants {
+public interface SoftDeletedHibernateFilterConstants {
 
-  String SOFT_DELETE_FILTER_NAME = "SOFT_DELETE_FILTER_NAME";
+  String FILTER_NAME = "SOFT_DELETE";
 
-  String SOFT_DELETE_FILTER_PARAM_NAME = "isDeleted";
+  String FILTER_PARAM_NAME = "isDeleted";
 
-  String SOFT_DELETE_FILTER_CONDITION =
+  String FILTER_CONDITION =
     //language=SQL
     """
     (
@@ -27,7 +28,6 @@ public interface CommonHibernateFilterConstants {
         AND delete_ts IS NULL
       )
     )
-    
     """;
-
+  
 }

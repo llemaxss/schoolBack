@@ -110,9 +110,9 @@ public class UserServiceImpl extends CommonService implements UserService {
   @NotNull
   @Transactional(readOnly = true)
   public User getUserByIdIncludingInactive(@NotNull UUID id) {
-    hibernateFilterManager.disableActiveUserFilter();
-    
-    return getUserById(id);
+    return hibernateFilterManager.executeWithoutActiveUserFilter(() ->
+      getUserById(id)
+    );
   }
   
   /**
@@ -122,13 +122,15 @@ public class UserServiceImpl extends CommonService implements UserService {
   @NotNull
   @Transactional
   public User createUser(@NotNull UserCreateModel model) {
-    hibernateFilterManager.disableActiveUserFilter();
-    
     model.setUsername(
-      normalizeUsername(model.getUsername())
+      normalizeUsername(
+        model.getUsername()
+      )
     );
     
-    validateNotExistsByUsername(model.getUsername());
+    validateNotExistsByUsername(
+      model.getUsername()
+    );
     
     User newUser = new User();
     
@@ -153,20 +155,22 @@ public class UserServiceImpl extends CommonService implements UserService {
   @NotNull
   @Transactional
   public User updateUser(@NotNull UUID id, @NotNull UserUpdateModel model) {
-    hibernateFilterManager.disableActiveUserFilter();
-    
     log.info("Updating User with id: {}", id);
     
-    User user = getUserById(id);
+    User user = getUserByIdIncludingInactive(id);
     
     validateIsNotProtected(user);
     
     model.setUsername(
-      normalizeUsername(model.getUsername())
+      normalizeUsername(
+        model.getUsername()
+      )
     );
     
     if (!user.getUsername().equals(model.getUsername())) {
-      validateNotExistsByUsername(model.getUsername());
+      validateNotExistsByUsername(
+        model.getUsername()
+      );
     }
     
     UserMapper.fillEntityByUserUpdateModel(user, model);
@@ -184,11 +188,9 @@ public class UserServiceImpl extends CommonService implements UserService {
   @Override
   @Transactional
   public void deleteUser(@NotNull UUID id) {
-    hibernateFilterManager.disableActiveUserFilter();
-    
     log.info("Deleting User with id: {}", id);
     
-    User user = getUserById(id);
+    User user = getUserByIdIncludingInactive(id);
     
     validateIsNotProtected(user);
     validateIsNotCurrentUser(user);
@@ -205,7 +207,9 @@ public class UserServiceImpl extends CommonService implements UserService {
   @NotNull
   @Transactional
   public User activateUser(@NotNull UUID id) {
-    return changeUserActivity(id, true);
+    User user = getUserByIdIncludingInactive(id);
+    
+    return changeUserActivity(user, true);
   }
   
   /**
@@ -215,7 +219,9 @@ public class UserServiceImpl extends CommonService implements UserService {
   @NotNull
   @Transactional
   public User deactivateUser(@NotNull UUID id) {
-    return changeUserActivity(id, false);
+    User user = getUserByIdIncludingInactive(id);
+    
+    return changeUserActivity(user, false);
   }
   
   /**
@@ -226,18 +232,14 @@ public class UserServiceImpl extends CommonService implements UserService {
    * </p>
    */
   @NotNull
-  private User changeUserActivity(@NotNull UUID id, boolean isActive) {
-    hibernateFilterManager.disableActiveUserFilter();
-    
-    User user = getUserById(id);
-    
+  private User changeUserActivity(@NotNull User user, boolean isActive) {
     if (!isActive) {
       validateIsNotProtected(user);
       validateIsNotCurrentUser(user);
     }
     
     if (user.getIsActive().equals(isActive)) {
-      log.info("User with id {} already has activity: {}", id, isActive);
+      log.info("User with id {} already has activity: {}", user.getId(), isActive);
       
       return user;
     }
@@ -246,13 +248,15 @@ public class UserServiceImpl extends CommonService implements UserService {
     
     User savedUser = userRepository.save(user);
     
-    log.info("User activity changed successfully, id: {}, isActive: {}", id, isActive);
+    log.info("User activity changed successfully, id: {}, isActive: {}", user.getId(), isActive);
     
     return savedUser;
   }
   
   private void validateNotExistsByUsername(@NotBlank String username) {
-    boolean isExists = userRepository.existsByUsername(username);
+    boolean isExists = hibernateFilterManager.executeWithoutActiveUserFilter(() ->
+      userRepository.existsByUsername(username)
+    );
     
     if (isExists) {
       String message = String.format("User with username %s already exists", username);

@@ -8,7 +8,7 @@ Spring Boot REST API for a school management system.
 - [Project structure](parts/projectStructure.md)
 - [Code style](parts/codeStyle.md)
 - [Adding a new CRUD domain](parts/newCrud.md)
-- [Hibernate filters](parts/hiberanteFilters.md)
+- [Hibernate filters](parts/hibernateFilters.md)
 - [Security](parts/security.md)
 - [Database & Liquibase](parts/database.md)
 - [Configuration](parts/config.md)

@@ -1,16 +1,19 @@
 @FilterDefs({
   @FilterDef(
-    name = UserHibernateFilterConstants.USER_ACTIVE_FILTER_NAME,
+    name = ActivityFilterConstants.FILTER_NAME,
     parameters = @ParamDef(
-      name = UserHibernateFilterConstants.USER_ACTIVE_FILTER_PARAM_NAME,
-      type = Boolean.class
+      type = Boolean.class,
+      name = ActivityFilterConstants.FILTER_PARAM_NAME,
+      resolver = UserActivityHibernateFilterParamResolver.class
     ),
-    defaultCondition = UserHibernateFilterConstants.USER_ACTIVE_FILTER_CONDITION
+    defaultCondition = ActivityFilterConstants.FILTER_CONDITION,
+    autoEnabled = true
   )
 })
 package com.gmail.llemaxiss.app.user.hibernateFilter;
 
-import com.gmail.llemaxiss.app.user.hibernateFilter.util.UserHibernateFilterConstants;
+import com.gmail.llemaxiss.app.user.hibernateFilter.util.activity.ActivityFilterConstants;
+import com.gmail.llemaxiss.app.user.hibernateFilter.util.activity.UserActivityHibernateFilterParamResolver;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
 import org.hibernate.annotations.ParamDef;

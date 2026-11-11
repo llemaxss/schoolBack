@@ -6,13 +6,13 @@ import com.gmail.llemaxiss.app._common.hibernateFilter.component.HibernateFilter
 import com.gmail.llemaxiss.app._common.security.model.response.AppUserDetails;
 import com.gmail.llemaxiss.app.unit._common.CommonServiceImplTest;
 import com.gmail.llemaxiss.app._common.user.modelFactory.UserModelFactory;
+import com.gmail.llemaxiss.app.unit._common.HibernateFilterManagerStub;
 import com.gmail.llemaxiss.app.user.entity.User;
 import com.gmail.llemaxiss.app.user.model.request.UserCreateModel;
 import com.gmail.llemaxiss.app.user.model.request.UserUpdateModel;
 import com.gmail.llemaxiss.app.user.repository.UserRepository;
 import com.gmail.llemaxiss.app.user.service.UserServiceImpl;
 import com.gmail.llemaxiss.app.user.util.UserConstants;
-import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -39,6 +39,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,8 +54,8 @@ public class UserServiceImplTest extends CommonServiceImplTest {
   @Mock
   private PasswordEncoder passwordEncoder;
   
-  @Mock
-  private HibernateFilterManager hibernateFilterManager;
+  @Spy
+  private HibernateFilterManager hibernateFilterManager = new HibernateFilterManagerStub();
   
   @Spy
   @InjectMocks
@@ -122,7 +123,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         );
       
       verify(hibernateFilterManager)
-        .disableActiveUserFilter();
+        .executeWithoutActiveUserFilter(
+          any()
+        );
       
       verify(userRepository)
         .existsByUsername(
@@ -310,8 +313,13 @@ public class UserServiceImplTest extends CommonServiceImplTest {
           model.getUsername()
         );
       
-      verify(hibernateFilterManager)
-        .disableActiveUserFilter();
+      verify(
+        hibernateFilterManager,
+        times(2)
+      )
+        .executeWithoutActiveUserFilter(
+          any()
+        );
       
       verify(userRepository)
         .existsByUsername(
@@ -557,7 +565,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
       userService.deleteUser(id);
       
       verify(hibernateFilterManager)
-        .disableActiveUserFilter();
+        .executeWithoutActiveUserFilter(
+          any()
+        );
       
       verify(userService)
         .getUserById(id);
@@ -664,7 +674,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         .isTrue();
       
       verify(hibernateFilterManager)
-        .disableActiveUserFilter();
+        .executeWithoutActiveUserFilter(
+          any()
+        );
       
       verify(userRepository)
         .save(user);
@@ -727,7 +739,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         .isFalse();
       
       verify(hibernateFilterManager)
-        .disableActiveUserFilter();
+        .executeWithoutActiveUserFilter(
+          any()
+        );
       
       verify(userRepository)
         .save(user);
@@ -908,7 +922,9 @@ public class UserServiceImplTest extends CommonServiceImplTest {
         .isEqualTo(user);
       
       verify(hibernateFilterManager)
-        .disableActiveUserFilter();
+        .executeWithoutActiveUserFilter(
+          any()
+        );
     }
     
     @Test

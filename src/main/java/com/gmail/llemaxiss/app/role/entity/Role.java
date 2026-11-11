@@ -1,7 +1,7 @@
 package com.gmail.llemaxiss.app.role.entity;
 
 import com.gmail.llemaxiss.app._common.entity.CommonEntity;
-import com.gmail.llemaxiss.app._common.hibernateFilter.util.CommonHibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.softDelete.SoftDeletedHibernateFilterConstants;
 import com.gmail.llemaxiss.app.role.enums.RoleType;
 import com.gmail.llemaxiss.app.userRole.entity.UserRole;
 import jakarta.persistence.Column;
@@ -45,7 +45,7 @@ public class Role extends CommonEntity {
   @ToString.Exclude
   @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
   @Filters({
-    @Filter(name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+    @Filter(name = SoftDeletedHibernateFilterConstants.FILTER_NAME)
   })
   private Set<UserRole> userRoles = new HashSet<>();
   

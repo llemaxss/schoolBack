@@ -1,16 +1,19 @@
 @FilterDefs({
   @FilterDef(
-    name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME,
+    name = SoftDeletedHibernateFilterConstants.FILTER_NAME,
     parameters = @ParamDef(
-      name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_PARAM_NAME,
-      type = Boolean.class
+      type = Boolean.class,
+      name = SoftDeletedHibernateFilterConstants.FILTER_PARAM_NAME,
+      resolver = SoftDeletedHibernateFilterParamResolver.class
     ),
-    defaultCondition = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_CONDITION
+    defaultCondition = SoftDeletedHibernateFilterConstants.FILTER_CONDITION,
+    autoEnabled = true
   )
 })
 package com.gmail.llemaxiss.app._common.hibernateFilter;
 
-import com.gmail.llemaxiss.app._common.hibernateFilter.util.CommonHibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.softDelete.SoftDeletedHibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.softDelete.SoftDeletedHibernateFilterParamResolver;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
 import org.hibernate.annotations.ParamDef;

@@ -1,6 +1,6 @@
 package com.gmail.llemaxiss.app._common.entity;
 
-import com.gmail.llemaxiss.app._common.hibernateFilter.util.CommonHibernateFilterConstants;
+import com.gmail.llemaxiss.app._common.hibernateFilter.util.softDelete.SoftDeletedHibernateFilterConstants;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -30,7 +30,7 @@ import java.time.Instant;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Filters({
-  @Filter(name = CommonHibernateFilterConstants.SOFT_DELETE_FILTER_NAME)
+  @Filter(name = SoftDeletedHibernateFilterConstants.FILTER_NAME)
 })
 public abstract class CommonEntity extends CommonEntityId {
 
