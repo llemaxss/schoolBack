@@ -5,14 +5,14 @@
 (`_common/hibernateFilter`, `user/hibernateFilter`)
 
 Фильтрация запросов на уровне Hibernate. Два фильтра:
-- **soft-delete** (`SOFT_DELETE_FILTER_NAME`) - по колонке `delete_ts`, действует на все сущности (`CommonEntity`);
-- **active users** (`USER_ACTIVE_FILTER_NAME`) - по колонке `is_active`, действует только на `User`.
+- **soft-delete** - по колонке `delete_ts`, действует на все сущности (`CommonEntity`);
+- **active users** - по колонке `is_active`, действует только на `User`.
 
 ## Как это работает
 
 1. Каждый фильтр объявлен через `@FilterDef` в `package-info.java` (общие в `_common/hibernateFilter`, пользовательские в `user/hibernateFilter`) с признаком `autoEnabled = true`.
 2. У параметра фильтра указан `resolver` - класс `Supplier`, который возвращает значение по умолчанию.
-3. Hibernate сам включает такие фильтры при создании любой сессии
+3. Hibernate сам включает такие фильтры при создании любой сессии.
 4. Значение параметра берётся в таком порядке: сначала то, что поставили явно, потом значение из `resolver`.
 
 В результате по умолчанию удалённые записи и неактивные пользователи не видны нигде: ни в веб-запросах, ни в тестах репозиториев, ни в фоновых задачах.
@@ -44,7 +44,7 @@ Hibernate не применяет фильтры к прямой загрузк�
 ## Как добавить новый фильтр
 
 1. Константы (имя, имя параметра, SQL-условие) - в `util/*HibernateFilterConstants` нужного модуля.
-2. Класс `Supplier<Boolean>` со значением по умолчанию - в пакет `resolver`.
+2. Класс `Supplier<Boolean>` со значением по умолчанию.
 3. `@FilterDef` в `package-info.java` с `resolver = ...` и `autoEnabled = true`.
 4. `@Filter(name = ...)` на сущности (или связи).
 5. Три метода `execute...` в `HibernateFilterManager` (по образцу существующих).

@@ -5,8 +5,8 @@
 (`_common/hibernateFilter`, `user/hibernateFilter`)
 
 Query filtering at the Hibernate level. Two filters exist:
-- **soft delete** (`SOFT_DELETE_FILTER_NAME`) - based on the `delete_ts` column, applies to all entities (`CommonEntity`);
-- **active users** (`USER_ACTIVE_FILTER_NAME`) - based on the `is_active` column, applies to `User` only.
+- **soft delete** - based on the `delete_ts` column, applies to all entities (`CommonEntity`);
+- **active users** - based on the `is_active` column, applies to `User` only.
 
 ## How it works
 
@@ -44,7 +44,7 @@ Hibernate does not apply filters to direct loading by primary key (`em.find`, `g
 ## How to add a new filter
 
 1. Constants (name, parameter name, SQL condition) - in `util/*HibernateFilterConstants` of the module.
-2. A `Supplier<Boolean>` class with the default value - in the `resolver` package.
+2. A `Supplier<Boolean>` class with the default value.
 3. `@FilterDef` in `package-info.java` with `resolver = ...` and `autoEnabled = true`.
 4. `@Filter(name = ...)` on the entity (or association).
 5. Three `execute...` methods in `HibernateFilterManager` (like the existing ones).
