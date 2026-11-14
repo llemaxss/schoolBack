@@ -28,7 +28,10 @@
       append="true"
       immediateFlush="true"
     >
-      <PatternLayout pattern="${FILE_PATTERN}"/>
+      <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json">
+        <EventTemplateAdditionalField key="service.name" value="${APP_NAME}"/>
+        <EventTemplateAdditionalField key="environment" value="${env:ACTIVE_PROFILE:-unknown}"/>
+      </JsonTemplateLayout>
 
       <Policies>
         <TimeBasedTriggeringPolicy interval="1" modulate="true"/>

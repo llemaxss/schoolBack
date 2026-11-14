@@ -7,3 +7,7 @@
 :: School Management System :: ${app.version}
 :: Spring Boot ::              ${spring-boot.version}
 :: Profile ::                  ${spring.profiles.active:default}
+
+API docs available on:
+    http://${HOSTNAME:${COMPUTERNAME:localhost}}:${server.port:8080}/swagger-ui.html
+    http://${HOSTNAME:${COMPUTERNAME:localhost}}:${server.port:8080}/v3/api-docs.yaml

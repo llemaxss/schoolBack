@@ -1,0 +1,45 @@
+loki.source.file "app" {
+  targets = [
+    {
+      __path__     = "/app/logs/school-management.log",
+      service_name = "school-management",
+    },
+  ]
+
+  file_match {
+    enabled     = true
+    sync_period = "10s"
+  }
+
+  forward_to = [loki.process.app.receiver]
+}
+
+loki.process "app" {
+  stage.json {
+    expressions = {
+      timestamp   = "\"@timestamp\"",
+      level       = "\"log.level\"",
+      environment = "environment",
+    }
+  }
+
+  stage.timestamp {
+    source = "timestamp"
+    format = "RFC3339Nano"
+  }
+
+  stage.labels {
+    values = {
+      level       = "",
+      environment = "",
+    }
+  }
+
+  forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

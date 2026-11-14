@@ -1,0 +1,58 @@
+services:
+  ## loki
+  loki:
+    image: grafana/loki:3.7.10
+    container_name: school_loki
+    restart: unless-stopped
+
+    command: -config.file=/etc/loki/loki-config.yaml
+
+    volumes:
+      - ./monitoring/loki/loki-config.yaml:/etc/loki/loki-config.yaml:ro
+      - school_loki_data:/loki
+
+  ## grafana
+  grafana:
+    image: grafana/grafana:13.3.1
+    container_name: school_grafana
+    restart: unless-stopped
+
+    depends_on:
+      - loki
+
+    ports:
+      - "${GRAFANA_PORT}:${_DOCKER_CONTAINER_INTERNAL_GRAFANA_PORT}"
+
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - school_grafana_data:/var/lib/grafana
+
+  ## alloy
+  alloy:
+    image: grafana/alloy:v1.22.0
+    container_name: school_alloy
+    restart: unless-stopped
+
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+
+    depends_on:
+      - loki
+
+    volumes:
+      - ./monitoring/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - ${APP_LOGS_SOURCE}:/app/logs:ro
+      - school_alloy_data:/var/lib/alloy/data
+
+volumes:
+  school_loki_data:
+  school_grafana_data:
+  school_alloy_data:
+  school_app_logs:

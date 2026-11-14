@@ -44,7 +44,7 @@ Listed in [Environment variables](environments.md) +
 | _DOCKER_CONTAINER_INTERNAL_DB_PORT  | 5432           | Internal port of the DB in container  |
 | _DOCKER_CONTAINER_INTERNAL_APP_PORT | 8080           | Internal port of the App in container |
 
-Note: `DB_HOST` is not used as a parameter, instead the name of the DB container is specified in `docker-compose.yml`
+Note: `DB_HOST` is not used as a parameter, instead the name of the DB container is specified in `docker-compose.app.yml`
 
 #### Method 1:
 Via `.env` file:
