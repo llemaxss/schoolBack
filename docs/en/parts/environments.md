@@ -13,3 +13,5 @@
 | `SERVER_PORT`           | `server.port`                |               | Server port    |
 | `JWT_SECRET`            | `app.jwt-secret`             |               | JWT secret key |
 | `JWT_EXPIRATION_MILLIS` | `app.jwt-expiration-millis`  |               | JWT TTL, ms    |
+
+Variables for Docker and monitoring: [Variables for Docker and monitoring](buildAndRun/note/variables.md)

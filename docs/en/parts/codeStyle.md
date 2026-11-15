@@ -7,9 +7,9 @@
 - Indent is 2 spaces. Empty lines inside classes and methods keep the indent too.
 - Within a class, leave 3 empty lines: after `{` and `}`, as well as before `}`.
 - Call chains: every next `.method(...)` goes on a new line.
-If a call has an expression as an argument,
-arguments are moved to separate lines,
-the closing parenthesis is on its own line too:
+  If a call has an expression as an argument,
+  arguments are moved to separate lines,
+  the closing parenthesis is on its own line too:
 
 ```java
 mockMvc.perform(
@@ -52,7 +52,7 @@ Exclusions are possible, provided that the readability of the code is not compro
 - `getX` - **"return or throw"**: always returns an object or throws an exception (`CommonException` with an `ErrorCode`). Never returns `null`.
 - `findX` - **"find or return null"**: returns `Optional<X>`. An empty `Optional` means "not found". The method itself never returns `null`.
 - `null` should not be in returned values.
-Exception: overridden methods of third-party APIs whose contract requires `null`.
+  Exception: overridden methods of third-party APIs whose contract requires `null`.
 - Derived repository methods (`findByUsername`, etc.) return `Optional` as well.
 
 ## Nullability annotations

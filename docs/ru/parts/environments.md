@@ -13,3 +13,5 @@
 | `SERVER_PORT`           | `server.port`                |                       | Порт сервера        |
 | `JWT_SECRET`            | `app.jwt-secret`             |                       | Секертный ключ JWT  |
 | `JWT_EXPIRATION_MILLIS` | `app.jwt-expiration-millis`  |                       | Время истечения JWT |
+
+Переменные для Docker и мониторинга: [Переменные для Docker и мониторинга](buildAndRun/note/variables.md)

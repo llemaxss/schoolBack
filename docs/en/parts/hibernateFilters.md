@@ -29,7 +29,7 @@ Object result = hibernateFilterManager.executeXXX(() -> {
 
 Rules:
 - A filter cannot be enabled or disabled "for good". It is changed only while the given code runs; after it (even if the code throws an exception) the state from before the call is restored.
-So nested calls work correctly: the inner one returns the filter to the state of the outer one.
+  So nested calls work correctly: the inner one returns the filter to the state of the outer one.
 - Wrap the **smallest** piece of code (usually one repository call). Everything called inside (including other services) sees the changed filter too.
 - The manager works only inside a transaction. Outside a transaction Spring gives a temporary session and the changes are lost.
 - To restore the previous parameter value the manager reads it through the internal Hibernate class `FilterImpl`.

@@ -2,77 +2,15 @@
 
 # Сборка и запуск
 
-## Локально
+## Сценарии запуска
 
-```bash
-# Linux / macOS / Git Bash
-ACTIVE_PROFILE=DEV \
-DB_HOST=localhost \
-DB_PORT=... \
-DB_NAME=... \
-... \
+- [Проект локально (без Docker)](buildAndRun/run/localRun.md)
+- [Проект локально + мониторинг в Docker](buildAndRun/run/localWithMonitoringRun.md)
+- [Проект в Docker (без мониторинга)](buildAndRun/run/dockerRun.md)
+- [Проект в Docker + мониторинг в Docker](buildAndRun/run/dockerWithMonitoringRun.md)
 
-./gradlew bootRun # запуск
+## Справка
 
-./gradlew test    # unit-тесты
-
-./gradlew build   # сборка jar
-```
-
-```powershell
-# Windows (PowerShell / cmd)
-$env:ACTIVE_PROFILE="DEV"
-$env:DB_HOST="localhost"
-$env:DB_PORT="..."
-$env:DB_NAME="..."
-...
-
-.\gradlew.bat bootRun # запуск
-
-.\gradlew.bat test    # unit-тесты
-
-.\gradlew.bat build   # сборка jar
-```
-
-## Docker
-
-### Переменные окружения
-Те что указаны в [Переменные окружения](environments.md) +
-
-| Переменные                          | Значение по умолчанию | Описание                                |
-|-------------------------------------|-----------------------|-----------------------------------------|
-| _DOCKER_CONTAINER_INTERNAL_DB_PORT  | 5432                  | Внутренний порт БД в контейнере         |
-| _DOCKER_CONTAINER_INTERNAL_APP_PORT | 8080                  | Внутренний порт приложения в контейнере |
-
-Примечание: `DB_HOST` не используется как параметр, вместо этого в `docker-compose.app.yml` указывается наименование контейнера БД
-
-#### Способ 1:
-Через файл `.env`:
-
-```bash
-docker compose up -d --build
-```
-
-#### Способ 2:
-Через файл `.env` если он лежит не в корне проекта:
-
-```bash
-docker compose --env-file /<PATH_TO_ENV_FILE>/.env up -d --build
-```
-
-#### Способ 3:
-С указанаем параметров запуска (они перезапишут то что в `.env`, если он есть)
-
-````bash
-# Linux / macOS / Git Bash
-ACTIVE_PROFILE=DEV \
-DB_PORT=... \
-DB_NAME=... \
-... \
-docker compose up -d --build
-````
-
-````powershell
-# Windows PowerShell
-$env:ACTIVE_PROFILE="DEV"; $env:DB_PORT="..."; $env:DB_NAME="..."; ...; docker compose up -d --build
-````
+- [Файлы запуска и мониторинга](buildAndRun/note/files.md)
+- [Переменные для Docker и мониторинга](buildAndRun/note/variables.md)
+- [Логи в Grafana](buildAndRun/note/grafanaLogs.md)
