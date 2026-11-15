@@ -36,12 +36,12 @@ $env:DB_PORT="..."
 $env:DB_NAME="..."
 ...
 
-.\gradlew.bat bootRun     # запуск
+.\gradlew.bat bootRun         # запуск
 
-.\gradlew.bat test        # unit-тесты
-.\gradlew integrationTest # integration-тесты
+.\gradlew.bat test            # unit-тесты
+.\gradlew.bat integrationTest # integration-тесты
 
-.\gradlew.bat build       # сборка jar
+.\gradlew.bat build           # сборка jar
 ```
 
 Логи пишутся в консоль и в папку `logs` в корне проекта.

@@ -36,12 +36,12 @@ $env:DB_PORT="..."
 $env:DB_NAME="..."
 ...
 
-.\gradlew.bat bootRun     # run
+.\gradlew.bat bootRun         # run
 
-.\gradlew.bat test        # unit tests
-.\gradlew integrationTest # integration tests
+.\gradlew.bat test            # unit tests
+.\gradlew.bat integrationTest # integration tests
 
-.\gradlew.bat build       # build jar
+.\gradlew.bat build           # build jar
 ```
 
 Logs are written to the console and to the `logs` folder in the project root.
